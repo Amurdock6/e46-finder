@@ -1,0 +1,44 @@
+#nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: #000;
+    width: 100%;
+    padding: 15px 0px 15px 0px;
+}
+
+h3 {
+    color: #fff;
+}
+
+#middle-nav {
+    position: relative;
+    justify-content: center;
+    left: 7vw;
+}
+
+#right-nav {
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+    top: 4.5vh;
+    left: 4.5vw;
+}
+
+#right-nav h3:nth-child(1) {
+    padding-right: 2.4vw;
+}
+
+#left-nav {
+    display: flex;
+    justify-content: flex-start;
+    position: relative;
+    top: 4.5vh;
+    right: 2.5vw;
+}
+
+/* Top Image */
+.top-img img{
+    width: 100%;
+    height: 84.4vh;
+}
