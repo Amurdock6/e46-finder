@@ -1,10 +1,8 @@
-import Logo from '../logos-icons/e46-logo.jpg'
-import Slide1 from '../pictures/slide-1.jpg'
+import Logo from '../../logos-icons/e46-logo.jpg'
 
-export const Header = () => {
-    return (
+const NavLinks = () => {
+    return(
         <>
-        <nav id="nav">
             <div id="left-nav">
                 <h3>About</h3>
             </div>
@@ -13,15 +11,10 @@ export const Header = () => {
             </div>
             <div id='right-nav'>
                 <h3>Login/Sign Up</h3>
-                
                 <h3>View Account</h3>
             </div>
-        </nav>
-        <div className='top-img'>
-            <img src={Slide1} alt='E46 Slide Show Pic 1'/>
-        </div>
         </>
     )
 }
 
-export default Header
+export default NavLinks;
