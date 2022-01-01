@@ -21,3 +21,22 @@
     position: relative;
     right: 2.5vw;
 }
+
+.menu-background {
+    transition: 2s;
+    position: absolute;
+    background-color: black;
+    z-index: 1;
+    width: 100vw;
+    height: 100vh;
+    height: 188vh;
+}
+
+#mobile-logo img {
+    display: inline;
+    position: relative;
+    align-items: center;
+    width: 73%;
+    top: 2%;
+    left: 12vw;
+}

@@ -24,15 +24,16 @@ h3 {
     .NavBar .MobileNav {
         display: flex;
         align-items: center;
-        height: 12vh;
+        height: 15vh;
     }
 
     .NavBar .MobileNav .Hamburger {
         cursor: pointer;
         position: absolute;
         left: 5%;
-        top: 2%;
+        top: 4%;
         color: #000;
+        z-index: 2;
     }
 
     .NavBar nav {
@@ -42,37 +43,17 @@ h3 {
     }
 
     .NavBar nav h3{
-        color: red;
         display: flex;
         flex-direction: column;
         position: relative;
         top: 30vh;
-        font-size: 1.5em;
-        padding-bottom: 20px;
+        font-size: 2.3em;
+        padding-bottom: 26px;
         align-items: center;
+        z-index: 2;
     }
 
     .NavBar nav img {
         display: none;
-    }
-
-}
-
-@media (max-width: 420px) and (max-height: 900px){
-    #left-nav {
-        top: 2.5vh;
-        right: -5.5vw;
-    }
-
-    #middle-nav {
-        left: 15vw;
-    }
-
-    #middle-nav img {
-        width: 83%;
-    }
-
-    #nav h3{
-        font-size: 0.9em;
     }
 }

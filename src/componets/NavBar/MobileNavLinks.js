@@ -1,10 +1,11 @@
-const MobileNavLinks = () => {
+const MobileNavLinks = (props) => {
     return(
         <>
-                <h3>Login</h3>
-                <h3>Sign Up</h3>
-                <h3>View Account</h3>
-                <h3>About</h3>
+            <h3 onClick={() => props.isMobile && props.closeMobileMenu()}>Login</h3>
+            <h3 onClick={() => props.isMobile && props.closeMobileMenu()}>Sign Up</h3>
+            <h3 onClick={() => props.isMobile && props.closeMobileMenu()}>View Account</h3>
+            <h3 onClick={() => props.isMobile && props.closeMobileMenu()}>About</h3>
+            <div className="menu-background"></div>
         </>
     )
 }
