@@ -1,10 +1,22 @@
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
-import '../css/login.css';
+import '../css/login.css'
 import Register from './Register'
-  
+
+//http://192.168.50.84:3000/login
+//http://192.168.164.1:3000/login
+// if(document.URL.indexOf("http://localhost:3000/login") >= 0){
+//     document.body.style.backgroundImage = `url(${Background})`
+// } else {
+//     document.body.style.backgroundImage = 'none'
+// }
+
+// if(!document.URL.indexOf("http://localhost:3000/login") >= 0) {
+//     document.body.style.backgroundImage = 'none'
+// }  
+
 const login = () => {
     return (
-    <div className='wrapper'>
+    <div className='background-image'>
      <div className="container-wrapper">
         <div className="container">
             <h1>Login</h1>
@@ -28,9 +40,9 @@ const login = () => {
                         <h4>Don't Already have an account?   <Link to='/register'>Create one here</Link></h4>
                     </div>
 
-                        <Routes>
-                            <Route path="/register" element={<Register />} />
-                        </Routes>
+                    <Routes>
+                        <Route path="/register" element={<Register />} />
+                    </Routes>
 
                 </div>
             </div>

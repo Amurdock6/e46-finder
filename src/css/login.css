@@ -1,3 +1,12 @@
+.background-image{
+  background-image: url('../pictures/login-register-background.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+}
+
 .container {
     position: relative;
     top: 9vh;
@@ -16,7 +25,7 @@
     justify-content: center;
   }
 
-  h1{
+  h1 {
     display: flex;
     justify-content: center;
     font-size: 2.9em;
@@ -28,18 +37,18 @@ input {
     padding: 1.3vh 2.8vw 1.3vh 0.4vw;
 }
   
-.textarea{
+.textarea {
     display: flex;
     padding-bottom: 1.8vh;
     justify-content: center;
   }
 
-#button-wrapper{
+#button-wrapper {
     display: flex;
     justify-content: center;
   }
 
-button{
+button {
     background-color:#4290F5;
     color: #fff;
     border: 1px solid #000;
@@ -49,17 +58,17 @@ button{
     bottom: 8vh;
   }
 
-  .bottom-text-wrapper{
+  .bottom-text-wrapper {
     display: flex;
     justify-content: center;
   }
 
-h4{
+h4 {
     position: absolute;
     bottom: 3vh;
     color: #fff;
   }
 
-a{
+a {
     color: #0080FF;
   }
