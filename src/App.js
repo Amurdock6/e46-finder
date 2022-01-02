@@ -1,19 +1,30 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-// Componets
-import LandingPage from './pages/LandingPage.js'
 // Pages
-import Login from './pages/login.js'
-import Register from './pages/register.js'
+import Login from './pages/Login'
+import Register from './pages/Register'
+import About from './pages/About'
+import ErrorPage from './pages/ErrorPage'
+import LandingPage from './pages/LandingPage'
+import Account from './pages/Account'
 // CSS
 import './css/App.css';
 
 
 function App() {
-  return (
-  <div className='wrapper'>
-    <LandingPage />
-  </div>  
-  )
+  return(
+    <>
+    <Router>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/account" element={<Account />} />
+        <Route path="*" element={<ErrorPage />} />
+      </Routes>
+    </Router>
+    </>
+)
 }
 
 export default App;

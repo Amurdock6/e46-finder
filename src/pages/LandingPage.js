@@ -4,13 +4,13 @@ import '../css/LandingPage.css';
 
 const LandingPage = () => {
     return(
-        <>
+        <div className='wrapper'>
             <NavBar />
 
             <div className='top-img'>
                 <img src={Slide1} alt='E46 Slide Show Pic 1'/>
             </div>
-        </>
+        </div>
     )
 }
 

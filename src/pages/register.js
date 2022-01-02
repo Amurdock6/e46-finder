@@ -1,8 +1,10 @@
-import { Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
 import '../css/register.css';
+import Login from './Login'
 
 const register = () => {
     return (
+        <div className='wrapper'>
         <div className="container-wrapper">
             <div className="container">
             <h1>Create Account</h1>
@@ -26,13 +28,19 @@ const register = () => {
                         </div>
                     </form>
 
-                    <div className='bottom-text-wrapper'>
-                        <h4>Already have an account?   <Link to='/login'>Login Here</Link></h4>
-                    </div>
+
+                            <div className='bottom-text-wrapper'>
+                                <h4>Already have an account?   <Link to='/login'>Login Here</Link></h4>
+                            </div>
+
+                            <Routes>
+                                <Route path="/login" element={<Login />} />
+                            </Routes>
 
                 </div>
             </div>
         </div>
+    </div>
     )
 }
 

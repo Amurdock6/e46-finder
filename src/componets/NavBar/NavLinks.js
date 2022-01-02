@@ -1,19 +1,30 @@
 import Logo from '../../logos-icons/e46-logo.jpg'
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
 
 const NavLinks = () => {
     return(
+
         <>
             <div id="left-nav">
-                <h3>About</h3>
+                <Link to='/About'>
+                    <h3>About</h3>
+                </Link>
             </div>
             <div id="middle-nav">
-                <img src={Logo} alt='E46 Logo'/>
+                <Link to="/">
+                    <img src={Logo} alt='E46 Logo'/>
+                </Link>
             </div>
             <div id='right-nav'>
-                <h3>Login/Sign Up</h3>
-                <h3>View Account</h3>
+                <Link to="/login">
+                    <h3>Login/Sign Up</h3>
+                </Link>
+                <Link to="/account">
+                    <h3>View Account</h3>
+                </Link>
             </div>
         </>
+
     )
 }
 
