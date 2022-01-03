@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
 import '../css/login.css'
-import Register from './Register'
+import {IoMdArrowRoundBack} from 'react-icons/io'
 
 //http://192.168.50.84:3000/login
 //http://192.168.164.1:3000/login
@@ -17,8 +17,18 @@ import Register from './Register'
 const login = () => {
     return (
     <div className='background-image'>
+
+            <div className='back-button'>
+                <Link to='/'>
+                    <IoMdArrowRoundBack id='back-arrow' />
+                    <h3>Home</h3>
+                </Link>
+            </div>
+
      <div className="container-wrapper">
         <div className="container">
+
+
             <h1>Login</h1>
 
                 <div className="wrapper">
@@ -39,10 +49,6 @@ const login = () => {
                     <div className='bottom-text-wrapper'>
                         <h4>Don't Already have an account?   <Link to='/register'>Create one here</Link></h4>
                     </div>
-
-                    <Routes>
-                        <Route path="/register" element={<Register />} />
-                    </Routes>
 
                 </div>
             </div>

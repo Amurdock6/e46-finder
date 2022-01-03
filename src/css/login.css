@@ -2,9 +2,37 @@
   background-image: url('../pictures/login-register-background.jpg');
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center;
   position: absolute;
   height: 100vh;
   width: 100vw;
+}
+
+.back-button {
+  padding: 3px 0px;
+  width: 100%;
+  background-color: #000;
+}
+
+.back-button a {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-decoration: none;
+}
+
+.back-button a h3{
+  padding-left: 5px;
+}
+
+#back-arrow{
+  color: #fff;
+  stroke-width: 3em;
+}
+
+h4{
+  padding-right: 10px;
+  padding-left: 14px;
 }
 
 .container {
@@ -55,7 +83,7 @@ button {
     padding: 13px 6vw 13px 6vw;
     font-size: 1.5em;
     position: absolute;
-    bottom: 8vh;
+    bottom: 13vh;
   }
 
   .bottom-text-wrapper {
@@ -71,4 +99,30 @@ h4 {
 
 a {
     color: #0080FF;
+  }
+
+@media (max-width: 990px) {
+    .background-image {
+      background-image: url('../pictures/mobile-login.jpg');
+    }
+
+    .container{
+      top: 2vh;
+    }
+
+    button{
+      bottom: 10vh;
+    }
+
+    h4{
+      padding-right: 10px;
+      padding-left: 14px;
+    }
+
+    .back-button{
+        position: absolute;
+        top: 0;
+        padding: 9px 4px;
+        color: #fff;
+    }
   }

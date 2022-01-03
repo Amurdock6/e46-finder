@@ -2,6 +2,7 @@
   background-image: url('../pictures/login-register-background.jpg');
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center;
   position: absolute;
   height: 100vh;
   width: 100vw;
@@ -55,7 +56,7 @@ button{
     padding: 13px 3.2vw 13px 3.2vw;
     font-size: 1.5em;
     position: absolute;
-    bottom: 8vh;
+    bottom: 10vh;
   }
 
   .bottom-text-wrapper{
@@ -72,3 +73,13 @@ h4{
 a{
     color: #0080FF;
   }
+
+@media (max-width: 990px) {
+  .background-image {
+    background-image: url('../pictures/mobile-login.jpg');
+  }
+
+  h1{
+    font-size: 2.3em;
+  }
+}
