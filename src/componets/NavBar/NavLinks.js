@@ -6,7 +6,7 @@ const NavLinks = () => {
 
         <>
             <div id="left-nav">
-                <Link to='/About'>
+                <Link to='/about'>
                     <h3>About</h3>
                 </Link>
             </div>
@@ -17,7 +17,10 @@ const NavLinks = () => {
             </div>
             <div id='right-nav'>
                 <Link to="/login">
-                    <h3>Login/Sign Up</h3>
+                    <h3>Login</h3>
+                </Link>
+                <Link to="/register">
+                    <h3>Sign Up</h3>
                 </Link>
                 <Link to="/account">
                     <h3>View Account</h3>
