@@ -74,6 +74,20 @@ a{
     color: #0080FF;
   }
 
+@media (min-width: 2560px) {
+  .container {
+    min-height: 570px;
+  }
+
+  .textarea {
+    padding-bottom: 1.1vh;
+  }
+
+  button {
+    bottom: 6.5vh;
+  }
+}
+
 @media (max-width: 990px) {
   .background-image {
     background-image: url('../pictures/mobile-login.jpg');
