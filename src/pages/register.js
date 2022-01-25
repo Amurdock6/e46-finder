@@ -1,9 +1,25 @@
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
 import '../css/register.css';
 import {IoMdArrowRoundBack} from 'react-icons/io'
+import { useState } from 'react'
+import { Axios } from 'axios';
 
 
-const register = () => {
+const Register = () => {
+
+    const [emailReg, setEmailReg] = useState("");
+    const [usernameReg, setUsernameReg] = useState("");
+    const [passwordReg, setPasswordReg] = useState("");
+
+    const register = () => {
+        Axios.post('http://localhost:5000/register', {
+            email: emailReg,
+            username: usernameReg, 
+            password: passwordReg, 
+        })
+    };
+
+
     return (
         <div className='background-image'>
 
@@ -20,21 +36,51 @@ const register = () => {
             <h1>Create Account</h1>
 
                 <div className="wrapper">
-                    <form action="/register" method="POST">
+                    <form>
                         <div className="textarea" id="email">
-                            <input type="email" name="email" id="authentactor-email" placeholder="Email" defaultValue="" required />
+                         <input 
+                            type="email" 
+                            onChange={(e) => {
+                                setEmailReg(e.target.value);
+                            }} 
+                            name="email" 
+                            id="authentactor-email" 
+                            placeholder="Email" 
+                            defaultValue="" 
+                            required 
+                          />
                         </div>
 
                         <div className="textarea" id="username">
-                            <input type="text" name="name" id="authentactor-text" placeholder="Username" defaultValue="" required />
+                          <input 
+                            type="text" 
+                            onChange={(e) => {
+                                setUsernameReg(e.target.value);
+                            }}
+                            name="name" 
+                            id="authentactor-text" 
+                            placeholder="Username" 
+                            defaultValue="" 
+                            required 
+                          />
                         </div>
 
                         <div className="textarea" id="password">
-                            <input type="password" name="password" id="authentactor-password" placeholder="Password" defaultValue="" required />
+                          <input 
+                            type="password" 
+                            onChange={(e) => {
+                                setPasswordReg(e.target.value);
+                            }}
+                            name="password" 
+                            id="authentactor-password" 
+                            placeholder="Password" 
+                            defaultValue="" 
+                            required 
+                          />
                         </div>
 
                         <div id="button-wrapper">
-                            <button type="submit" id="button">Create Account</button>
+                            <button id="button" onClick={register}>Create Account</button>
                         </div>
                     </form>
 
@@ -50,4 +96,4 @@ const register = () => {
     )
 }
 
-export default register
+export default Register

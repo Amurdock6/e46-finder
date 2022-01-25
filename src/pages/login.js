@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
 import '../css/login.css'
 import {IoMdArrowRoundBack} from 'react-icons/io'
+import { useState } from 'react'
 
 //http://192.168.50.84:3000/login
 //http://192.168.164.1:3000/login
@@ -12,9 +13,9 @@ import {IoMdArrowRoundBack} from 'react-icons/io'
 
 // if(!document.URL.indexOf("http://localhost:3000/login") >= 0) {
 //     document.body.style.backgroundImage = 'none'
-// }  
+// }
 
-const login = () => {
+const Login = () => {
     return (
     <div className='background-image'>
 
@@ -57,4 +58,4 @@ const login = () => {
     )
 }
 
-export default login
+export default Login
