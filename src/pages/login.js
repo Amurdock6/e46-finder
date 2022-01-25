@@ -2,20 +2,22 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
 import '../css/login.css'
 import {IoMdArrowRoundBack} from 'react-icons/io'
 import { useState } from 'react'
-
-//http://192.168.50.84:3000/login
-//http://192.168.164.1:3000/login
-// if(document.URL.indexOf("http://localhost:3000/login") >= 0){
-//     document.body.style.backgroundImage = `url(${Background})`
-// } else {
-//     document.body.style.backgroundImage = 'none'
-// }
-
-// if(!document.URL.indexOf("http://localhost:3000/login") >= 0) {
-//     document.body.style.backgroundImage = 'none'
-// }
+import axios from 'axios'
 
 const Login = () => {
+
+    const [setEmailReg, emailReg] = useState("");
+    const [setPasswordReg, passwordReg] = useState("");
+    
+    const login = () => {
+        axios.post('http://localhost:5000/login', {
+            email: setEmailReg,
+            password: setPasswordReg, 
+        }).catch(function (error) {
+            console.log(error);
+        });
+    };
+
     return (
     <div className='background-image'>
 
@@ -33,17 +35,35 @@ const Login = () => {
             <h1>Login</h1>
 
                 <div className="wrapper">
-                    <form action="/login" method="POST">
+                    <form>
                         <div className="textarea" id="email">
-                            <input type="email" name="email" id="authentactor-email" placeholder="Email" defaultValue="" required />
+                        <input 
+                            type="email" 
+                            onChange={(e) => {
+                                emailReg(e.target.value);
+                            }}  
+                            id="authentactor-email" 
+                            placeholder="Email" 
+                            defaultValue="" 
+                            required 
+                          />
                         </div>
 
                         <div className="textarea" id="password">
-                            <input type="password" name="password" id="authentactor-password" placeholder="Password" defaultValue="" required />
+                        <input 
+                            type="password" 
+                            onChange={(e) => {
+                                passwordReg(e.target.value);
+                            }}
+                            id="authentactor-password" 
+                            placeholder="Password" 
+                            defaultValue="" 
+                            required 
+                          />
                         </div>
 
                         <div id="button-wrapper">
-                            <button type="submit" id="button">Login</button>
+                            <button onClick={login} id="button">Login</button>
                         </div>
                     </form>
 

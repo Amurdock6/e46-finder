@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
 import '../css/register.css';
 import {IoMdArrowRoundBack} from 'react-icons/io'
 import { useState } from 'react'
-import { Axios } from 'axios';
+import axios, { Axios } from 'axios';
 
 
 const Register = () => {
@@ -12,13 +12,14 @@ const Register = () => {
     const [passwordReg, setPasswordReg] = useState("");
 
     const register = () => {
-        Axios.post('http://localhost:5000/register', {
+        axios.post('http://localhost:5000/register', {
             email: emailReg,
             username: usernameReg, 
             password: passwordReg, 
-        })
+        }).catch(function (error) {
+            console.log(error);
+        });
     };
-
 
     return (
         <div className='background-image'>
@@ -42,8 +43,7 @@ const Register = () => {
                             type="email" 
                             onChange={(e) => {
                                 setEmailReg(e.target.value);
-                            }} 
-                            name="email" 
+                            }}  
                             id="authentactor-email" 
                             placeholder="Email" 
                             defaultValue="" 
@@ -57,7 +57,6 @@ const Register = () => {
                             onChange={(e) => {
                                 setUsernameReg(e.target.value);
                             }}
-                            name="name" 
                             id="authentactor-text" 
                             placeholder="Username" 
                             defaultValue="" 
@@ -71,7 +70,6 @@ const Register = () => {
                             onChange={(e) => {
                                 setPasswordReg(e.target.value);
                             }}
-                            name="password" 
                             id="authentactor-password" 
                             placeholder="Password" 
                             defaultValue="" 
@@ -80,7 +78,7 @@ const Register = () => {
                         </div>
 
                         <div id="button-wrapper">
-                            <button id="button" onClick={register}>Create Account</button>
+                            <button onClick={register} id="button">Create Account</button>
                         </div>
                     </form>
 
