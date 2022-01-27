@@ -10,16 +10,28 @@ const Register = () => {
     const [emailReg, setEmailReg] = useState("");
     const [usernameReg, setUsernameReg] = useState("");
     const [passwordReg, setPasswordReg] = useState("");
+    
+    const apiUrl = 'http://localhost:5000/register'
+
 
     const register = () => {
-        axios.post('http://localhost:5000/register', {
+        // Sends Register form data to API
+        axios.post(apiUrl, {
             email: emailReg,
             username: usernameReg, 
             password: passwordReg, 
         }).catch(function (error) {
             console.log(error);
         });
+        
     };
+
+    const createCookie = () => {
+        // Retirives httpOnly cookie from API
+        axios.get('http://localhost:5000', { withCredentials: true }).then((res) => {
+            console.log(res.data)
+        })
+    }
 
     return (
         <div className='background-image'>
@@ -78,7 +90,7 @@ const Register = () => {
                         </div>
 
                         <div id="button-wrapper">
-                            <button onClick={register} id="button">Create Account</button>
+                            <button type="button" onClick={createCookie} id="button">Create Account</button>
                         </div>
                     </form>
 
