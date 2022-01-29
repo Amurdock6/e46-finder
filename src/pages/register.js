@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
 import '../css/register.css';
 import {IoMdArrowRoundBack} from 'react-icons/io'
 import { useState } from 'react'
-import axios, { Axios } from 'axios';
+import axios from 'axios';
 
 
 const Register = () => {
@@ -14,8 +14,8 @@ const Register = () => {
     const apiUrl = 'http://localhost:5000/register'
 
 
+    // Sends Registration form data to API
     const register = () => {
-        // Sends Register form data to API
         axios.post(apiUrl, {
             email: emailReg,
             username: usernameReg, 
@@ -23,15 +23,18 @@ const Register = () => {
         }).catch(function (error) {
             console.log(error);
         });
-        
-    };
 
-    const createCookie = () => {
         // Retirives httpOnly cookie from API
         axios.get('http://localhost:5000', { withCredentials: true }).then((res) => {
             console.log(res.data)
-        })
-    }
+        });
+        
+    };
+
+    // // Retirives httpOnly cookie from API
+    // const createCookie = () => {
+        
+    // }
 
     return (
         <div className='background-image'>
@@ -90,7 +93,7 @@ const Register = () => {
                         </div>
 
                         <div id="button-wrapper">
-                            <button type="button" onClick={createCookie} id="button">Create Account</button>
+                            <button type="button" onClick={register} id="button">Create Account</button>
                         </div>
                     </form>
 
