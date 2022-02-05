@@ -31,11 +31,6 @@ const Register = () => {
         
     };
 
-    // // Retirives httpOnly cookie from API
-    // const createCookie = () => {
-        
-    // }
-
     return (
         <div className='background-image'>
 

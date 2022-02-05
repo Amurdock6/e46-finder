@@ -6,15 +6,21 @@ import axios from 'axios'
 
 const Login = () => {
 
-    const [setEmailReg, emailReg] = useState("");
-    const [setPasswordReg, passwordReg] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [loginStatus, setLoginStatus] = useState("");
     
     const login = () => {
         axios.post('http://localhost:5000/login', {
-            email: setEmailReg,
-            password: setPasswordReg, 
+            email: email,
+            password: password, 
         }).catch(function (error) {
             console.log(error);
+        });
+
+        // Retirives httpOnly cookie from API
+        axios.get('http://localhost:5000', { withCredentials: true }).then((res) => {
+            console.log(res.data)
         });
     };
 
@@ -34,13 +40,15 @@ const Login = () => {
 
             <h1>Login</h1>
 
+            <h1>{loginStatus}</h1>
+
                 <div className="wrapper">
                     <form>
                         <div className="textarea" id="email">
                         <input 
                             type="email" 
                             onChange={(e) => {
-                                emailReg(e.target.value);
+                                setEmail(e.target.value);
                             }}  
                             id="authentactor-email" 
                             placeholder="Email" 
@@ -53,7 +61,7 @@ const Login = () => {
                         <input 
                             type="password" 
                             onChange={(e) => {
-                                passwordReg(e.target.value);
+                                setPassword(e.target.value);
                             }}
                             id="authentactor-password" 
                             placeholder="Password" 
@@ -63,7 +71,7 @@ const Login = () => {
                         </div>
 
                         <div id="button-wrapper">
-                            <button onClick={login} id="button">Login</button>
+                            <button type="button" onClick={login} id="button">Login</button>
                         </div>
                     </form>
 
