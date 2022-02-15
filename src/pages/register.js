@@ -20,14 +20,13 @@ const Register = () => {
             email: emailReg,
             username: usernameReg, 
             password: passwordReg, 
-        }).catch(function (error) {
-            console.log(error);
-        });
-
-        // Retirives httpOnly cookie from API
-        axios.get('http://localhost:5000', { withCredentials: true }).then((res) => {
-            console.log(res.data)
-        });
+            // Sets httpOnly cookie with jwt from backend
+        }).then(sendToken => {
+            return axios.get('http://localhost:5000', { withCredentials: true }).then((res) => {
+                // console.log(res.data)
+            })
+        })
+        
         
     };
 
