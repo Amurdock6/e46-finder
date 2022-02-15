@@ -8,6 +8,8 @@ import LandingPage from './pages/LandingPage'
 import Account from './pages/Account'
 // CSS
 import './css/App.css';
+import { useState } from 'react/cjs/react.development'
+import ProtectedRoutes from './componets/ProtectedRoutes'
 
 
 function App() {
@@ -17,9 +19,11 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/about" element={<About />} />
+        <Route element={<ProtectedRoutes />} >
+          <Route exact path="/account" element={<Account />} />
+        </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/account" element={<Account />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </Router>
