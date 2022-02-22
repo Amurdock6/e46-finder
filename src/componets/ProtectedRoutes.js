@@ -1,28 +1,33 @@
 import axios from 'axios'
 import { Outlet, Navigate } from "react-router";
+import { useState, useEffect } from 'react'
 
-// axios.post('http://localhost:5000/middleware/protectedroutes', {
-//     cookieValue: cookieValue
-// }).then(sendValue => {
-//     return axios.get('http://localhost:5000/auth', { withCredentials: true }).then((res) => {
-//         // console.log(res.data)
-//     })
-// });
+  const useAuth = () => {
+    const [data, setData] = useState();
 
-const useAuth = () => {
-    const cookieValue = document.cookie
-        .split('; ')
-        .find(row => row.startsWith('auth='))
-        .split('=')[1];
+      useEffect(() => {
+          const fetchAuthData = async () => {
+            const result = await axios('http://localhost:5000/auth');
 
-    if ( cookieValue === 'true') {
-        const authorized = {loggedIn: true}
-        return authorized && authorized.loggedIn;
-    } else {
-        const authorized = {loggedIn: false}
-        return authorized && authorized.loggedIn;
-    }
-};
+            setData(result.data);
+            
+          };
+
+          fetchAuthData();
+          
+      }, []); 
+      
+      if (JSON.stringify(data) === true) {
+          // console.log(JSON.stringify(data))
+          const authorized = { loggedIn: true }
+          return authorized && authorized.loggedIn;
+      } else {
+          // console.log(JSON.stringify(data))
+          const authorized = { loggedIn: false }
+          return authorized && authorized.loggedIn;
+      };
+  
+  }
 
 const ProtectedRoutes = () => {
     const isAuth = useAuth();

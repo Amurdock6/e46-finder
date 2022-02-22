@@ -5,10 +5,8 @@ import { useState } from 'react'
 import axios from 'axios'
 
 const Login = () => {
-
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [loginStatus, setLoginStatus] = useState("");
     
     const login = () => {
         axios.post('http://localhost:5000/login', {
@@ -37,8 +35,6 @@ const Login = () => {
 
 
             <h1>Login</h1>
-
-            <h1>{loginStatus}</h1>
 
                 <div className="wrapper">
                     <form>
