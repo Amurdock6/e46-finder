@@ -1,37 +1,41 @@
 import axios from 'axios'
 import { Outlet, Navigate } from "react-router";
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react';
 
-  const useAuth = () => {
-    const [data, setData] = useState();
+const useAuth = () => {
 
-      useEffect(() => {
-          const fetchAuthData = async () => {
-            const result = await axios('http://localhost:5000/auth');
+  const [data, setData] = useState();
 
-            setData(result.data);
-            
-          };
+  useEffect(() => {
+    const fetchAuthData = async () => {
+      await axios.get('http://localhost:5000/auth')
+        .then(resp => {
+          console.log(resp.data)
+          setData(!!resp.data);
+        })
+        .catch(err => {
+          console.log(err);
+          setData(false)
+        });
 
-          fetchAuthData();
-          
-      }, []); 
-      
-      if (JSON.stringify(data) === true) {
-          // console.log(JSON.stringify(data))
-          const authorized = { loggedIn: true }
-          return authorized && authorized.loggedIn;
-      } else {
-          // console.log(JSON.stringify(data))
-          const authorized = { loggedIn: false }
-          return authorized && authorized.loggedIn;
-      };
-  
-  }
+
+    };
+
+    fetchAuthData()
+  }, []);
+  console.log(data)
+  return data;
+
+
+};
+
 
 const ProtectedRoutes = () => {
-    const isAuth = useAuth();
-    return isAuth ? <Outlet/> : <Navigate to="/login" />;
+  const isAuth = useAuth();
+
+  if (isAuth === undefined) return null;
+
+  return isAuth ? <Outlet/> : <Navigate to="/login" />;
 }
 
 export default ProtectedRoutes

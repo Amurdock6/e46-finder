@@ -1,6 +1,7 @@
 import NavBar from '../componets/NavBar/NavBar'
 import Footer from '../componets/Footer/Footer'
 import '../css/AboutStyle.css'
+import { useHref } from 'react-router';
 
 function About() {
     return (
@@ -17,7 +18,7 @@ function About() {
               I also realised that with my project I could contribute to the E46 community and create a hub for E46 enthusiast to find E46s by providing a place
               for enthusiasts to find their dream car without having to jump from website to website trying to find the perfect car for them. So I created
               E46 finder a web app that scraps the web for all E46 listings and puts them in one easy to access website. Contact me:
-              <a href='https://alexanderrmurdock.com/contact.html' target="_blank">Alexander Murdock</a>
+              <a href='https://alexanderrmurdock.com/contact.html' target="_blank" rel="noreferrer">Alexander Murdock</a>
             </p>
 
             <h6>How Does E46Finder work?</h6>
@@ -34,4 +35,5 @@ function About() {
     )
   }
   
+
   export default About;
