@@ -29,10 +29,9 @@ const useAuth = () => {
 
 };
 
-
 const ProtectedRoutes = () => {
   const isAuth = useAuth();
-
+  console.log(isAuth)
   if (isAuth === undefined) return null;
 
   return isAuth ? <Outlet/> : <Navigate to="/login" />;
