@@ -14,7 +14,7 @@ function About() {
             <p>
               E46 Finder is a passion project of mine. I first came up with the idea of E46 finder when thinking of
               potential projects I could add to my resume to help get me a Junior Web Development job.
-              With E46 finder I am able to combine my favourite things: cars and coding and not just any ordinary cars. One of my favourite cars is the BMW E46 3 series.
+              With E46 finder I am able to combine my favourite things: cars and coding and not just any ordinary cars. One of my favourite cars the BMW E46 3 series.
               I also realised that with my project I could contribute to the E46 community and create a hub for E46 enthusiast to find E46s by providing a place
               for enthusiasts to find their dream car without having to jump from website to website trying to find the perfect car for them. So I created
               E46 finder a web app that scraps the web for all E46 listings and puts them in one easy to access website. Contact me:
@@ -25,8 +25,7 @@ function About() {
 
             <p>
               E46 finder uses a web scraper coded in Node.js to scrape various popular car listing sites to find E46 listings and put that listing information onto the E46 website so users can easily find
-              what they are looking for all on one site. E46Finder was mainly programed using React.js and Node.js to handle the backend and uses mongoDB as
-              the database.
+              what they are looking for all on one site. E46Finder was mainly programed using the MERN tech stack.
             </p>
           </article>
       </div>
