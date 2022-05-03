@@ -8,8 +8,9 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     
-    const login = () => {
+    const login = async () => {
         axios.post('http://localhost:5000/login', {
+            withCredentials: true,
             email: email,
             password: password, 
             // Sets httpOnly cookie with jwt from backend
@@ -18,7 +19,10 @@ const Login = () => {
                 // console.log(res.data)
             });
         });
+
+        await axios.post('http://localhost:5000/auth', { withCredentials: true })
     };
+
 
     return (
     <div className='background-image'>

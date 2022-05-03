@@ -8,7 +8,7 @@ const useAuth = () => {
 
   useEffect(() => {
     const fetchAuthData = async () => {
-      await axios.get('http://localhost:5000/auth')
+      axios.get('http://localhost:5000/auth', { withCredentials: true })
       
         .then(resp => {
           console.log(!!resp.data)
@@ -38,7 +38,9 @@ const ProtectedRoutes = () => {
   const isAuth = useAuth();
   // const isAuth = true;
   console.log(isAuth)
-  if (isAuth === undefined) return null;
+  if (isAuth === undefined) {
+    return null
+  };
 
   return isAuth ? <Outlet/> : <Navigate to="/login" />;
 }
