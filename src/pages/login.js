@@ -20,7 +20,6 @@ const Login = () => {
             });
         });
 
-        await axios.post('http://localhost:5000/auth', { withCredentials: true })
     };
 
 

@@ -37,6 +37,20 @@ input {
     font-size: 1.1em;
     padding: 1.3vh 2.8vw 1.3vh 0.4vw;
 }
+
+#email-span {
+  font-weight: bold;
+  color: red;
+  display: flex;
+  justify-content: center;
+}
+
+#password-span{
+  font-weight: bold;
+  color: red;
+  display: flex;
+  justify-content: center;
+}
   
 .textarea{
     display: flex;
