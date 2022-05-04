@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import '../css/register.css';
 import { IoMdArrowRoundBack } from 'react-icons/io'
 import { useState } from 'react'
@@ -8,6 +9,7 @@ import { GoogleLogin, GoogleLogout } from 'react-google-login';
 
 
 const Register = () => {
+    let navigate = useNavigate();
 
     const [emailReg, setEmailReg] = useState("");
     const [emailError, setEmailError] = useState('')
@@ -18,8 +20,8 @@ const Register = () => {
 
 
     // Sends Registration form data to API
-    const register = () => {
-        axios.post('http://localhost:5000/register', {
+    const register = async () => {
+        await axios.post('http://localhost:5000/register', {
             email: emailReg,
             username: usernameReg,
             password: passwordReg,
@@ -30,6 +32,7 @@ const Register = () => {
                 // console.log(res.data)
             })
         })
+        navigate('/account');
 
     };
 
@@ -67,12 +70,13 @@ const Register = () => {
             }).then(sendToken => {
                 return axios.get('http://localhost:5000', { withCredentials: true }).then((res) => {
                 })
-            })
+            });
+            navigate('/account');
 
           } catch (error) {
             console.log(error);
-          }
-      }
+          };
+      };
 
     const onFailure = (res) => {
         console.log("Login Failed! res: ", res);

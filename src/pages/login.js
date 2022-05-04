@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import '../css/login.css'
 import { IoMdArrowRoundBack } from 'react-icons/io'
 import { useState } from 'react'
@@ -7,13 +8,15 @@ import validator from 'validator';
 import { GoogleLogin } from 'react-google-login';
 
 const Login = () => {
+    let navigate = useNavigate();
+
 
     const [email, setEmail] = useState("");
     const [emailError, setEmailError] = useState("");
     const [password, setPassword] = useState("");
 
     const login = async () => {
-        axios.post('http://localhost:5000/login', {
+        await axios.post('http://localhost:5000/login', {
             withCredentials: true,
             email: email,
             password: password,
@@ -23,6 +26,7 @@ const Login = () => {
                 // console.log(res.data)
             });
         });
+        navigate('/account');
 
     };
 
@@ -39,8 +43,9 @@ const Login = () => {
         }
     };
 
-    // Google functions
+    // Sign in with Google logic 
     const onSuccess = async (response) => {
+
         try {
             await axios({
                 method: 'POST',
@@ -49,11 +54,14 @@ const Login = () => {
             }).then(sendToken => {
                 return axios.get('http://localhost:5000', { withCredentials: true }).then((res) => {
                 })
+
             })
 
         } catch (error) {
             console.log(error);
         }
+
+       navigate('/account');
     }
 
     const onFailure = (res) => {
