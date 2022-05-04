@@ -3,7 +3,8 @@ import '../css/register.css';
 import { IoMdArrowRoundBack } from 'react-icons/io'
 import { useState } from 'react'
 import axios from 'axios';
-import validator from 'validator'
+import validator from 'validator';
+import { GoogleLogin, GoogleLogout } from 'react-google-login';
 
 
 const Register = () => {
@@ -13,14 +14,12 @@ const Register = () => {
     const [usernameReg, setUsernameReg] = useState("");
     const [passwordReg, setPasswordReg] = useState("");
     const [confirmationPasswordReg, setConfirmationPasswordReg] = useState("");
-    const [passwordError, setPasswordError] = useState("")
-
-    const apiUrl = 'http://localhost:5000/register'
+    const [passwordError, setPasswordError] = useState("");
 
 
     // Sends Registration form data to API
     const register = () => {
-        axios.post(apiUrl, {
+        axios.post('http://localhost:5000/register', {
             email: emailReg,
             username: usernameReg,
             password: passwordReg,
@@ -58,6 +57,28 @@ const Register = () => {
         }
     };
 
+    // Google functions
+    const onSuccess = async (response) => {
+        try {
+            await axios({
+              method: 'POST',
+              url: 'http://localhost:5000/googlelogin',
+              data: { idToken: response.tokenId }
+            }).then(sendToken => {
+                return axios.get('http://localhost:5000', { withCredentials: true }).then((res) => {
+                })
+            })
+
+          } catch (error) {
+            console.log(error);
+          }
+      }
+
+    const onFailure = (res) => {
+        console.log("Login Failed! res: ", res);
+    }
+
+
     return (
         <div className='background-image'>
 
@@ -72,6 +93,21 @@ const Register = () => {
                 <div className="container">
 
                     <h1>Create Account</h1>
+
+                    <GoogleLogin
+                        clientId={'793531866299-a0lqtj70qp6s1200hhpl08rba6195m7h.apps.googleusercontent.com'}
+                        buttonText="Create Account with Google"
+                        onSuccess={onSuccess}
+                        onFailure={onFailure}
+                        cookiePolicy={'single_host_origin'}
+                        isSignedIn={true}
+                    />
+
+                    {/* <GoogleLogout
+                        clientId="793531866299-a0lqtj70qp6s1200hhpl08rba6195m7h.apps.googleusercontent.com"
+                        buttonText={"Logout"}
+                        onLogoutSuccess={onSuccess}
+                    /> */}
 
                     <div className="wrapper">
                         <form>

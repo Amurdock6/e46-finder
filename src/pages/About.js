@@ -17,7 +17,7 @@ function About() {
               With E46 finder I am able to combine my favourite things: cars and coding and not just any ordinary cars. One of my favourite cars the BMW E46 3 series.
               I also realised that with my project I could contribute to the E46 community and create a hub for E46 enthusiast to find E46s by providing a place
               for enthusiasts to find their dream car without having to jump from website to website trying to find the perfect car for them. So I created
-              E46 finder a web app that scraps the web for all E46 listings and puts them in one easy to access website. Contact me:
+              E46 finder a web app that scrapes the web for all E46 listings and puts them in one easy to access website. Contact me:
               <a href='https://alexanderrmurdock.com/contact.html' target="_blank" rel="noreferrer">Alexander Murdock</a>
             </p>
 
