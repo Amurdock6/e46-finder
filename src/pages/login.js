@@ -14,12 +14,15 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [emailError, setEmailError] = useState("");
     const [password, setPassword] = useState("");
+    const [keepMeLoggedIn, setKeepMeLoggedIn] = useState(false);
 
     const login = async () => {
         await axios.post('http://localhost:5000/login', {
             withCredentials: true,
             email: email,
             password: password,
+            keepmeloggedin: keepMeLoggedIn
+
             // Sets httpOnly cookie with jwt from backend
         }).then(sendToken => {
             return axios.get('http://localhost:5000', { withCredentials: true }).then((res) => {
@@ -61,12 +64,17 @@ const Login = () => {
             console.log(error);
         }
 
-       navigate('/account');
+        navigate('/account');
     }
 
     const onFailure = (res) => {
         console.log("Login Failed! res: ", res);
     }
+
+    // Remeber me check box logic
+    const remeberMe = () => {
+        setKeepMeLoggedIn(!keepMeLoggedIn);
+    };
 
 
     return (
@@ -122,6 +130,19 @@ const Login = () => {
                                     defaultValue=""
                                     required
                                 />
+                            </div>
+
+                            <div className="checkBox" id="checkbox">
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        checked={keepMeLoggedIn}
+                                        onChange={remeberMe}
+                                        id="vehicle1"
+                                        name="vehicle1"
+                                    />
+                                    Remember me
+                                </label>
                             </div>
 
                             <div id="button-wrapper">

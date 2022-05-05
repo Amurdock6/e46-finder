@@ -17,6 +17,7 @@ const Register = () => {
     const [passwordReg, setPasswordReg] = useState("");
     const [confirmationPasswordReg, setConfirmationPasswordReg] = useState("");
     const [passwordError, setPasswordError] = useState("");
+    const [keepMeLoggedIn, setKeepMeLoggedIn] = useState(false);
 
 
     // Sends Registration form data to API
@@ -25,7 +26,9 @@ const Register = () => {
             email: emailReg,
             username: usernameReg,
             password: passwordReg,
-            confpassword: confirmationPasswordReg
+            confpassword: confirmationPasswordReg,
+            keepmeloggedin: keepMeLoggedIn
+            
             // Sets httpOnly cookie with jwt from backend
         }).then(sendToken => {
             return axios.get('http://localhost:5000', { withCredentials: true }).then((res) => {
@@ -80,7 +83,12 @@ const Register = () => {
 
     const onFailure = (res) => {
         console.log("Login Failed! res: ", res);
-    }
+    };
+
+    // Remeber me check box logic
+    const remeberMe = () => {
+        setKeepMeLoggedIn(!keepMeLoggedIn);
+    };
 
 
     return (
@@ -166,6 +174,19 @@ const Register = () => {
                             </div>
                             <span id="password-span">{passwordError}</span>
 
+                            <div className="checkBox" id="checkbox">
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        checked={keepMeLoggedIn}
+                                        onChange={remeberMe}
+                                        id="vehicle1"
+                                        name="vehicle1"
+                                    />
+                                    Remember me
+                                </label>
+                            </div>
+
                             <div id="button-wrapper">
                                 <button type="button" onClick={register} id="button">Create Account</button>
                             </div>
@@ -175,7 +196,7 @@ const Register = () => {
                         <div className='bottom-text-wrapper'>
                             <h4>Already have an account?   <Link to='/login'>Login Here</Link></h4>
                         </div>
-
+                        
                     </div>
                 </div>
             </div>
