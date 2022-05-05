@@ -26,65 +26,82 @@ const NavLinks = () => {
         return decodeURI(dc.substring(begin + prefix.length, end));
     }
 
-    // Logic that sets links in nav based off of the result of the function getCookie(name)
-    var loggedInCookie = getCookie("LoggedIn");
-
-    if (loggedInCookie == null) {
-        console.log('Usser is not logged in')
-        
-    }
-    else {
-        console.log('Usser is logged in')
-    }
 
     // Logsout current user
     const onSuccess = async () => {
         try {
             await axios.get('http://localhost:5000/googlelogout', {
-            withCredentials: true
-        });
-        
-          } catch (error) {
+                withCredentials: true
+            });
+
+        } catch (error) {
             console.log(error);
-          };
-          navigate('/');
-      };
- 
+        };
+        navigate('/');
+    };
 
-    return (
+    // Logic that sets links in nav based off of the result of the function getCookie(name)
+    var loggedInCookie = getCookie("LoggedIn");
 
-        <>
-            <div id="left-nav">
-                <Link to='/about'>
-                    <h3>About</h3>
-                </Link>
-            </div>
-            <div id="middle-nav">
-                <Link to="/">
-                    <img src={Logo} alt='E46 Logo' />
-                </Link>
-            </div>
-            <div id='right-nav'>
-                <Link to="/login">
-                    <h3>Login</h3>
-                </Link>
-                <Link to="/register">
-                    <h3>Sign Up</h3>
-                </Link>
-                <Link to="/account">
-                    <h3>View Account</h3>
-                </Link>
+    if (loggedInCookie == null) {
+        return (
 
-                <GoogleLogout
-                    clientId="793531866299-a0lqtj70qp6s1200hhpl08rba6195m7h.apps.googleusercontent.com"
-                    buttonText={"Logout"}
-                    onLogoutSuccess={onSuccess}
-                />
+            <>
+                <div id="left-nav">
+                    <Link to='/about'>
+                        <h3>About</h3>
+                    </Link>
+                </div>
+                <div id="middle-nav">
+                    <Link to="/">
+                        <img src={Logo} alt='E46 Logo' />
+                    </Link>
+                </div>
+                <div id='right-nav'>
+                    <Link to="/login">
+                        <h3>Login</h3>
+                    </Link>
+                    <Link to="/register">
+                        <h3>Sign Up</h3>
+                    </Link>
 
-            </div>
-        </>
+                </div>
+            </>
 
-    )
+        )
+
+    }
+    else if (loggedInCookie) {
+        return (
+
+            <>
+                <div id="left-nav">
+                    <Link to='/about'>
+                        <h3>About</h3>
+                    </Link>
+                </div>
+                <div id="middle-nav">
+                    <Link to="/">
+                        <img src={Logo} alt='E46 Logo' />
+                    </Link>
+                </div>
+                <div id='right-nav'>
+                    <Link to="/account">
+                        <h3>View Account</h3>
+                    </Link>
+
+                    <GoogleLogout
+                        clientId="793531866299-a0lqtj70qp6s1200hhpl08rba6195m7h.apps.googleusercontent.com"
+                        buttonText={"Logout"}
+                        onLogoutSuccess={onSuccess}
+                    />
+
+                </div>
+            </>
+
+        )
+    }
+
 }
 
 export default NavLinks;
