@@ -5,7 +5,7 @@ import { IoMdArrowRoundBack } from 'react-icons/io'
 import { useState } from 'react'
 import axios from 'axios';
 import validator from 'validator';
-import { GoogleLogin, GoogleLogout } from 'react-google-login';
+import { GoogleLogin } from 'react-google-login';
 
 
 const Register = () => {
@@ -106,12 +106,6 @@ const Register = () => {
                         cookiePolicy={'single_host_origin'}
                         isSignedIn={true}
                     />
-
-                    {/* <GoogleLogout
-                        clientId="793531866299-a0lqtj70qp6s1200hhpl08rba6195m7h.apps.googleusercontent.com"
-                        buttonText={"Logout"}
-                        onLogoutSuccess={onSuccess}
-                    /> */}
 
                     <div className="wrapper">
                         <form>
