@@ -22,20 +22,32 @@ const Register = () => {
 
     // Sends Registration form data to API
     const register = async () => {
-        await axios.post('http://localhost:5000/register', {
-            email: emailReg,
-            username: usernameReg,
-            password: passwordReg,
-            confpassword: confirmationPasswordReg,
-            keepmeloggedin: keepMeLoggedIn
-            
-            // Sets httpOnly cookie with jwt from backend
-        }).then(sendToken => {
-            return axios.get('http://localhost:5000', { withCredentials: true }).then((res) => {
-                // console.log(res.data)
-            })
-        })
-        navigate('/account');
+        try {
+            await axios.post('http://localhost:5000/register', {
+                email: emailReg,
+                username: usernameReg,
+                password: passwordReg,
+                confpassword: confirmationPasswordReg,
+                keepmeloggedin: keepMeLoggedIn
+
+                // Sets httpOnly cookie with jwt from backend
+            }).then(async () => {
+                return await axios.get('http://localhost:5000', { withCredentials: true }).then((res) => {
+                }).then(() => {
+                    navigate('/account');
+                });
+            });
+        } catch (error) {
+            if (error.response.data === 'All input is required') {
+                console.log("Most fill out all feilds")
+            } else if (error.response.data === 'User Already Exist. Please Login.') {
+                console.log("Account already exist please Login")
+            } else if (error.response.data === 'Username Already taken. Please choose another.') {
+                console.log("Username Already taken. Please choose another.")
+            } else if (error.response.data === 'Passwords do not match') {
+                console.log("Passwords do not match.")
+            };
+        };
 
     };
 
@@ -65,21 +77,18 @@ const Register = () => {
 
     // Google functions
     const onSuccess = async (response) => {
-        try {
-            await axios({
-              method: 'POST',
-              url: 'http://localhost:5000/googlelogin',
-              data: { idToken: response.tokenId }
-            }).then(sendToken => {
-                return axios.get('http://localhost:5000', { withCredentials: true }).then((res) => {
-                })
-            });
-            navigate('/account');
 
-          } catch (error) {
-            console.log(error);
-          };
-      };
+        await axios({
+            method: 'POST',
+            url: 'http://localhost:5000/googlelogin',
+            data: { idToken: response.tokenId }
+        }).then(async () => {
+            return await axios.get('http://localhost:5000', { withCredentials: true }).then((res) => {
+            }).then(() => {
+                navigate('/account');
+            });
+        });
+    };
 
     const onFailure = (res) => {
         console.log("Login Failed! res: ", res);
@@ -154,7 +163,7 @@ const Register = () => {
                                     id="authentactor-password"
                                     placeholder="Password"
                                     autoComplete="new-password"
-                                    defaultValue=""
+                                    minLength="8"
                                     required
                                 />
                             </div>
@@ -168,7 +177,7 @@ const Register = () => {
                                     }}
                                     id="authentactor-conf-password"
                                     placeholder="Confirm Password"
-                                    defaultValue=""
+                                    minLength="8"
                                     required
                                 />
                             </div>
@@ -180,8 +189,8 @@ const Register = () => {
                                         type="checkbox"
                                         checked={keepMeLoggedIn}
                                         onChange={remeberMe}
-                                        id="vehicle1"
-                                        name="vehicle1"
+                                        id="keepmeloggedin"
+                                        name="keepmeloggedin"
                                     />
                                     Remember me
                                 </label>
@@ -196,7 +205,7 @@ const Register = () => {
                         <div className='bottom-text-wrapper'>
                             <h4>Already have an account?   <Link to='/login'>Login Here</Link></h4>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>

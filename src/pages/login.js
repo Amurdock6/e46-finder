@@ -17,20 +17,29 @@ const Login = () => {
     const [keepMeLoggedIn, setKeepMeLoggedIn] = useState(false);
 
     const login = async () => {
-        await axios.post('http://localhost:5000/login', {
-            withCredentials: true,
-            email: email,
-            password: password,
-            keepmeloggedin: keepMeLoggedIn
+        try {
+           await axios.post('http://localhost:5000/login', {
+                withCredentials: true,
+                email: email,
+                password: password,
+                keepmeloggedin: keepMeLoggedIn
+                // Sets httpOnly cookie with jwt from backend
+            }).then(async () => {
+                return await axios.get('http://localhost:5000', { withCredentials: true }).then((res) => {
 
-            // Sets httpOnly cookie with jwt from backend
-        }).then(sendToken => {
-            return axios.get('http://localhost:5000', { withCredentials: true }).then((res) => {
-                // console.log(res.data)
+                }).then(() => {
+                    navigate('/account');
+                });
             });
-        });
-        navigate('/account');
-
+        } catch (error) {
+            // console.log(error.response.data);
+            // console.log(error.response.status);
+            if (error.response.data === 'Invalid Credentials'){
+                console.log("Invalid Creadentials")
+            } else if (error.response.data === 'All input is required') {
+                console.log("Most fill out all feilds")
+            };
+        };
     };
 
     // Adds "Please enter vaild Email!" to form if email is not vaild
@@ -127,7 +136,6 @@ const Login = () => {
                                     }}
                                     id="authentactor-password"
                                     placeholder="Password"
-                                    defaultValue=""
                                     required
                                 />
                             </div>
@@ -138,8 +146,8 @@ const Login = () => {
                                         type="checkbox"
                                         checked={keepMeLoggedIn}
                                         onChange={remeberMe}
-                                        id="vehicle1"
-                                        name="vehicle1"
+                                        id="keepmeloggedin"
+                                        name="keepmeloggedin"
                                     />
                                     Remember me
                                 </label>
