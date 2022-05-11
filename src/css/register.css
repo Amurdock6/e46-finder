@@ -1,113 +1,35 @@
-.background-image{
-  background-image: url('../pictures/login-register-background.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  position: absolute;
-  height: 100vh;
-  width: 100vw;
-}
-
-.container {
-    position: relative;
-    top: 9vh;
-    max-width: 500px;
-    margin: 30px auto;
-    overflow: auto;
-    min-height: 550px;
-    border: 1px solid rgb(83, 91, 97);
-    padding: 30px;
-    border-radius: 5px;
-    background-color:rgba(167, 167, 167, 0.6);
-  }
-
-  .button-wrapper {
-    display: flex;
-    justify-content: center;
-  }
-
-  h1{
-    display: flex;
-    justify-content: center;
-    font-size: 2.9em;
-    padding-bottom: 4vh;
-}
-
-input {
-    font-size: 1.1em;
-    padding: 1.3vh 2.8vw 1.3vh 0.4vw;
-}
-
-#email-span {
-  font-weight: bold;
-  color: red;
-  display: flex;
-  justify-content: center;
-}
-
-#password-span{
-  font-weight: bold;
-  color: red;
-  display: flex;
-  justify-content: center;
-}
-  
-.textarea{
-    display: flex;
-    padding-bottom: 1.8vh;
-    justify-content: center;
-  }
-
-#button-wrapper{
-    display: flex;
-    justify-content: center;
-  }
-
-button{
-    background-color:#4290F5;
-    color: #fff;
-    border: 1px solid #000;
-    padding: 13px 3.2vw 13px 3.2vw;
-    font-size: 1.5em;
+/* .right-side {
     position: absolute;
-    bottom: 10vh;
-  }
+    width: 60%;
+    left: 40%;
+}
 
-  .bottom-text-wrapper{
-    display: flex;
-    justify-content: center;
-  }
-
-h4{
+.left-side {
     position: absolute;
-    bottom: 3vh;
-    color: #fff;
-  }
-
-a{
-    color: #0080FF;
-  }
-
-@media (min-width: 2560px) {
-  .container {
-    min-height: 570px;
-  }
-
-  .textarea {
-    padding-bottom: 1.1vh;
-  }
-
-  button {
-    bottom: 6.5vh;
-  }
+    width: 40%;
 }
 
-@media (max-width: 990px) {
-  .background-image {
-    background-image: url('../pictures/mobile-login.jpg');
-  }
-
-  h1{
-    font-size: 2.3em;
-  }
+svg.svg-inline--fa.fa-check {
+    padding-right: 3px;
+    padding-top: 3px;
 }
+
+svg.svg-inline--fa.fa-user {
+    padding-right: 3px;
+    padding-top: 3px;
+}
+
+input#keepmeloggedin{
+    margin-left: 8px;
+}
+
+#username label {
+    display: flex;
+    justify-content: left;
+}
+
+#username {
+    padding-top: 1vh;
+}
+
+ */

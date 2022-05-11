@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Routes, Link, useParams } from 'react-router-dom'
 import { IoMdArrowRoundBack } from 'react-icons/io'
-import '../css/login.css'
+import '../css/loginandregister.css'
 import { useState } from 'react'
 import axios from 'axios'
 
