@@ -1,5 +1,6 @@
 #whole-page-wrapper {
   display: grid;
+  grid-template-columns: 40% 60%;
 }
 
 .left-side {
@@ -270,22 +271,7 @@ input#keepmeloggedin {
   }
 }
 
-
-@media (max-height: 850px) and (max-width: 1000px){
-  .right-side {
-    background-image: url("../pictures/login.webp");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: top;
-  }
-}
-
-
 @media (max-width: 720px) {
-  #whole-page-wrapper{
-    color: #fff;
-  }
-
   h1 {
     color: #000000d6;
   }
@@ -303,9 +289,6 @@ input#keepmeloggedin {
     height: 4.5vh;
   }
 
-  .bottom-form-container p a{
-    color: #fff;
-  }
 
   .bottom-form-container {
     margin-left: 31%;
@@ -319,8 +302,6 @@ input#keepmeloggedin {
 
 
 @media (max-width: 490px) {
-
-  
     h1 {
       font-size: 2.35em;
     }
@@ -356,7 +337,8 @@ input#keepmeloggedin {
 
 }
 
-@media (max-width: 340px){
+
+@media (max-width: 380px){
   h1 {
       font-size: 2em;
     }
@@ -366,7 +348,7 @@ input#keepmeloggedin {
     }
 
     .bottom-form-container p a {
-      font-size: 0.65em;
+      font-size: 0.8em;
       color: #000;
   }
 

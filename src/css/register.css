@@ -1,12 +1,6 @@
-/* .right-side {
-    position: absolute;
-    width: 60%;
-    left: 40%;
-}
 
-.left-side {
-    position: absolute;
-    width: 40%;
+#content-wrapper{
+    padding-top: 5vh;
 }
 
 svg.svg-inline--fa.fa-check {
@@ -32,4 +26,12 @@ input#keepmeloggedin{
     padding-top: 1vh;
 }
 
- */
+#username-span {
+    color: rgb(218, 0, 0);
+}
+
+@media (max-width: 490px) {
+.button-wrapper {
+    padding-bottom: 5vh;
+  }
+}

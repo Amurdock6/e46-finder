@@ -23,11 +23,12 @@ const Register = () => {
     const [confirmationPasswordReg, setConfirmationPasswordReg] = useState("");
 
     // Error handelers
-    const [emailError, setEmailError] = useState("")
+    const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
-    const [passwordConfError, setPasswordConfError] = useState("")
-    
-    
+    const [passwordConfError, setPasswordConfError] = useState("");
+    const [usernameError, setUsernameError] = useState("");
+
+
     const [keepMeLoggedIn, setKeepMeLoggedIn] = useState(false);
 
 
@@ -49,15 +50,64 @@ const Register = () => {
                 });
             });
         } catch (error) {
-            if (error.response.data === 'All input is required') {
-                console.log("Most fill out all feilds")
-            } else if (error.response.data === 'User Already Exist. Please Login.') {
-                console.log("Account already exist please Login")
-            } else if (error.response.data === 'Username Already taken. Please choose another.') {
-                console.log("Username Already taken. Please choose another.")
-            } else if (error.response.data === 'Passwords do not match') {
-                console.log("Passwords do not match.")
+
+            if (error.response.data === 'User Already Exist. Please Login.') {
+                setEmailError("Account already exist. Please Login");
+                document.getElementById("authentactor-email").style.borderColor = "rgb(218, 0, 0)";
+            } else {
+                setEmailError("");
+                document.getElementById("authentactor-email").style.borderColor = "";
             };
+
+            if (error.response.data === 'Username Already taken. Please choose another.') {
+                setUsernameError("Username Already taken. Please choose another.");
+                document.getElementById("authentactor-text").style.borderColor = "rgb(218, 0, 0)";
+            } else {
+                setUsernameError("");
+                document.getElementById("authentactor-text").style.borderColor = "";
+            };
+
+            if (error.response.data === 'Passwords do not match') {
+                setPasswordConfError("Passwords do not match");
+                document.getElementById("reg-password").style.borderColor = "rgb(218, 0, 0)";
+                document.getElementById("authentactor-password").style.borderColor = "rgb(218, 0, 0)";
+            } else {
+                setPasswordConfError("");
+                document.getElementById("reg-password").style.borderColor = "";
+                document.getElementById("authentactor-password").style.borderColor = "";
+            };
+
+            if (error.response.data === 'All input is required') {
+                setUsernameError("");
+                setEmailError("");
+                setPasswordConfError("All input is required");
+                if (!emailReg) {
+                    document.getElementById("authentactor-email").style.borderColor = "rgb(218, 0, 0)";
+                } else {
+                    document.getElementById("authentactor-email").style.borderColor = "";
+                }
+
+                if (!usernameReg) {
+                    document.getElementById("authentactor-text").style.borderColor = "rgb(218, 0, 0)";
+                } else {
+                    document.getElementById("authentactor-text").style.borderColor = "";
+                }
+
+                if (!passwordReg) {
+                    document.getElementById("reg-password").style.borderColor = "rgb(218, 0, 0)";
+                } else {
+                    document.getElementById("reg-password").style.borderColor = "";
+                }
+
+                if (!confirmationPasswordReg) {
+                    document.getElementById("authentactor-password").style.borderColor = "rgb(218, 0, 0)";
+                } else {
+                    document.getElementById("authentactor-password").style.borderColor = "";
+                }
+
+            };
+
+
         };
 
     };
@@ -68,12 +118,13 @@ const Register = () => {
 
         if (validator.isEmail(email)) {
             setEmailError("");
-            document.getElementById("email").style.paddingBottom = "1.8vh";
+            document.getElementById("authentactor-email").style.borderColor = "";
         } else {
-            setEmailError("Please enter valid Email!");
-            document.getElementById("email").style.paddingBottom = "0";
+            setEmailError("Please enter valid Email");
+            document.getElementById("authentactor-email").style.borderColor = "rgb(218, 0, 0)";
         }
     };
+
 
     // Adds "Confirmation Password should match Password!" to form if Password and confirm Password do not match.
     const validatePassword = (e) => {
@@ -81,8 +132,10 @@ const Register = () => {
 
         if (passwordReg === password) {
             setPasswordConfError("");
+            document.getElementById("authentactor-password").style.borderColor = "";
         } else {
-            setPasswordConfError("Confirmation Password should match Password!");
+            setPasswordConfError("Confirmation Password should match Password");
+            document.getElementById("authentactor-password").style.borderColor = "rgb(218, 0, 0)";
         }
     };
 
@@ -111,91 +164,6 @@ const Register = () => {
     };
 
     return (
-
-        //  <GoogleLogin
-        //     clientId={'793531866299-a0lqtj70qp6s1200hhpl08rba6195m7h.apps.googleusercontent.com'}
-        //     buttonText="Create Account with Google"
-        //     onSuccess={onSuccess}
-        //     onFailure={onFailure}
-        //     cookiePolicy={'single_host_origin'}
-        //     isSignedIn={true}
-        // /> 
-
-        //      <form>
-        //         <div className="textarea" id="email">
-        //             <input
-        //                 type="email"
-        //                 onChange={(e) => {
-        //                     validateEmail(e);
-        //                     setEmailReg(e.target.value);
-        //                 }}
-        //                 id="authentactor-email"
-        //                 placeholder="Email"
-        //                 defaultValue=""
-        //                 required
-        //             />
-        //         </div>
-        //         <span id="email-span">{emailError}</span>
-
-        //         <div className="textarea" id="username">
-        //             <input
-        //                 type="text"
-        //                 onChange={(e) => {
-        //                     setUsernameReg(e.target.value);
-        //                 }}
-        //                 id="authentactor-text"
-        //                 placeholder="Username"
-        //                 defaultValue=""
-        //                 required
-        //             />
-        //         </div>
-
-        //         <div className="textarea" id="password">
-        //             <input
-        //                 type="password"
-        //                 onChange={(e) => {
-        //                     setPasswordReg(e.target.value);
-        //                 }}
-        //                 id="authentactor-password"
-        //                 placeholder="Password"
-        //                 autoComplete="new-password"
-        //                 minLength="8"
-        //                 required
-        //             />
-        //         </div>
-
-        //         <div className="textarea" id="password">
-        //             <input
-        //                 type="password"
-        //                 onChange={(e) => {
-        //                     validatePassword(e);
-        //                     setConfirmationPasswordReg(e.target.value);
-        //                 }}
-        //                 id="authentactor-conf-password"
-        //                 placeholder="Confirm Password"
-        //                 minLength="8"
-        //                 required
-        //             />
-        //         </div>
-        //         <span id="password-span">{passwordError}</span>
-
-        //         <div className="checkBox" id="checkbox">
-        //             <label>
-        //                 <input
-        //                     type="checkbox"
-        //                     checked={keepMeLoggedIn}
-        //                     onChange={remeberMe}
-        //                     id="keepmeloggedin"
-        //                     name="keepmeloggedin"
-        //                 />
-        //                 Remember me
-        //             </label>
-        //         </div>
-
-        //         <div id="button-wrapper">
-        //             <button type="button" onClick={register} id="button">Create Account</button>
-        //         </div>
-        //     </form> 
         <div id='whole-page-wrapper'>
             <div className='left-side' style={{ backgroundImage: `url(${sideIamge})`, backgroundPosition: 'left' }}>
 
@@ -262,6 +230,7 @@ const Register = () => {
                                 />
                             </div>
                         </div>
+                        <span id="username-span">{usernameError}</span>
 
                         <div id='password-wrapper'>
                             <div className="textarea" id="password">
@@ -272,7 +241,7 @@ const Register = () => {
                                     onChange={(e) => {
                                         setPasswordReg(e.target.value);
                                     }}
-                                    id="password"
+                                    id="reg-password"
                                     autoComplete="on"
                                     required
                                 />

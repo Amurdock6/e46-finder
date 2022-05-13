@@ -1,72 +1,106 @@
 import { BrowserRouter as Router, Route, Routes, Link, useParams } from 'react-router-dom'
-import { IoMdArrowRoundBack } from 'react-icons/io'
-import '../css/loginandregister.css'
+import { useNavigate } from 'react-router-dom'
+import '../css/forgotandreset.css'
 import { useState } from 'react'
 import axios from 'axios'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUnlockKeyhole, faLock, faCheck, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 const ResetPassword = (props) => {
     let { reset_id } = useParams();
+    let navigate = useNavigate();
 
-    const [password, setPassword] = useState("");
+    const [passwordRes, setPasswordRes] = useState("");
+    const [confirmationPassword, setConfirmationPassword] = useState("");
 
-    const login = async () => {
+    const [passwordConfError, setPasswordConfError] = useState("");
+
+
+    const resetPassword = async () => {
         try {
             await axios.patch('http://localhost:5000/reset', {
                 withCredentials: true,
-                password: password,
+                password: passwordRes,
+                confpassword: confirmationPassword,
                 reset_id: reset_id
 
+            }).then(() => {
+                navigate('/login');
             });
         } catch (error) {
-            console.log(error);
-            // if (error.response.data === 'Password reset request all ready sent.') {
-            //     console.log("Password reset request all ready sent.")
-            // } else if (error.response.status === 404) {
-            //     console.log("No email found. Please create an account.")
-            // };
+            if (error.response.status === 404) {
+                setPasswordConfError("No Account Found. Please create an account")
+            } else if (error.response.status === 409) {
+                setPasswordConfError("Passwords do not match")
+            };
         };
     };
 
-    // Checks if password has been submited or not
+    // Adds "Confirmation Password should match Password!" to form if Password and confirm Password do not match.
+    const validatePassword = (e) => {
+        var password = e.target.value
+
+        if (passwordRes === password) {
+            setPasswordConfError("");
+            document.getElementById("authentactor-password error").style.borderColor = "";
+        } else {
+            setPasswordConfError("Confirmation Password should match Password");
+            document.getElementById("authentactor-password error").style.borderColor = "rgb(218, 0, 0)";
+        }
+    };
 
     return (
-        <div className='background-image'>
-
-            <div className='back-button'>
-                <Link to='/login'>
-                    <IoMdArrowRoundBack id='back-arrow' />
-                    <h3>Login</h3>
-                </Link>
-            </div>
-
-            <div className="container-wrapper">
-                <div className="container">
+        <div className="content-wrapper">
 
 
-                    <h1>Please Enter New Password</h1>
+            <FontAwesomeIcon icon={faUnlockKeyhole} id="key" />
+            <h1>Create new Password</h1>
+            <p>Please enter your new password below.</p>
 
-                    <div className="wrapper">
-                        <form>
-                            <div className="textarea" id="password">
-                                <input
-                                    type="password"
-                                    onChange={(e) => {
-                                        setPassword(e.target.value);
-                                    }}
-                                    id="authentactor-password"
-                                    placeholder="New Password"
-                                    required
-                                />
-                            </div>
-
-                            <div id="button-wrapper">
-                                <button type="button" onClick={login} id="button">Reset Password</button>
-                            </div>
-
-                        </form>
-
+            <div id="wrapper">
+                <form>
+                    <div className="textarea" id="password">
+                        <label><FontAwesomeIcon icon={faLock} /> New Password <br /></label>
+                        <input
+                            type="password"
+                            onChange={(e) => {
+                                setPasswordRes(e.target.value);
+                            }}
+                            id="authentactor-password"
+                            autoComplete="on"
+                            required
+                        />
                     </div>
-                </div>
+
+                    <div className="textarea" id="password">
+                        <label>
+                            <FontAwesomeIcon icon={faCheck} /> Confirm Password <br /></label>
+                        <input
+                            type="password"
+                            onChange={(e) => {
+                                validatePassword(e);
+                                setConfirmationPassword(e.target.value);
+                            }}
+                            id="authentactor-password error"
+                            autoComplete="on"
+                            required
+                        />
+                    </div>
+                    <span id="password-sapn">{passwordConfError}</span>
+
+
+                    <div className="button-wrapper">
+                        <button className="send-button" type="button" onClick={resetPassword} id="button">Reset Password</button>
+                    </div>
+
+                    <div id='arrow-wrapper'>
+                        <Link to='/login'>
+                            <FontAwesomeIcon icon={faArrowLeft} /><span>Back to login</span>
+                        </Link>
+                    </div>
+
+                </form>
+
             </div>
         </div>
     )

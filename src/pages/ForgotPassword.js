@@ -1,11 +1,15 @@
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
-import { IoMdArrowRoundBack } from 'react-icons/io'
-import '../css/loginandregister.css'
+import { useNavigate } from 'react-router-dom'
+import '../css/forgotandreset.css'
 import { useState } from 'react'
 import axios from 'axios'
 import validator from 'validator';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faKey, faEnvelope, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+
 
 const ForgotPassword = () => {
+    let navigate = useNavigate();
 
     const [email, setEmail] = useState("");
     const [emailError, setEmailError] = useState("");
@@ -16,9 +20,9 @@ const ForgotPassword = () => {
             await axios.post('http://localhost:5000/forgot', {
                 withCredentials: true,
                 email: email,
-                // Sets httpOnly cookie with jwt from backend
             }).then(() => {
                 setEmailsent(true);
+                navigate('/login');
             });
         } catch (error) {
             if (error.response.data === 'Password reset request all ready sent.') {
@@ -42,50 +46,45 @@ const ForgotPassword = () => {
         }
     };
 
-    // Checks if email has been sent or not
-
-
     return (
-        <div className='background-image'>
-
-            <div className='back-button'>
-                <Link to='/login'>
-                    <IoMdArrowRoundBack id='back-arrow' />
-                    <h3>Login</h3>
-                </Link>
-            </div>
-
-            <div className="container-wrapper">
-                <div className="container">
+        <div className="content-wrapper">
 
 
-                    <h1>Enter Email</h1>
+            <FontAwesomeIcon icon={faKey} id="key" />
+            <h1>Forgot Your Password?</h1>
+            <p>Don't worrier, we'll send you reset instructions.</p>
 
-                    <div className="wrapper">
-                        <form>
-                            <div className="textarea" id="email">
-                                <input
-                                    type="email"
-                                    onChange={(e) => {
-                                        validateEmail(e);
-                                        setEmail(e.target.value);
-                                    }}
-                                    id="authentactor-email"
-                                    placeholder="Recovery Email"
-                                    defaultValue=""
-                                    required
-                                />
-                            </div>
-                            <span id="email-span">{emailError}</span>
-
-                            <div id="button-wrapper">
-                                <button type="button" onClick={login} id="button">Reset Password</button>
-                            </div>
-
-                        </form>
-
+            <div id="wrapper">
+                <form>
+                    <div className="textarea" id="email">
+                        <label><FontAwesomeIcon icon={faEnvelope} /> Email <br /></label>
+                        <input
+                            type="email"
+                            onChange={(e) => {
+                                validateEmail(e);
+                                setEmail(e.target.value);
+                            }}
+                            id="authentactor-email"
+                            placeholder=""
+                            defaultValue=""
+                            required
+                        />
                     </div>
-                </div>
+                    <span id="email-span">{emailError}</span>
+
+
+                    <div className="button-wrapper">
+                        <button className="send-button" type="button" onClick={login} id="button">Send instructions</button>
+                    </div>
+
+                    <div id='arrow-wrapper'>
+                        <Link to='/login'>
+                            <FontAwesomeIcon icon={faArrowLeft} /><span>Back to login</span>
+                        </Link>
+                    </div>
+
+                </form>
+
             </div>
         </div>
     )

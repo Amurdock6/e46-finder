@@ -9,8 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleArrowRight, faLock, faEnvelope, faXmark, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import Tooltip from '@mui/material/Tooltip';
 import Button from '@mui/material/Button';
-import sideIamge from '../pictures/login.webp'
- 
+
 
 
 const Login = () => {
@@ -43,28 +42,23 @@ const Login = () => {
                 document.getElementById("authentactor-password").style.borderColor = "";
                 setEmailError("Invalid Email")
                 setPasswordError("")
-            } else if (error.response.data === 'Invalid Password'){
+            } else if (error.response.data === 'Invalid Password') {
                 document.getElementById("authentactor-password").style.borderColor = "rgb(218, 0, 0)";
                 document.getElementById("authentactor-email").style.borderColor = "";
                 setPasswordError("Invalid Password")
                 setEmailError("")
             } else if (error.response.data === 'All input is required') {
-                if (!email && !password){
+                if (!email) {
                     document.getElementById("authentactor-email").style.borderColor = "rgb(218, 0, 0)";
-                    document.getElementById("authentactor-password").style.borderColor = "rgb(218, 0, 0)";
-                    setEmailError("Must enter Email");
-                    setPasswordError("Must enter Password");
-                } else if (!password){
-                    document.getElementById("authentactor-password").style.borderColor = "rgb(218, 0, 0)";
+                } else {
                     document.getElementById("authentactor-email").style.borderColor = "";
-                    setEmailError("");
-                    setPasswordError("Must enter Password");
-                } else if (!email){
-                    document.getElementById("authentactor-email").style.borderColor = "rgb(218, 0, 0)";
+                };
+
+                if (!password) {
+                    document.getElementById("authentactor-password").style.borderColor = "rgb(218, 0, 0)";
+                } else {
                     document.getElementById("authentactor-password").style.borderColor = "";
-                    setEmailError("Must enter Email");
-                    setPasswordError("");
-                }
+                };
             };
         };
     };
@@ -145,7 +139,7 @@ const Login = () => {
                     </div>
 
                     <div className="line-wrapper">
-                        <hr className='or-line'/> <p>Or</p> <hr className='or-line'/>
+                        <hr className='or-line' /> <p>Or</p> <hr className='or-line' />
                     </div>
 
                     <form>
@@ -188,7 +182,7 @@ const Login = () => {
                             <p><Link to='/forgotpassword'>Forgot Password?</Link></p>
 
                             <div className="checkBox" id="checkbox">
-                            <Tooltip title="Check this box if you would like to stay logged in even after you close your browser. You will stay logged in to e46finder.com as long as you don't clear your cookies." arrow>
+                                <Tooltip title="Check this box if you would like to stay logged in even after you close your browser. You will stay logged in to e46finder.com as long as you don't clear your cookies." arrow>
                                     <Button><FontAwesomeIcon icon={faCircleInfo} /></Button>
                                 </Tooltip>
                                 <label>

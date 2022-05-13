@@ -11,7 +11,6 @@ const useAuth = () => {
       axios.get('http://localhost:5000/auth', { withCredentials: true })
       
         .then(resp => {
-          console.log(!!resp.data)
           if (!!resp.data === true) {
             setData(true)
           } else if (!!resp.data === false) {
@@ -21,7 +20,6 @@ const useAuth = () => {
           }
         })
         .catch(err => {
-          console.warn(err);
           setData(false)
         })
 
@@ -29,15 +27,12 @@ const useAuth = () => {
 
     fetchAuthData()
   }, []);
-  console.log(data)
   return data;
   
 };
 
 const ProtectedRoutes = () => {
   const isAuth = useAuth();
-  // const isAuth = true;
-  console.log(isAuth)
   if (isAuth === undefined) {
     return null
   };
