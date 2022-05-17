@@ -8,7 +8,7 @@ import Account from './pages/Account'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
 import './css/App.css';
-import { useState } from 'react/cjs/react.development'
+import { useState } from 'react'
 import ProtectedRoutes from './componets/ProtectedRoutes'
 
 
