@@ -1,14 +1,62 @@
 .listings-wrapper {
-    text-align: center;
-    padding: 0 10vw;
+    text-align: left;
+    padding: 0 5vw;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.listings-wrapper p {
+    text-align: left;
+    padding-left: 1vw;
 }
 
 .listing-contanier {
     text-decoration: none;
-    width: 30vw;
+    width: 23vw;
+    margin-bottom: 10vh;
+    margin-right: 2vw;
+    margin-left: 2vw;
+    border: solid black 1px;
+}
+
+.listing-contanier h4 {
+    text-align: center;
+    padding-bottom: 1vh;
+    padding-right: 1vw;
+    padding-left: 1vw;
+    color: #000;
+    font-size: 1.2em;
+}
+
+.listing-contanier a {
+    text-decoration: none;
 }
 
 .listing-contanier img {
-    width: 13vw;
+    width: 100%;
     height: auto;
+}
+
+.countdown-timer {
+    padding-left: 1vw;
+    color: #4A4A4A;
+}
+
+.location {
+    padding-bottom: 2vh;
+}
+
+.listedon {
+    padding: 0;
+    margin: 0;
+}
+
+.listedon h4 {
+    padding: 0;
+    margin: 0;
+}
+
+.listingsite {
+    color: #4290F5;
 }

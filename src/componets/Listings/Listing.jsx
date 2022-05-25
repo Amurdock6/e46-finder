@@ -4,6 +4,7 @@ const Listing = (props) => {
 
 
     var startOfTime = timeleft.endsWith('days')
+    var oneday = timeleft.endsWith('day')
     
 
 
@@ -12,7 +13,10 @@ const Listing = (props) => {
         .split(' ')[0] * 86400000;
         var timetill = daysleft + 86400000;
         var days = true;
-    } else if (startOfTime !== 'days') {
+    } else if (oneday === true) { 
+        var dayone = true
+        timetill = daysleft + 86400000;
+    }else if (startOfTime !== 'days') {
         // Handles count Down 
         var secondesLeft = timeleft
             .split(':')[2] * 1000;
@@ -25,27 +29,32 @@ const Listing = (props) => {
 
         timetill = hoursLeft + minutesLeft + secondesLeft
         days = false
+        dayone = false
     }
 
 
     const time = Date.now() + timetill
     const justdays = days
+    const justoneday = dayone
 
     return (
         <div className='listing-contanier'>
             <a href={link}>
                 <img src={picture} alt="listing"></img>
+                <h4>{car}</h4>
+                <p>TRANSMISSION: {trans}</p>
+                <p>MILEAGE: {milage}</p>
+                <p>PRICE: {price}</p>
                 <CountdownTimer
-                className="countdown"
                     countdownTimestampMs={time}
-                    justdays={justdays}
+                    justdays={justdays} 
+                    justoneday={justoneday}
+                    timeleft={timeleft}
                 />
-                <p>{site}</p>
-                <p>{car}</p>
-                <p>{price}</p>
-                <p>{milage}</p>
-                <p>{location}</p>
-                <p>{trans}</p>
+                <p className='location'>LOCATION: {location}</p>
+                <div className='listedon'>
+                    <h4><span>Listed On: </span><span className='listingsite'>{site}</span></h4>
+                </div>
             </a>
         </div>
     )

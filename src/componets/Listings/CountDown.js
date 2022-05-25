@@ -1,5 +1,5 @@
-import {useState, useEffect} from 'react';
-import {getRemainingTimeUntilMsTimestamp} from './CountDownTimerUtils';
+import { useState, useEffect } from 'react';
+import { getRemainingTimeUntilMsTimestamp } from './CountDownTimerUtils';
 
 const defaultRemainingTime = {
     seconds: '00',
@@ -23,32 +23,46 @@ const CountdownTimer = (props) => {
     }
 
 
-
+    if (props.justoneday === true) {
+        return (
+            <div className="countdown-timer">
+                <span> Ends In: </span>
+                <span>{props.timeleft}</span>
+            </div>
+        );
+    }
 
     if (props.justdays === true) {
         return (
             <div className="countdown-timer">
+                <span> Ends In: </span>
                 <span>{remainingTime.days}</span>
-                <span> days left</span>
+                <span> days</span>
             </div>
         );
     }
 
 
+    if (props.justdays === false) {
+        return (
+            <div className="countdown-timer">
+                <span> Ends In: </span>
+                <span className="two-numbers">{remainingTime.hours}</span>
+                <span>:</span>
+                <span className="two-numbers">{remainingTime.minutes}</span>
+                <span>:</span>
+                <span className="two-numbers">{remainingTime.seconds}</span>
+            </div>
+        )
+    }
 
     return (
         <div className="countdown-timer">
-            <span className="two-numbers">{remainingTime.hours}</span>
-            <span>:</span>
-            <span className="two-numbers">{remainingTime.minutes}</span>
-            <span>:</span>
-            <span className="two-numbers">{remainingTime.seconds}</span>
-            <span></span>
+            error
         </div>
     )
 
-
-
 }
+
 
 export default CountdownTimer;
