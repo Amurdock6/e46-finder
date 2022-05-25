@@ -1,0 +1,14 @@
+.listings-wrapper {
+    text-align: center;
+    padding: 0 10vw;
+}
+
+.listing-contanier {
+    text-decoration: none;
+    width: 30vw;
+}
+
+.listing-contanier img {
+    width: 13vw;
+    height: auto;
+}

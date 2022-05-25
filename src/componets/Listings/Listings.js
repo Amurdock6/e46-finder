@@ -1,6 +1,7 @@
 import axios from 'axios'
 import Listing from './Listing'
-import { useState, useEffect, Link } from 'react'
+import '../../css/Listing.css'
+import { useState, useEffect } from 'react'
 
 const Listings = () => {
 
@@ -22,19 +23,28 @@ const Listings = () => {
         grabListings();
     }, []);
 
-
     return (
         <>
             <h1> Listings </h1>
             <div className='listings-wrapper'>
-                {listings.map((listing) => 
-                    <Listing key={listing.link} link={listing.link} car={listing.car} price={listing.price} picture={listing.picture}/>
+                {listings.map((listing) =>
+                    <Listing
+                        key={listing.link}
+                        site={listing.site}
+                        link={listing.link}
+                        car={listing.car}
+                        price={listing.price}
+                        picture={listing.picture}
+                        timeleft={listing.timeLeft}
+                        milage={listing.milage}
+                        location={listing.location}
+                        trans={listing.trans}
+                    />
+
                 )}
             </div>
         </>
     )
-
-
 
 }
 

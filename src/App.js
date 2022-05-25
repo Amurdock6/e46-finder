@@ -13,7 +13,6 @@ import ProtectedRoutes from './componets/ProtectedRoutes'
 
 
 function App() {
-  
   return (
     <>
       <Router>
