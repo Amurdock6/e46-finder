@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react'
 const Listings = () => {
 
     let [listings, setListings] = useState([]);
+    const [loading, setLoading] = useState(false);
 
 
     const grabListings = async () => {
@@ -13,6 +14,7 @@ const Listings = () => {
         try {
             var grabListingsData = await (await axios.get('http://localhost:5000/scrape')).data
             setListings(grabListingsData)
+            setLoading(true);
         } catch (err) {
             console.log(err);
         };
@@ -27,7 +29,7 @@ const Listings = () => {
         <>
             <h1> Listings </h1>
             <div className='listings-wrapper'>
-                {listings.map((listing) =>
+                {loading ? (listings.map((listing) =>
                     <Listing
                         key={listing.link}
                         site={listing.site}
@@ -41,8 +43,14 @@ const Listings = () => {
                         trans={listing.trans}
                     />
 
-                )}
+                )) : 
+                // <div id="loader-wrapper">
+                    <span class="loader"></span> 
+                    // <span>Loading Listings</span>
+                // </div> 
+                }
             </div>
+            
         </>
     )
 
