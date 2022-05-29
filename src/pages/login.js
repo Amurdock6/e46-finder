@@ -20,7 +20,7 @@ const Login = () => {
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
     const [password, setPassword] = useState("");
-    const [keepMeLoggedIn, setKeepMeLoggedIn] = useState(false);
+    const [keepMeLoggedIn, setKeepMeLoggedIn] = useState(false); 
 
     const login = async () => {
         try {
@@ -30,7 +30,7 @@ const Login = () => {
                 password: password,
                 keepmeloggedin: keepMeLoggedIn
             }).then(async () => {
-                return await axios.get('http://localhost:5000', { withCredentials: true }).then((res) => {
+                return await axios.get('http://localhost:5000', { withCredentials: true }).then((res) => { 
 
                 }).then(() => {
                     navigate('/account');
@@ -106,8 +106,7 @@ const Login = () => {
     };
 
 
-    return (
-
+    return ( 
         <div id='whole-page-wrapper'>
             <div className='left-side'>
 
@@ -206,8 +205,7 @@ const Login = () => {
                 </div>
             </div>
 
-        </div>
-
+        </div> 
     )
 }
 

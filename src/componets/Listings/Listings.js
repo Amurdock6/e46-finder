@@ -27,7 +27,7 @@ const Listings = () => {
 
     return (
         <>
-            <h1> Listings </h1>
+            <h1 id='listings-header'> Listings </h1>
             <div className='listings-wrapper'>
                 {loading ? (listings.map((listing) =>
                     <Listing
@@ -44,10 +44,10 @@ const Listings = () => {
                     />
 
                 )) : 
-                // <div id="loader-wrapper">
-                    <span class="loader"></span> 
-                    // <span>Loading Listings</span>
-                // </div> 
+                <div id="loader-wrapper">
+                    <span className="loader"></span> 
+                    <span>Loading Listings</span>
+                </div> 
                 }
             </div>
             

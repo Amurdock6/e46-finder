@@ -37,6 +37,7 @@ const NavLinks = () => {
         } catch (error) {
             console.log(error);
         };
+        alert("Successfully logged out");
         navigate('/');
     };
 

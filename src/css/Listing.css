@@ -1,3 +1,8 @@
+#listings-header {
+    padding-top: 4vh;
+    padding-bottom: 6vh;
+}
+
 .listings-wrapper {
     text-align: left;
     padding: 0 5vw;
@@ -9,6 +14,18 @@
 .listings-wrapper p {
     text-align: left;
     padding-left: 1vw;
+}
+
+#loader-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding-top: 20vh;
+    padding-bottom: 30vh;
+    align-items: center;
+}
+
+#loading-text {
+    padding-top: 0.5vh;
 }
 
 .loader {
