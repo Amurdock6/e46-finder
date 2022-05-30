@@ -30,7 +30,7 @@ h3 {
     .NavBar .MobileNav .Hamburger {
         cursor: pointer;
         position: absolute;
-        left: 5%;
+        right: 5%;
         top: 4%;
         color: #000;
         z-index: 2;
@@ -60,6 +60,8 @@ h3 {
 
 @media (max-width: 350px) {    
     .NavBar .MobileNav .Hamburger {
-        left: 0%;
+        right: 0%;
     }   
+
+    
 }

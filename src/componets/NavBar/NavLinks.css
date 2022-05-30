@@ -1,3 +1,7 @@
+#nav a{
+    text-decoration: underline blue;
+}
+
 #middle-nav {
     position: relative;
     justify-content: center;
@@ -23,7 +27,6 @@
 }
 
 .menu-background {
-    transition: 2s;
     position: absolute;
     background-color: black;
     z-index: 1;
@@ -39,4 +42,24 @@
     width: 73%;
     top: 2%;
     left: 12vw;
+}
+
+#logout {
+    background: none;
+    color: #fff;
+    border: none;
+    font-size: 1.17em;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: underline blue;
+}
+
+@media (max-width: 990px){
+    #logout {
+        font-size: 2.3em;
+        z-index: 99;
+        position: relative;
+        top: 30vh;
+    }
 }

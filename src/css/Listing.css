@@ -68,12 +68,12 @@
 .listing-contanier {
     text-decoration: none;
     width: 20%;
+    height: 50vh;
     margin-bottom: 10vh;
     margin-right: 2vw;
     margin-left: 2vw;
     border: solid black 1px;
-    position: relative;
-    
+    position: relative; 
 }
 
 .listing-contanier h4 {
@@ -106,11 +106,11 @@
 .listedon {
     padding: 0;
     margin: 0;
-}
-
-.listedon h4 {
-    padding: 0;
-    margin: 0;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    height: 15%;
+    top: 91%;
 }
 
 .listingsite {

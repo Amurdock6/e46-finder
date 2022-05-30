@@ -93,6 +93,9 @@ const NavLinks = () => {
 
                     <GoogleLogout
                         clientId="793531866299-a0lqtj70qp6s1200hhpl08rba6195m7h.apps.googleusercontent.com"
+                        render={renderProps => (
+                            <button id="logout" onClick={renderProps.onClick} disabled={renderProps.disabled}>Log Out</button>
+                          )}
                         buttonText={"Logout"}
                         onLogoutSuccess={onSuccess}
                     />

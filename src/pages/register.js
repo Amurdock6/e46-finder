@@ -210,6 +210,7 @@ const Register = () => {
                                     }}
                                     id="authentactor-email"
                                     defaultValue=""
+                                    onKeyPress={(e) => e.key === 'Enter' && register()}
                                     required
                                 />
                             </div>
@@ -226,6 +227,7 @@ const Register = () => {
                                     }}
                                     id="authentactor-text"
                                     defaultValue=""
+                                    onKeyPress={(e) => e.key === 'Enter' && register()}
                                     required
                                 />
                             </div>
@@ -243,6 +245,7 @@ const Register = () => {
                                     }}
                                     id="reg-password"
                                     autoComplete="on"
+                                    onKeyPress={(e) => e.key === 'Enter' && register()}
                                     required
                                 />
                             </div>
@@ -261,6 +264,7 @@ const Register = () => {
                                     }}
                                     id="authentactor-password"
                                     autoComplete="on"
+                                    onKeyPress={(e) => e.key === 'Enter' && register()}
                                     required
                                 />
                             </div>

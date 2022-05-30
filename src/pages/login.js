@@ -105,6 +105,12 @@ const Login = () => {
         setKeepMeLoggedIn(!keepMeLoggedIn);
     };
 
+    const handleKeyPress = (event) => {
+        if(event.key === 'Enter'){
+            console.log('enter press here! ')
+          }
+    }
+
 
     return ( 
         <div id='whole-page-wrapper'>
@@ -153,6 +159,7 @@ const Login = () => {
                                     }}
                                     id="authentactor-email"
                                     defaultValue=""
+                                    onKeyPress={(e) => e.key === 'Enter' && login()}
                                     required
                                 />
                             </div>
@@ -170,6 +177,7 @@ const Login = () => {
                                     }}
                                     id="authentactor-password"
                                     autoComplete="on"
+                                    onKeyPress={(e) => e.key === 'Enter' && login()}
                                     required
                                 />
                             </div>
