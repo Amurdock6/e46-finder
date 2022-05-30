@@ -7,9 +7,9 @@ import axios from 'axios';
 const Listing = (props) => {
     var { link, car, price, picture, timeleft, site, milage, location, trans } = props;
 
-
     var startOfTime = timeleft.endsWith('days')
     var oneday = timeleft.endsWith('day')
+    var colonsInString = (timeleft.match(/:/g) || []).length;
     
     if (startOfTime) {
         var daysleft = timeleft
@@ -19,7 +19,8 @@ const Listing = (props) => {
     } else if (oneday === true) { 
         var dayone = true
         timetill = daysleft + 86400000;
-    }else if (startOfTime !== 'days') {
+    }
+    else if (colonsInString === 2) {
         // Handles count Down 
         var secondesLeft = timeleft
             .split(':')[2] * 1000;
@@ -33,7 +34,17 @@ const Listing = (props) => {
         timetill = hoursLeft + minutesLeft + secondesLeft
         days = false
         dayone = false
-    }
+    } else if (colonsInString === 1) {
+         secondesLeft = timeleft
+            .split(':')[1] * 1000;
+
+         minutesLeft = timeleft
+            .split(':')[0] * 60000;
+
+        timetill = minutesLeft + secondesLeft
+        days = false
+        dayone = false
+    };
 
 
     const time = Date.now() + timetill
@@ -64,8 +75,9 @@ const Listing = (props) => {
 
     const save = async () => {
         if (loggedInCookie) {
-                await axios.post('http://localhost:5000/savelisting', {
-                    withCredentials: true, 
+            await axios("http://localhost:5000/savelisting", {
+                method: "post",
+                data: {
                     link: link,
                     car: car,
                     price: price,
@@ -75,13 +87,15 @@ const Listing = (props) => {
                     milage: milage,
                     location: location,
                     trans: trans
-                });
+                },
+                withCredentials: true
+            });
 
         } else {
             console.log("please login to save this listing")
-        }
+        };
 
-    }
+    };
 
 
 
