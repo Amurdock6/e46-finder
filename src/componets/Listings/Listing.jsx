@@ -1,4 +1,9 @@
 import CountdownTimer from './CountDown';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBookmark } from '@fortawesome/free-solid-svg-icons';
+import Tooltip from '@mui/material/Tooltip';
+import axios from 'axios';
+
 const Listing = (props) => {
     var { link, car, price, picture, timeleft, site, milage, location, trans } = props;
 
@@ -6,8 +11,6 @@ const Listing = (props) => {
     var startOfTime = timeleft.endsWith('days')
     var oneday = timeleft.endsWith('day')
     
-
-
     if (startOfTime) {
         var daysleft = timeleft
         .split(' ')[0] * 86400000;
@@ -37,8 +40,57 @@ const Listing = (props) => {
     const justdays = days
     const justoneday = dayone
 
+    // Checks for Logged-In Cookie
+    function getCookie(name) {
+        var dc = document.cookie;
+        var prefix = name + "=";
+        var begin = dc.indexOf("; " + prefix);
+        if (begin === -1) {
+            begin = dc.indexOf(prefix);
+            if (begin !== 0) return null;
+        }
+        else {
+            begin += 2;
+            var end = document.cookie.indexOf(";", begin);
+            if (end === -1) {
+                end = dc.length;
+            }
+        }
+        return decodeURI(dc.substring(begin + prefix.length, end));
+    }
+
+    // Logic that looks for the LooggedIn cookie based off of the result of the function getCookie(name)
+    var loggedInCookie = getCookie("LoggedIn");
+
+    const save = async () => {
+        if (loggedInCookie) {
+                await axios.post('http://localhost:5000/savelisting', {
+                    withCredentials: true, 
+                    link: link,
+                    car: car,
+                    price: price,
+                    picture: picture,
+                    timeleft: timeleft,
+                    site: site,
+                    milage: milage,
+                    location: location,
+                    trans: trans
+                });
+
+        } else {
+            console.log("please login to save this listing")
+        }
+
+    }
+
+
+
     return (
         <div className='listing-contanier'>
+
+            <Tooltip title="Click here to save this listing for latter!" arrow>
+                <button id="save-listing" onClick={save}><FontAwesomeIcon icon={faBookmark} /></button>
+            </Tooltip>
             <a href={link}>
                 <img src={picture} alt="listing"></img>
                 <h4>{car}</h4>
@@ -47,7 +99,7 @@ const Listing = (props) => {
                 <p>PRICE: {price}</p>
                 <CountdownTimer
                     countdownTimestampMs={time}
-                    justdays={justdays} 
+                    justdays={justdays}
                     justoneday={justoneday}
                     timeleft={timeleft}
                 />

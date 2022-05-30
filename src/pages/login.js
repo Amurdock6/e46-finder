@@ -104,13 +104,7 @@ const Login = () => {
     const remeberMe = () => {
         setKeepMeLoggedIn(!keepMeLoggedIn);
     };
-
-    const handleKeyPress = (event) => {
-        if(event.key === 'Enter'){
-            console.log('enter press here! ')
-          }
-    }
-
+    
 
     return ( 
         <div id='whole-page-wrapper'>

@@ -42,30 +42,45 @@ h5 {
 }
 
 
-@media (max-width: 500px) {
+@media (max-height: 550px) {
     .footer-left img {
-        width: 77%;
-        padding-left: 0;
+        width: 46%;
+    }
+}
+
+@media (max-width: 560px) {
+    .footer-left img {
+        width: 50%; 
+        left: 5%; 
     }
 
-    .footer-center {
-
-    }
-
-    .footer-right {
-        width: 108%;
+    .footer-right { 
+        right: 2%;
     }
 
     .footer-wrapper h3 {
-        font-size: 0.65em;
-        padding-left: 2vw;
-        padding-right: 1vw;
+        font-size: 1.2em;
     }
     
     h5 {
-        font-size: 0.2em;
+        font-size: 0.5em;
     }
     
+}
+
+@media (max-width: 450px){
+    .footer-left img {
+        width: 36%;
+        left: 2%;
+    }
+
+    .footer-wrapper h3 {
+        font-size: 1em;
+    }
+
+h5 {
+    font-size: 0.2em;
+} 
 }
 
 @media (max-width: 350px){
