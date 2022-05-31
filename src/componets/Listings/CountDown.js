@@ -9,6 +9,7 @@ const defaultRemainingTime = {
 }
 
 const CountdownTimer = (props) => {
+
     const [remainingTime, setRemainingTime] = useState(defaultRemainingTime);
 
     useEffect(() => {
@@ -54,6 +55,35 @@ const CountdownTimer = (props) => {
                 <span className="two-numbers">{remainingTime.seconds}</span>
             </div>
         )
+    }
+
+    if (props.savedlisting) {
+        if(remainingTime.days > 1) {
+            return (
+                <div className="countdown-timer">
+                    <span> Ends In: </span>
+                    <span>{remainingTime.days}</span>
+                    <span> days</span>
+                </div>
+            );
+        } else if (remainingTime.days === 1) {
+            return (
+                <div className="countdown-timer">
+                    <span> Ends In: </span>
+                    <span>{props.timeleft}</span>
+                </div>
+            );
+        } else {
+        return (
+            <div className="countdown-timer">
+                <span className="two-numbers">{remainingTime.hours}</span>
+                <span>:</span>
+                <span className="two-numbers">{remainingTime.minutes}</span>
+                <span>:</span>
+                <span className="two-numbers">{remainingTime.seconds}</span>
+            </div>
+        )
+        }
     }
 
     return (

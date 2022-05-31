@@ -25,6 +25,8 @@ const Listings = () => {
         grabListings();
     }, []);
 
+
+
     return (
         <>
             <h1 id='listings-header'> Listings </h1>
@@ -38,7 +40,7 @@ const Listings = () => {
                         price={listing.price}
                         picture={listing.picture}
                         timeleft={listing.timeLeft}
-                        milage={listing.milage}
+                        mileage={listing.mileage}
                         location={listing.location}
                         trans={listing.trans}
                     />
@@ -46,7 +48,7 @@ const Listings = () => {
                 )) : 
                 <div id="loader-wrapper">
                     <span className="loader"></span> 
-                    <span>Loading Listings</span>
+                    <span>Loading Listings This Could Take a Minute...</span>
                 </div> 
                 }
             </div>

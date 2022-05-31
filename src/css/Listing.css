@@ -47,11 +47,12 @@
 }
 
 .loader {
-    width: 80px;
-    height: 80px;
+    width: 90px;
+    height: 90px;
     border-radius: 50%;
     position: relative;
-    animation: rotate 1s linear infinite
+    animation: rotate 1s linear infinite;
+    margin-bottom: 3vh;
   }
 
   .loader::before , .loader::after {

@@ -5,23 +5,56 @@ import Tooltip from '@mui/material/Tooltip';
 import axios from 'axios';
 
 const Listing = (props) => {
-    var { link, car, price, picture, timeleft, site, milage, location, trans } = props;
+    var { link, car, price, picture, timeleft, site, mileage, location, trans } = props;
 
     var startOfTime = timeleft.endsWith('days')
     var oneday = timeleft.endsWith('day')
     var colonsInString = (timeleft.match(/:/g) || []).length;
-    
+    var isMillisecond = timeleft.startsWith('2022-');
+
+// converts what ever the current time format is to milliseconds    
     if (startOfTime) {
         var daysleft = timeleft
         .split(' ')[0] * 86400000;
         var timetill = daysleft + 86400000;
         var days = true;
+    } else if (isMillisecond) {
+        days = timeleft
+            .slice(8, 10) * 86400000;
+
+        var hours = timeleft
+            .slice(11, 13) * 3600000;
+
+        var minutes = timeleft
+            .slice(14, 16) * 60000;
+
+        var secondes = timeleft
+            .slice(17, 19) * 1000;
+
+        var timeuntilexperation = days + hours + minutes + secondes
+
+        if(timeuntilexperation === 86400000){
+            hours = 86400000
+            minutes = 0
+            secondes = 0
+        }
+
+        if (timeuntilexperation < 25200000){
+            days = 0
+            hours = 43200000
+            minutes = 0
+            secondes = 0
+        }
+
+        timetill = days + hours + minutes + secondes;
+
+
+        var saved = true;
     } else if (oneday === true) { 
         var dayone = true
         timetill = daysleft + 86400000;
     }
     else if (colonsInString === 2) {
-        // Handles count Down 
         var secondesLeft = timeleft
             .split(':')[2] * 1000;
 
@@ -47,9 +80,10 @@ const Listing = (props) => {
     };
 
 
-    const time = Date.now() + timetill
+    const time = Date.now() + parseInt(timetill)
     const justdays = days
     const justoneday = dayone
+    const savedlisting = saved;
 
     // Checks for Logged-In Cookie
     function getCookie(name) {
@@ -84,7 +118,7 @@ const Listing = (props) => {
                     picture: picture,
                     timeleft: timeleft,
                     site: site,
-                    milage: milage,
+                    mileage: mileage,
                     location: location,
                     trans: trans
                 },
@@ -98,7 +132,6 @@ const Listing = (props) => {
     };
 
 
-
     return (
         <div className='listing-contanier'>
 
@@ -109,13 +142,14 @@ const Listing = (props) => {
                 <img src={picture} alt="listing"></img>
                 <h4>{car}</h4>
                 <p>TRANSMISSION: {trans}</p>
-                <p>MILEAGE: {milage}</p>
+                <p>MILEAGE: {mileage}</p>
                 <p>PRICE: {price}</p>
                 <CountdownTimer
                     countdownTimestampMs={time}
                     justdays={justdays}
                     justoneday={justoneday}
                     timeleft={timeleft}
+                    savedlisting={savedlisting}
                 />
                 <p className='location'>LOCATION: {location}</p>
                 <div className='listedon'>
