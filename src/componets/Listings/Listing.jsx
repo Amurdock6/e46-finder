@@ -1,11 +1,12 @@
 import CountdownTimer from './CountDown';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBookmark } from '@fortawesome/free-solid-svg-icons';
+import { faBookmark, faRectangleXmark } from '@fortawesome/free-solid-svg-icons';
 import Tooltip from '@mui/material/Tooltip';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Listing = (props) => {
-    var { link, car, price, picture, timeleft, site, mileage, location, trans } = props;
+    var { link, car, price, picture, timeleft, site, mileage, location, trans, postNum, loggedInCookie  } = props;
 
     var startOfTime = timeleft.endsWith('days')
     var oneday = timeleft.endsWith('day')
@@ -44,6 +45,10 @@ const Listing = (props) => {
             hours = 43200000
             minutes = 0
             secondes = 0
+        }
+
+        if (timeuntilexperation <= 172800000) {
+            var setnotime = true
         }
 
         timetill = days + hours + minutes + secondes;
@@ -85,59 +90,80 @@ const Listing = (props) => {
     const justoneday = dayone
     const savedlisting = saved;
 
-    // Checks for Logged-In Cookie
-    function getCookie(name) {
-        var dc = document.cookie;
-        var prefix = name + "=";
-        var begin = dc.indexOf("; " + prefix);
-        if (begin === -1) {
-            begin = dc.indexOf(prefix);
-            if (begin !== 0) return null;
-        }
-        else {
-            begin += 2;
-            var end = document.cookie.indexOf(";", begin);
-            if (end === -1) {
-                end = dc.length;
-            }
-        }
-        return decodeURI(dc.substring(begin + prefix.length, end));
+
+    let navigate = useNavigate(); 
+
+    function setSaved() {
+        console.log("Saved listing")
+        var el = document.querySelector(`#listing${postNum}:first-child #save-listing`);
+        el.style.display = "none";
+        el.style.pointerEvents = "none";
+
+        var el2 = document.querySelector(`#listing${postNum}:nth-child(1) #unsave-listing`);
+        el2.style.display = "block";
+        el2.style.pointerEvents = "all";
     }
 
-    // Logic that looks for the LooggedIn cookie based off of the result of the function getCookie(name)
-    var loggedInCookie = getCookie("LoggedIn");
+    function setDelete() {
+        console.log("Delted listing")
+
+        var el = document.querySelector(`#listing${postNum}:first-child #save-listing`);
+        el.style.display = "block";
+        el.style.pointerEvents = "all";
+
+        
+        var el2 = document.querySelector(`#listing${postNum}:nth-child(1) #unsave-listing`);
+        el2.style.display = "none";
+        el2.style.pointerEvents = "none";
+    }
+
 
     const save = async () => {
         if (loggedInCookie) {
-            await axios("http://localhost:5000/savelisting", {
-                method: "post",
-                data: {
-                    link: link,
-                    car: car,
-                    price: price,
-                    picture: picture,
-                    timeleft: timeleft,
-                    site: site,
-                    mileage: mileage,
-                    location: location,
-                    trans: trans
-                },
-                withCredentials: true
-            });
+            try {
+                const data = await axios("http://localhost:5000/savelisting", {
+                    method: "post",
+                    data: {
+                        link: link,
+                        car: car,
+                        price: price,
+                        picture: picture,
+                        timeleft: timeleft,
+                        site: site,
+                        mileage: mileage,
+                        location: location,
+                        trans: trans,
+                        postNum: postNum
+                    },
+                    withCredentials: true
+                });
+
+                if (data.status === 200) {
+                    setSaved(postNum);
+                }   
+            } catch (err) {
+                if (err.message === 'Request failed with status code 409') {
+                    setDelete(postNum);
+                }
+            }
 
         } else {
-            console.log("please login to save this listing")
+            navigate('/login');
         };
 
     };
-
-
+    
     return (
         <div className='listing-contanier'>
-
-            <Tooltip title="Click here to save this listing for latter!" arrow>
-                <button id="save-listing" onClick={save}><FontAwesomeIcon icon={faBookmark} /></button>
-            </Tooltip>
+            <div id={`listing${postNum}`}>
+                <Tooltip title="Click here to save this listing for latter!" arrow>
+                    <button id='save-listing' className='save' onClick={save}><FontAwesomeIcon icon={faBookmark} /></button>
+                </Tooltip>
+                <Tooltip title="Click to unsave this listing." arrow>
+                    <button id="unsave-listing" className='unsave' onClick={save}><FontAwesomeIcon icon={faRectangleXmark} /></button>
+                </Tooltip>
+            </div> 
+            
             <a href={link}>
                 <img src={picture} alt="listing"></img>
                 <h4>{car}</h4>
@@ -150,6 +176,7 @@ const Listing = (props) => {
                     justoneday={justoneday}
                     timeleft={timeleft}
                     savedlisting={savedlisting}
+                    setnotime={setnotime}
                 />
                 <p className='location'>LOCATION: {location}</p>
                 <div className='listedon'>

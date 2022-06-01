@@ -23,6 +23,14 @@ const CountdownTimer = (props) => {
         setRemainingTime(getRemainingTimeUntilMsTimestamp(countdown));
     }
 
+    if(props.setnotime) {
+        return (
+            <div className="countdown-timer">
+                <span> Ends In: </span>
+                <span>Check Listing Site For Details</span>
+            </div>
+        )
+    }
 
     if (props.justoneday === true) {
         return (

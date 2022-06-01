@@ -1,3 +1,11 @@
+#good-request{
+    z-index: 10000;
+    background-color: black;
+    color: white;
+    width: 100%;
+    height: 0;
+}
+
 #listings-header {
     padding-top: 4vh;
     padding-bottom: 6vh;
@@ -9,6 +17,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    padding-bottom: 10vh;
 }
 
 .listings-wrapper p {
@@ -16,8 +25,8 @@
     padding-left: 1vw;
 }
 
-#save-listing{ 
-    color: black;
+#save-listing{
+    color: #4290F5;
     position: absolute;
     right: 0;
     padding-top: 2px;
@@ -30,6 +39,26 @@
 }
 
 #save-listing:hover { 
+    font-size: 1.8em;
+    transition: .5s;
+}
+
+#unsave-listing {
+    display: none;
+    pointer-events: none;
+    color: red;
+    position: absolute;
+    right: 0;
+    padding-top: 2px;
+    padding-right: 2px;
+    font-size: 1.4em; 
+    transition: .5s;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+#unsave-listing:hover { 
     font-size: 1.8em;
     transition: .5s;
 }

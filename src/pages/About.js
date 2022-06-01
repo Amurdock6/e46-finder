@@ -21,11 +21,11 @@ function About() {
               <a href='https://alexanderrmurdock.com/contact.html' target="_blank" rel="noreferrer">Alexander Murdock</a>
             </p>
 
-            <h6>How Does E46Finder work?</h6>
+            <h6>How Does E46 Finder work?</h6>
 
             <p>
               E46 finder uses a web scraper coded in Node.js to scrape various popular car listing sites to find E46 listings and put that listing information onto the E46 website so users can easily find
-              what they are looking for all on one site. E46Finder was mainly programed using the MERN tech stack.
+              what they are looking for all on one site. E46 Finder was mainly programed using the MERN tech stack.
             </p>
           </article>
       </div>

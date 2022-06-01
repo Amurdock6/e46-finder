@@ -45,13 +45,107 @@ const NavLinks = () => {
     var loggedInCookie = getCookie("LoggedIn");
 
     if (loggedInCookie == null) {
-        return (
+        if (window.location.href === 'http://localhost:3000/') {
+            return (
 
+                <>
+                    <div id="left-nav">
+                        <Link to='/about'>
+                            <h3>About</h3>
+                        </Link>
+
+                    </div>
+                    <div id="middle-nav">
+                        <Link to="/">
+                            <img src={Logo} alt='E46 Logo' />
+                        </Link>
+                    </div>
+                    <div id='right-nav'>
+                        <Link to="/login">
+                            <h3>Login</h3>
+                        </Link>
+                        <Link to="/register">
+                            <h3>Sign Up</h3>
+                        </Link>
+
+                    </div>
+                </>
+
+            )
+        }
+
+        if (window.location.href === 'http://localhost:3000/account') {
+            return (
+
+                <>
+                    <div id="left-nav">
+                        <Link to='/about'>
+                            <h3>About</h3>
+                        </Link>
+
+                        <Link to='/'>
+                            <h3>Listings</h3>
+                        </Link>
+
+                    </div>
+                    <div id="middle-nav">
+                        <Link to="/">
+                            <img src={Logo} alt='E46 Logo' />
+                        </Link>
+                    </div>
+                    <div id='right-nav'>
+                        <Link to="/login">
+                            <h3>Login</h3>
+                        </Link>
+                        <Link to="/register">
+                            <h3>Sign Up</h3>
+                        </Link>
+
+                    </div>
+                </>
+
+            )
+        }
+
+        if (window.location.href === 'http://localhost:3000/about') {
+            return (
+                <>
+                    <div id="left-nav">
+                        <Link to='/'>
+                            <h3>Listings</h3>
+                        </Link>
+
+                    </div>
+                    <div id="middle-nav">
+                        <Link to="/">
+                            <img src={Logo} alt='E46 Logo' />
+                        </Link>
+                    </div>
+                    <div id='right-nav'>
+                        <Link to="/login">
+                            <h3>Login</h3>
+                        </Link>
+                        <Link to="/register">
+                            <h3>Sign Up</h3>
+                        </Link>
+
+                    </div>
+                </>
+
+            )
+        }
+
+        return (
             <>
                 <div id="left-nav">
                     <Link to='/about'>
                         <h3>About</h3>
                     </Link>
+
+                    <Link to='/'>
+                        <h3>Listings</h3>
+                    </Link>
+
                 </div>
                 <div id="middle-nav">
                     <Link to="/">
@@ -68,17 +162,120 @@ const NavLinks = () => {
 
                 </div>
             </>
-
         )
+
+
 
     }
     else if (loggedInCookie) {
-        return (
+        if (window.location.href === 'http://localhost:3000/') {
+            return (
+                <>
+                    <div id="left-nav">
+                        <Link to='/about'>
+                            <h3>About</h3>
+                        </Link>
+                    </div>
+                    <div id="middle-nav">
+                        <Link to="/">
+                            <img src={Logo} alt='E46 Logo' />
+                        </Link>
+                    </div>
+                    <div id='right-nav'>
+                        <Link to="/account">
+                            <h3>View Account</h3>
+                        </Link>
 
+                        <GoogleLogout
+                            clientId="793531866299-a0lqtj70qp6s1200hhpl08rba6195m7h.apps.googleusercontent.com"
+                            render={renderProps => (
+                                <button id="logout" onClick={renderProps.onClick} disabled={renderProps.disabled}>Log Out</button>
+                            )}
+                            buttonText={"Logout"}
+                            onLogoutSuccess={onSuccess}
+                        />
+
+                    </div>
+                </>
+            )
+        }
+
+        if (window.location.href === 'http://localhost:3000/account') {
+            return (
+                <>
+                    <div id="left-nav">
+                        <Link to='/about'>
+                            <h3>About</h3>
+                        </Link>
+
+                        <Link to='/'>
+                            <h3>Listings</h3>
+                        </Link>
+                    </div>
+                    <div id="middle-nav">
+                        <Link to="/">
+                            <img src={Logo} alt='E46 Logo' />
+                        </Link>
+                    </div>
+                    <div id='right-nav'>
+
+                        <GoogleLogout
+                            clientId="793531866299-a0lqtj70qp6s1200hhpl08rba6195m7h.apps.googleusercontent.com"
+                            render={renderProps => (
+                                <button id="logout" onClick={renderProps.onClick} disabled={renderProps.disabled}>Log Out</button>
+                            )}
+                            buttonText={"Logout"}
+                            onLogoutSuccess={onSuccess}
+                        />
+
+                    </div>
+                </>
+
+            )
+        }
+
+        if (window.location.href === 'http://localhost:3000/about') {
+            return (
+                <>
+                    <div id="left-nav">
+                        <Link to='/'>
+                            <h3>Listings</h3>
+                        </Link>
+
+                    </div>
+                    <div id="middle-nav">
+                        <Link to="/">
+                            <img src={Logo} alt='E46 Logo' />
+                        </Link>
+                    </div>
+                    <div id='right-nav'>
+                    <Link to="/account">
+                            <h3>View Account</h3>
+                        </Link>
+
+                        <GoogleLogout
+                            clientId="793531866299-a0lqtj70qp6s1200hhpl08rba6195m7h.apps.googleusercontent.com"
+                            render={renderProps => (
+                                <button id="logout" onClick={renderProps.onClick} disabled={renderProps.disabled}>Log Out</button>
+                            )}
+                            buttonText={"Logout"}
+                            onLogoutSuccess={onSuccess}
+                        />
+                    </div>
+                </>
+
+            )
+        }
+
+        return (
             <>
                 <div id="left-nav">
                     <Link to='/about'>
                         <h3>About</h3>
+                    </Link>
+
+                    <Link to='/'>
+                        <h3>Listings</h3>
                     </Link>
                 </div>
                 <div id="middle-nav">
@@ -95,16 +292,17 @@ const NavLinks = () => {
                         clientId="793531866299-a0lqtj70qp6s1200hhpl08rba6195m7h.apps.googleusercontent.com"
                         render={renderProps => (
                             <button id="logout" onClick={renderProps.onClick} disabled={renderProps.disabled}>Log Out</button>
-                          )}
+                        )}
                         buttonText={"Logout"}
                         onLogoutSuccess={onSuccess}
                     />
 
                 </div>
             </>
-
         )
     }
+
+
 
 }
 

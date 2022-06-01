@@ -25,49 +25,29 @@ const MobileNavLinks = (props) => {
         return decodeURI(dc.substring(begin + prefix.length, end));
     }
 
-        // Logsout current user
-        const onSuccess = async () => {
-            try {
-                await axios.get('http://localhost:5000/googlelogout', {
-                    withCredentials: true
-                });
-    
-            } catch (error) {
-                console.log(error);
-            };
-            alert("Successfully logged out");
-            navigate('/');
+    // Logsout current user
+    const onSuccess = async () => {
+        try {
+            await axios.get('http://localhost:5000/googlelogout', {
+                withCredentials: true
+            });
+
+        } catch (error) {
+            console.log(error);
         };
+        alert("Successfully logged out");
+        navigate('/');
+    };
 
-        var loggedInCookie = getCookie("LoggedIn");
-
-    // return(
-    //     <>
-
-    //         <Link to="/login">
-    //             <h3 onClick={() => props.isMobile && props.closeMobileMenu()}>Login</h3>
-    //         </Link>
-    //         <Link to="/register">
-    //             <h3 onClick={() => props.isMobile && props.closeMobileMenu()}>Sign Up</h3>
-    //         </Link>
-    //         <Link to="/Account">
-    //             <h3 onClick={() => props.isMobile && props.closeMobileMenu()}>View Account</h3>
-    //         </Link>
-    //         <Link to="/About">
-    //             <h3 onClick={() => props.isMobile && props.closeMobileMenu()}>About</h3>
-    //         </Link>
-    //         <div className="menu-background"></div>
-
-    //     </>
-    // )
+    var loggedInCookie = getCookie("LoggedIn");
 
     if (loggedInCookie == null) {
-        return (
+        if (window.location.href === 'http://localhost:3000/about') {
+            return (
 
-            <>
-    
-                    <Link to='/about'>
-                        <h3>About</h3>
+                <>
+                    <Link to='/'>
+                        <h3>Listings</h3>
                     </Link>
                     <Link to="/login">
                         <h3>Login</h3>
@@ -76,17 +56,65 @@ const MobileNavLinks = (props) => {
                         <h3>Sign Up</h3>
                     </Link>
                     <div className="menu-background"></div>
+                </>
+
+            )
+        }
+        
+        return (
+
+            <>
+
+                <Link to='/about'>
+                    <h3>About</h3>
+                </Link>
+                <Link to="/login">
+                    <h3>Login</h3>
+                </Link>
+                <Link to="/register">
+                    <h3>Sign Up</h3>
+                </Link>
+                <div className="menu-background"></div>
             </>
 
         )
 
+        
+
     }
     else if (loggedInCookie) {
-        return (
-
-            <>
+        if (window.location.href === 'http://localhost:3000/account') {
+            return (
+                <>
                     <Link to='/about'>
                         <h3>About</h3>
+                    </Link>
+
+                    <Link to='/'>
+                        <h3>Listings</h3>
+                    </Link>
+
+                    <GoogleLogout
+                        clientId="793531866299-a0lqtj70qp6s1200hhpl08rba6195m7h.apps.googleusercontent.com"
+                        render={renderProps => (
+                            <button id="logout" onClick={renderProps.onClick} disabled={renderProps.disabled}>Log Out</button>
+                        )}
+                        buttonText={"Logout"}
+                        onLogoutSuccess={onSuccess}
+                    />
+                    <div className="menu-background"></div>
+
+                </>
+
+            )
+        }
+
+        if (window.location.href === 'http://localhost:3000/about') {
+            return (
+
+                <>
+                    <Link to='/'>
+                        <h3>Listings</h3>
                     </Link>
                     <Link to="/account">
                         <h3>View Account</h3>
@@ -96,16 +124,43 @@ const MobileNavLinks = (props) => {
                         clientId="793531866299-a0lqtj70qp6s1200hhpl08rba6195m7h.apps.googleusercontent.com"
                         render={renderProps => (
                             <button id="logout" onClick={renderProps.onClick} disabled={renderProps.disabled}>Log Out</button>
-                          )}
+                        )}
                         buttonText={"Logout"}
                         onLogoutSuccess={onSuccess}
                     />
                     <div className="menu-background"></div>
+                </>
+
+            )
+        }
+
+
+        return (
+
+            <>
+                <Link to='/about'>
+                    <h3>About</h3>
+                </Link>
+                <Link to="/account">
+                    <h3>View Account</h3>
+                </Link>
+
+                <GoogleLogout
+                    clientId="793531866299-a0lqtj70qp6s1200hhpl08rba6195m7h.apps.googleusercontent.com"
+                    render={renderProps => (
+                        <button id="logout" onClick={renderProps.onClick} disabled={renderProps.disabled}>Log Out</button>
+                    )}
+                    buttonText={"Logout"}
+                    onLogoutSuccess={onSuccess}
+                />
+                <div className="menu-background"></div>
 
             </>
 
         )
     }
+
+
 }
 
 export default MobileNavLinks;

@@ -4,6 +4,8 @@ import Footer from '../componets/Footer/Footer'
 import Listing from '../componets/Listings/Listing'
 import '../css/Account.css'
 import { useEffect, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSquareXmark } from '@fortawesome/free-solid-svg-icons';
 
 function Account() {
 
@@ -41,42 +43,82 @@ function Account() {
         grabListings();
     }, []);
 
+    if (!listings || listings.length === 0) {
+        return (
+            <>
+                <NavBar />
+                <div className="page-wrapper">
 
-    return (
-        <div>
-            <NavBar />
+                    <h1 id="userHello">Hello {username}!</h1>
 
-            <h1 id="userHello">Hello {username}!</h1>
-
-            <h4>Your saved Listings</h4>
-            <div className='listings-wrapper'>
-                {loading ? (listings.map((listing) =>
-                    <Listing
-                        key={listing.link}
-                        site={listing.site}
-                        link={listing.link}
-                        car={listing.car}
-                        price={listing.price}
-                        picture={listing.picture}
-                        timeleft={listing.timeleft}
-                        mileage={listing.mileage}
-                        location={listing.location}
-                        trans={listing.transmission}
-                    />
-                )) :
-                    <div id="loader-wrapper">
-                        <span className="loader"></span>
-                        <span>Loading Your Saved Listings</span>
+                    <h2 id="saved-listings-header">Your saved Listings:</h2>
+                    
+                    <div id="center-div">
+                        <FontAwesomeIcon icon={faSquareXmark} />
+                        <p id="nosaved-listings">You Have No Saved Listings</p>
                     </div>
-                }
+
+                </div>
+                <Footer />
+            </>
+
+
+        )
+    } else {
+
+        var els = document.getElementsByClassName("save");
+        var el2s = document.getElementsByClassName("unsave");
+
+        Array.prototype.forEach.call(els, function(el) {
+            el.style.display = "none";
+            el.style.pointerEvents = "none";
+        });
+
+        Array.prototype.forEach.call(el2s, function(el2) {
+            el2.style.display = "block";
+            el2.style.pointerEvents = "all";
+        });
+        
+        return (
+            <div>
+                <NavBar />
+
+                <h1 id="userHello">Hello {username}!</h1>
+
+                <h2 id="saved-listings-header">Your saved Listings:</h2>
+
+                <div className='listings-wrapper'>
+                    {loading ? (listings.map((listing) =>
+                        <Listing
+                            key={listing.postNum}
+                            site={listing.site}
+                            link={listing.link}
+                            car={listing.car}
+                            price={listing.price}
+                            picture={listing.picture}
+                            timeleft={listing.timeleft}
+                            mileage={listing.mileage}
+                            location={listing.location}
+                            trans={listing.transmission}
+                            postNum={listing.postNum}
+                            // isAlreadySaved={false}
+                            loggedInCookie={true}
+                        />
+                    )) :
+                        <div id="loader-wrapper">
+                            <span className="loader"></span>
+                            <span>Loading Your Saved Listings</span>
+                        </div>
+                    }
+                </div>
+
+
+                <Footer />
             </div>
 
+        )
+    }
 
-            <Footer />
-        </div>
-
-        
-    )
 }
 
 export default Account
