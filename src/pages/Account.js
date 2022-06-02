@@ -41,7 +41,22 @@ function Account() {
 
     useEffect(() => {
         grabListings();
-    }, []);
+    });
+
+    useEffect(() => {
+        var els = document.getElementsByClassName("save");
+        var el2s = document.getElementsByClassName("unsave");
+
+        Array.prototype.forEach.call(els, function(el) {
+            el.style.display = "none";
+            el.style.pointerEvents = "none";
+        });
+
+        Array.prototype.forEach.call(el2s, function(el2) {
+            el2.style.display = "block";
+            el2.style.pointerEvents = "all";
+        });
+    });
 
     if (!listings || listings.length === 0) {
         return (
@@ -66,18 +81,7 @@ function Account() {
         )
     } else {
 
-        var els = document.getElementsByClassName("save");
-        var el2s = document.getElementsByClassName("unsave");
 
-        Array.prototype.forEach.call(els, function(el) {
-            el.style.display = "none";
-            el.style.pointerEvents = "none";
-        });
-
-        Array.prototype.forEach.call(el2s, function(el2) {
-            el2.style.display = "block";
-            el2.style.pointerEvents = "all";
-        });
         
         return (
             <div>

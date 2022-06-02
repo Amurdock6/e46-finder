@@ -67,53 +67,59 @@ const Listings = () => {
 
 
 
+let jsonArray = []
+let isLoggedIn = false
 
     // Checks to see if user has already saved listings
     if (loggedInCookie) {
         // get postNum from DB and sends param to listing.jsx that says already saved or not
+        isLoggedIn = true
 
-
-        // need to compare these two map values
-        listings.map((listing) =>
-            console.log(listing.postNum)
+        // Grabs all postNum values and puts them into Arrays
+        const test1 = listings.map((listing) =>
+            listing.postNum
         );
 
-        savedListing.map((saved) =>
-            console.log(saved.postNum)
+        const test2 = savedListing.map((saved) =>
+            saved.postNum
         );
 
 
-        // if (listing.postNum === parseInt(saved.postNum)) {
-        //     var isAlreadySaved = true
-        //     console.log("match")
+        // Compares those two Arrays to see if they have matching values and creates new array of matching values
+        let map = {};
+        test1.forEach(i => map[i] = false);
+        test2.forEach(i => map[i] === false && (map[i] = true));
+        jsonArray = Object.keys(map).map(k => (map[k]));
 
-        //     // console.log(isAlreadySaved)
-        // }
     }
 
+    
 
     return (
         <>
             <h1 id='listings-header'> Listings </h1>
             <div className='listings-wrapper'>
-                {loading ? (listings.map((listing) =>
-                    <Listing
-                        key={listing.postNum}
-                        site={listing.site}
-                        link={listing.link}
-                        car={listing.car}
-                        price={listing.price}
-                        picture={listing.picture}
-                        timeleft={listing.timeLeft}
-                        mileage={listing.mileage}
-                        location={listing.location}
-                        trans={listing.trans}
-                        postNum={listing.postNum}
-                        // isAlreadySaved={false}
-                        loggedInCookie={loggedInCookie}
-                    />
+                {loading ? (listings.map((listing, saved) => {
+                    const alreadySaved = jsonArray[saved];
+                    return (
+                        <Listing
+                            key={listing.postNum}
+                            site={listing.site}
+                            link={listing.link}
+                            car={listing.car}
+                            price={listing.price}
+                            picture={listing.picture}
+                            timeleft={listing.timeLeft}
+                            mileage={listing.mileage}
+                            location={listing.location}
+                            trans={listing.trans}
+                            postNum={listing.postNum}
+                            isAlreadySaved={alreadySaved}
+                            loggedInCookie={isLoggedIn}
+                        />
+                    )
 
-                )) : 
+                })) : 
                 <div id="loader-wrapper">
                     <span className="loader"></span> 
                     <span>Loading Listings This Could Take a Minute...</span>

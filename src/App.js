@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Route, Routes, useParams } from 'react-router-dom'
+import Logout from './pages/Logout'
 import Login from './pages/login'
 import Register from './pages/Register'
 import About from './pages/About'
@@ -22,6 +23,7 @@ function App() {
           <Route element={<ProtectedRoutes />} >
             <Route exact path="/account" element={<Account />} />
           </Route>
+          <Route path="/Logout" element={<Logout />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
           <Route path="/forgotpassword" element={<ForgotPassword />} />

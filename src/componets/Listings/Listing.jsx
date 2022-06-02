@@ -4,9 +4,10 @@ import { faBookmark, faRectangleXmark } from '@fortawesome/free-solid-svg-icons'
 import Tooltip from '@mui/material/Tooltip';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react'
 
 const Listing = (props) => {
-    var { link, car, price, picture, timeleft, site, mileage, location, trans, postNum, loggedInCookie  } = props;
+    var { link, car, price, picture, timeleft, site, mileage, location, trans, postNum, isAlreadySaved, loggedInCookie  } = props;
 
     var startOfTime = timeleft.endsWith('days')
     var oneday = timeleft.endsWith('day')
@@ -119,6 +120,7 @@ const Listing = (props) => {
 
 
     const save = async () => {
+        // counter on back end is not working
         if (loggedInCookie) {
             try {
                 const data = await axios("http://localhost:5000/savelisting", {
@@ -145,6 +147,12 @@ const Listing = (props) => {
                 if (err.message === 'Request failed with status code 409') {
                     setDelete(postNum);
                 }
+
+                if (err.message === 'Request failed with status code 404') {
+                    setDelete(postNum);
+                }
+                
+                console.log(err)
             }
 
         } else {
@@ -152,6 +160,12 @@ const Listing = (props) => {
         };
 
     };
+
+    useEffect(() => {
+        if (isAlreadySaved === true) {
+            setSaved();
+        };
+    },);
     
     return (
         <div className='listing-contanier'>
@@ -185,6 +199,7 @@ const Listing = (props) => {
             </a>
         </div>
     )
+
 };
 
 export default Listing;
