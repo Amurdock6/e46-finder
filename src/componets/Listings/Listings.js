@@ -13,7 +13,7 @@ const Listings = () => {
     const grabListings = async () => {
 
         try {
-            var grabListingsData = await (await axios.get('http://localhost:5000/scrape')).data
+            var grabListingsData = await (await axios.get('https://e46finder.herokuapp.com/scrape')).data
             setListings(grabListingsData)
             setLoading(true);
         } catch (err) {
@@ -29,7 +29,7 @@ const Listings = () => {
     const grabSavedListings = async () => {
 
         try {
-            var grabSavedListingsData = await (await axios.get('http://localhost:5000/accountpagesavedlistings', { withCredentials: true })).data
+            var grabSavedListingsData = await (await axios.get('https://e46finder.herokuapp.com/accountpagesavedlistings', { withCredentials: true })).data
             setSavedListings(grabSavedListingsData)
 
         } catch (err) {
