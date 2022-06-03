@@ -37,8 +37,7 @@ const NavLinks = () => {
         } catch (error) {
             console.log(error);
         };
-        alert("Successfully logged out");
-        navigate('/');
+        navigate('/logout');
     };
 
     // Logic that sets links in nav based off of the result of the function getCookie(name)
