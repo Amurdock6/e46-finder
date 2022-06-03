@@ -105,7 +105,6 @@ function Account() {
                             location={listing.location}
                             trans={listing.transmission}
                             postNum={listing.postNum}
-                            // isAlreadySaved={false}
                             loggedInCookie={true}
                         />
                     )) :

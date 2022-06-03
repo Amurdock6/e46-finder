@@ -3,20 +3,13 @@
 }
 
 #middle-nav {
-    position: relative;
     justify-content: center;
-    left: 4vw;
-
-    /* position: relative;
-    display: flex;
-    justify-content: center; */
 }
 
 #right-nav {
     display: flex;
-    justify-content: flex-end;
-    position: relative;
-    left: 4.5vw;
+    position: absolute;
+    right: 4.5vw;
 }
 
 #right-nav h3:nth-child(1) {
@@ -29,9 +22,8 @@
 
 #left-nav {
     display: flex;
-    justify-content: flex-start;
-    position: relative;
-    right: 2.5vw;
+    position: absolute;
+    left: 4.5vw;
 }
 
 .menu-background {
@@ -49,7 +41,7 @@
     align-items: center;
     width: 73%;
     top: 2%;
-    left: 12vw;
+    left: 5vw;
 }
 
 #logout {

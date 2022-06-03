@@ -9,6 +9,7 @@ const defaultRemainingTime = {
 }
 
 const CountdownTimer = (props) => {
+    // console.log(props.savedlisting);
 
     const [remainingTime, setRemainingTime] = useState(defaultRemainingTime);
 
@@ -21,15 +22,6 @@ const CountdownTimer = (props) => {
 
     function updateRemainingTime(countdown) {
         setRemainingTime(getRemainingTimeUntilMsTimestamp(countdown));
-    }
-
-    if(props.setnotime) {
-        return (
-            <div className="countdown-timer">
-                <span> Ends In: </span>
-                <span>Check Listing Site For Details</span>
-            </div>
-        )
     }
 
     if (props.justoneday === true) {
@@ -65,8 +57,8 @@ const CountdownTimer = (props) => {
         )
     }
 
-    if (props.savedlisting) {
-        if(remainingTime.days > 1) {
+    if (props.savedlisting === true) {
+        if (remainingTime.days > 1) {
             return (
                 <div className="countdown-timer">
                     <span> Ends In: </span>
@@ -82,15 +74,12 @@ const CountdownTimer = (props) => {
                 </div>
             );
         } else {
-        return (
-            <div className="countdown-timer">
-                <span className="two-numbers">{remainingTime.hours}</span>
-                <span>:</span>
-                <span className="two-numbers">{remainingTime.minutes}</span>
-                <span>:</span>
-                <span className="two-numbers">{remainingTime.seconds}</span>
-            </div>
-        )
+            return (
+                <div className="countdown-timer">
+                    <span> Time Left: </span>
+                    <span>Check Listing Site For Details</span>
+                </div>
+            )
         }
     }
 

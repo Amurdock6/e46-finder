@@ -64,7 +64,9 @@ const MobileNavLinks = (props) => {
         return (
 
             <>
-
+                <Link to='/'>
+                    <h3>Listings</h3>
+                </Link>
                 <Link to='/about'>
                     <h3>About</h3>
                 </Link>

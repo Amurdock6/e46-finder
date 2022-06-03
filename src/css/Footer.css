@@ -43,6 +43,35 @@ h5 {
     color: #fff;
 }
 
+@media (max-width: 1000px) {
+    .footer-left img {
+        width: 70%;
+        left: 5%;
+    }
+    
+    .footer-wrapper h3 {
+        font-size: 1.25em;
+    }
+
+    .footer-wrapper h5 {
+        font-size: 0.75em;
+    }
+}
+
+@media(max-width: 800px) {
+    .footer-left img {
+        width: 51%;
+        left: 7%;
+    }
+
+    .footer-wrapper h3 {
+        font-size: 0.8em;
+    }
+
+    .footer-wrapper h5 {
+        font-size: 0.55em;
+    }
+}
 
 @media (max-height: 550px) {
     .footer-left img {
@@ -52,7 +81,7 @@ h5 {
 
 @media (max-width: 560px) {
     .footer-left img {
-        width: 50%; 
+        width: 44%;
         left: 5%; 
     }
 
@@ -61,16 +90,16 @@ h5 {
     }
 
     .footer-wrapper h3 {
-        font-size: 1.2em;
+        font-size: 0.8em;
     }
     
     h5 {
-        font-size: 0.5em;
+        font-size: 0.45em;
     }
     
 }
 
-@media (max-width: 450px){
+@media (max-width: 500px){
     .footer-left img {
         width: 36%;
         left: 2%;

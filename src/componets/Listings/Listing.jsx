@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react'
 
 const Listing = (props) => {
-    var { link, car, price, picture, timeleft, site, mileage, location, trans, postNum, isAlreadySaved, loggedInCookie  } = props;
+    var { link, car, price, picture, timeleft, site, mileage, location, trans, postNum, isAlreadySaved, loggedInCookie } = props;
 
     var startOfTime = timeleft.endsWith('days')
     var oneday = timeleft.endsWith('day')
@@ -95,7 +95,6 @@ const Listing = (props) => {
     let navigate = useNavigate(); 
 
     function setSaved() {
-        console.log("Saved listing")
         var el = document.querySelector(`#listing${postNum}:first-child #save-listing`);
         el.style.display = "none";
         el.style.pointerEvents = "none";
@@ -106,7 +105,6 @@ const Listing = (props) => {
     }
 
     function setDelete() {
-        console.log("Delted listing")
 
         var el = document.querySelector(`#listing${postNum}:first-child #save-listing`);
         el.style.display = "block";
@@ -151,8 +149,6 @@ const Listing = (props) => {
                 if (err.message === 'Request failed with status code 404') {
                     setDelete(postNum);
                 }
-                
-                console.log(err)
             }
 
         } else {
