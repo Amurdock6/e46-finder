@@ -1,0 +1,86 @@
+.content-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+}
+
+svg#key {
+    font-size: 3.2em;
+}
+
+h1 {
+    font-size: 3em;
+    text-decoration: none;
+    padding-top: 0;
+}
+
+p {
+    color: #4A4A4A;
+}
+
+#wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+}
+
+#email {
+    padding-top: 3vh;
+}
+
+#email-span {
+    text-align: center;
+    color: rgb(218, 0, 0);
+}
+
+#password-sapn {
+    text-align: center;
+    color: rgb(218, 0, 0);
+}
+
+
+.button-wrapper {
+    padding-top: 3vh;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.send-button {
+    display: flex;
+    color: #fff;
+    background-color: #4290F5;
+    font-weight: bold;
+    font-size: 1.4em;
+    border: 1.8px solid #000;
+    transition: 0.5s;
+    padding: 1.1vh 0;
+    width: 100%;
+    justify-content: center;
+}
+
+.send-button:hover {
+    transition: 0.5s;
+    cursor: pointer;
+    background-color: #2d68b4;
+}
+
+#arrow-wrapper {
+    padding-top: 1vh;
+    width: 100%;
+}
+
+#arrow-wrapper a{
+    color:#000;
+}
+
+svg.svg-inline--fa.fa-arrow-left{
+    font-size: 1.3em;
+    padding-right: 7px;
+}

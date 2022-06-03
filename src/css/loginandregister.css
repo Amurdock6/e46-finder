@@ -1,0 +1,369 @@
+#whole-page-wrapper {
+  display: grid;
+  grid-template-columns: 40% 60%;
+}
+
+.left-side {
+  left: 0;
+  grid-row: 1;
+  grid-column: auto;
+  max-width: 100%;
+  height: 100vh;
+  background-image: url("../pictures/login.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top;
+}
+
+.right-side {
+  grid-row: 1;
+  grid-column: auto;
+  max-width: 100%;
+  height: 100vh;
+}
+
+#content-wrapper {
+  padding-top: 10vh;
+  text-align: center;
+}
+
+#x-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: right;
+}
+
+#back-to-home {
+  display: flex;
+  justify-content: right;
+  font-size: 1.8em;
+  color: #000;
+  padding-right: 0.5vw;
+  padding-top: 0.5vh;
+}
+
+h1 {
+  text-align: center;
+  text-decoration: underline;
+  font-size: 3em;
+}
+
+p {
+  text-align: center;
+}
+
+#google-login {
+  text-align: center;
+  padding-top: 4vh;
+  padding-bottom: 2vh;
+}
+
+#google-login button {
+  width: 20vw;
+  justify-content: center;
+  color: rgba(0, 0, 0, 0.8) !important;
+  border: 1px solid rgba(0, 0, 0, 0.8) !important;
+}
+
+.line-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.line-wrapper p {
+  padding: 0 1vw;
+}
+
+.or-line {
+  width: 8.5vw;
+  height: 0;
+  color: #000;
+}
+
+.textarea input {
+  font-size: 1.3em;
+  width: 20vw;
+  height: 4.5vh;
+}
+
+#email-wrapper {
+  justify-content: center;
+  width: 50%;
+  padding-left: 50%;
+  display: flex;
+}
+
+#email label {
+  display: flex;
+  justify-content: left;
+}
+
+svg.svg-inline--fa.fa-envelope {
+  padding-right: 3px;
+  padding-top: 4px;
+}
+
+#email-span {
+  color: rgb(218, 0, 0);
+}
+
+#password-span {
+  color: rgb(218, 0, 0);
+}
+
+#password-wrapper {
+  justify-content: center;
+  width: 50%;
+  padding-left: 50%;
+  display: flex;
+}
+
+#password {
+  padding-top: 1vh;
+}
+
+#password label {
+  display: flex;
+  justify-content: left;
+}
+
+svg.svg-inline--fa.fa-lock {
+  padding-right: 3px;
+  padding-top: 3px;
+}
+
+.bottom-form-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 20vw;
+  margin-left: 33.8%;
+}
+
+label {
+  font-size: 1.1em;
+}
+
+#checkbox label {
+  font-size: 1em;
+  cursor: pointer;
+}
+
+input#keepmeloggedin {
+  margin-left: 4px;
+}
+
+.css-1e6y48t-MuiButtonBase-root-MuiButton-root {
+  min-width: 0 !important;
+  padding: 0px 3px !important;
+  color: #000 !important;
+  font-size: 0.9em !important;
+}
+
+.bottom-form-container p a {
+  font-size: 1em;
+  text-decoration: none;
+  color: #000;
+}
+
+.bottom-form-container p a:active {
+  font-size: 1em;
+  text-decoration: none;
+  color: #000;
+}
+
+.button-wrapper {
+  padding-top: 5vh;
+}
+
+.button-wrapper p {
+  padding-top: 1vh;
+  font-size: 0.8em;
+}
+
+.submit-button {
+  padding: 1.1vh 6vw;
+  color: #fff;
+  background-color: #4290F5;
+  font-weight: bold;
+  font-size: 1.4em;
+  border: 1.8px solid #000;
+  transition: 0.5s;
+}
+
+.submit-button:hover {
+  transition: 0.5s;
+  cursor: pointer;
+  background-color: #2d68b4;
+}
+
+#arrow-icon {
+  padding-right: 1vw;
+}
+
+
+@media (min-width: 2439px){
+  .bottom-form-container {
+    margin-left: 33.5%;
+  }
+
+  .textarea input {
+    height: 3.5vh;
+  }
+}
+
+
+@media (min-width: 1001px) and (max-width: 1410px) {
+  .bottom-form-container p a {
+    font-size: 0.8em;
+  }
+
+  #checkbox label {
+    font-size: 0.8em;
+  }
+
+  .bottom-form-container {
+    margin-left: 35%;
+  }
+}
+
+
+@media (max-width: 1000px) {
+  #whole-page-wrapper {
+    display: block;
+  }
+
+  .left-side {
+    background-image: none;
+    height: 0;
+  }
+
+  .bottom-form-container {
+    margin-left: 37%;
+    width: 26vw;
+  }
+
+  .bottom-form-container p a {
+    font-size: 0.65em;
+  }
+
+  #checkbox label {
+    font-size: 0.65em;
+  }
+
+  input#keepmeloggedin {
+    width: 11px;
+  }
+
+  .textarea input {
+    width: 26vw;
+    height: 5.5vh;
+  }
+
+  .or-line {
+    width: 11vw;
+  }
+
+  #google-login button {
+    width: 26vw;
+  }
+}
+
+@media (max-width: 720px) {
+  h1 {
+    color: #000000d6;
+  }
+
+  #google-login button {
+    width: 38vw;
+  }
+
+  .or-line {
+    width: 16.5vw;
+  }
+
+  .textarea input {
+    width: 38vw;
+    height: 4.5vh;
+  }
+
+
+  .bottom-form-container {
+    margin-left: 31%;
+    width: 38vw;
+  }
+
+  .submit-button {
+    padding: 1.1vh 10vw;
+  }
+}
+
+
+@media (max-width: 490px) {
+    h1 {
+      font-size: 2.35em;
+    }
+  
+    p {
+      font-size: 0.9em;
+    }
+  
+    #google-login button {
+      width: 65vw;
+    }
+  
+    .or-line {
+      width: 29.5vw;
+    }
+  
+    .textarea input {
+      width: 65vw;
+    }
+  
+    .bottom-form-container {
+      margin-left: 17.5%;
+      width: 65vw;
+    }
+  
+    .bottom-form-container p a {
+      font-size: 0.8em;
+    }
+  
+    #checkbox label {
+      font-size: 0.8em;
+    }
+
+}
+
+
+@media (max-width: 380px){
+  h1 {
+      font-size: 2em;
+    }
+  
+    p {
+      font-size: 0.8em;
+    }
+
+    .bottom-form-container p a {
+      font-size: 0.8em;
+      color: #000;
+  }
+
+  #checkbox label {
+    font-size: 0.65em;
+    color: #000;
+}
+
+.submit-button{
+  padding: 1vh 15vw;
+  font-size: 1.2em;
+}
+
+div#checkbox {
+  margin-top: -0.6vh;
+}
+
+}
