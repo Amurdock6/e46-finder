@@ -121,7 +121,7 @@ const Listing = (props) => {
         // counter on back end is not working
         if (loggedInCookie) {
             try {
-                const data = await axios("http://localhost:5000/savelisting", {
+                const data = await axios("https://e46finder.herokuapp.com/savelisting", {
                     method: "post",
                     data: {
                         link: link,

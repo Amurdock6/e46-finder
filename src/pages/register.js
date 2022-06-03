@@ -35,7 +35,7 @@ const Register = () => {
     // Sends Registration form data to API
     const register = async () => {
         try {
-            await axios.post('http://localhost:5000/register', {
+            await axios.post('https://e46finder.herokuapp.com/register', {
                 email: emailReg,
                 username: usernameReg,
                 password: passwordReg,
@@ -44,7 +44,7 @@ const Register = () => {
 
                 // Sets httpOnly cookie with jwt from backend
             }).then(async () => {
-                return await axios.get('http://localhost:5000', { withCredentials: true }).then((res) => {
+                return await axios.get('https://e46finder.herokuapp.com', { withCredentials: true }).then((res) => {
                 }).then(() => {
                     navigate('/account');
                 });
@@ -144,10 +144,10 @@ const Register = () => {
 
         await axios({
             method: 'POST',
-            url: 'http://localhost:5000/googlelogin',
+            url: 'https://e46finder.herokuapp.com/googlelogin',
             data: { idToken: response.tokenId }
         }).then(async () => {
-            return await axios.get('http://localhost:5000', { withCredentials: true }).then((res) => {
+            return await axios.get('https://e46finder.herokuapp.com', { withCredentials: true }).then((res) => {
             }).then(() => {
                 navigate('/account');
             });

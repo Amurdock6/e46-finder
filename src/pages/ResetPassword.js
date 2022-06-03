@@ -18,7 +18,7 @@ const ResetPassword = (props) => {
 
     const resetPassword = async () => {
         try {
-            await axios.patch('http://localhost:5000/reset', {
+            await axios.patch('https://e46finder.herokuapp.com/reset', {
                 withCredentials: true,
                 password: passwordRes,
                 confpassword: confirmationPassword,
