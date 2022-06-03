@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes, useParams } from 'react-router-dom'
 import Logout from './pages/Logout'
 import Login from './pages/login'
-import Register from './pages/Register'
+import Register from './pages/register'
 import About from './pages/About'
 import ErrorPage from './pages/ErrorPage'
 import LandingPage from './pages/LandingPage'
