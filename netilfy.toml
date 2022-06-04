@@ -1,0 +1,10 @@
+[[redirects]]
+    from = "/*"
+    to = "/ErrorPage"
+    status = 404
+
+[[headers]]
+  # Define which paths this specific [[headers]] block will cover.
+  for = "/login"
+    [headers.values]
+    Access-Control-Allow-Origin = ['https://warm-trifle-0ebd9b.netlify.app', 'https://warm-trifle-0ebd9b.netlify.app/']
