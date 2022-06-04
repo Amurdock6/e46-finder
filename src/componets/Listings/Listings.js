@@ -13,7 +13,7 @@ const Listings = () => {
     const grabListings = async () => {
 
         try {
-            var grabListingsData = await (await axios.get('https://e46finder.herokuapp.com/scrape')).data
+            var grabListingsData = await (await axios.get('https://e46finder.herokuapp.com/scrape', {withCredentials: true })).data
             setListings(grabListingsData)
             setLoading(true);
         } catch (err) {

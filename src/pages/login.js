@@ -82,6 +82,7 @@ const Login = () => {
             await axios({
                 method: 'POST',
                 url: 'https://e46finder.herokuapp.com/googlelogin',
+                withCredentials: true,
                 data: { idToken: response.tokenId }
             }).then(sendToken => {
                 return axios.get('https://e46finder.herokuapp.com/', { withCredentials: true }).then((res) => {
