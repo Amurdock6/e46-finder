@@ -155,7 +155,6 @@ const Register = () => {
     };
 
     const onFailure = (res) => {
-        console.log("Login Failed! res: ", res);
     };
 
     // Remeber me check box logic
