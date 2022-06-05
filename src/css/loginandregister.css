@@ -162,6 +162,13 @@ input#keepmeloggedin {
   font-size: 0.9em !important;
 }
 
+.css-1ujsas3 {
+  min-width: 0 !important;
+  padding: 0px 3px !important;
+  color: #000 !important;
+  font-size: 0.9em !important;
+}
+
 .bottom-form-container p a {
   font-size: 1em;
   text-decoration: none;
