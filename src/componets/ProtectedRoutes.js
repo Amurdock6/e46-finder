@@ -3,7 +3,6 @@ import { Outlet, Navigate } from "react-router"
 import { useEffect, useState } from 'react'
 
 const useAuth = () => {
-  console.log(document.URL)
 
   const [data, setData] = useState();
 
