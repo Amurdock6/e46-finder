@@ -1,8 +1,9 @@
 import axios from 'axios'
-import { Outlet, Navigate } from "react-router";
-import { useEffect, useState } from 'react';
+import { Outlet, Navigate } from "react-router"
+import { useEffect, useState } from 'react'
 
 const useAuth = () => {
+  console.log(document.URL)
 
   const [data, setData] = useState();
 
