@@ -8,7 +8,7 @@ const useAuth = () => {
 
   useEffect(() => {
     const fetchAuthData = async () => {
-      axios.get('https://e46finder.herokuapp.com/auth', { withCredentials: true })
+      axios.get('https://backend.e46finder.app/auth', { withCredentials: true })
       
         .then(resp => {
           if (!!resp.data === true) {

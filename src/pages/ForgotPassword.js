@@ -17,7 +17,7 @@ const ForgotPassword = () => {
 
     const login = async () => {
         try {
-            await axios.post('https://e46finder.herokuapp.com/forgot', {
+            await axios.post('https://backend.e46finder.app/forgot', {
                 withCredentials: true,
                 email: email,
             }).then(() => {

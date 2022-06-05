@@ -144,11 +144,11 @@ const Register = () => {
 
         await axios({
             method: 'POST',
-            url: 'https://e46finder.herokuapp.com/googlelogin',
+            url: 'https://backend.e46finder.app/googlelogin',
             data: { idToken: response.tokenId },
             withCredentials: true
         }).then(async () => {
-            return await axios.get('https://e46finder.herokuapp.com', { withCredentials: true }).then((res) => {
+            return await axios.get('https://backend.e46finder.app', { withCredentials: true }).then((res) => {
             }).then(() => {
                 navigate('/account');
             });
