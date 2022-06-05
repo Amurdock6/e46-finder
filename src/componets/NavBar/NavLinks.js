@@ -30,7 +30,7 @@ const NavLinks = () => {
     // Logsout current user
     const onSuccess = async () => {
         try {
-            await axios.get('http://localhost:5000/googlelogout', {
+            await axios.get('https://backend.e46finder.app/googlelogout', {
                 withCredentials: true
             });
 
@@ -44,7 +44,7 @@ const NavLinks = () => {
     var loggedInCookie = getCookie("LoggedIn");
 
     if (loggedInCookie == null) {
-        if (window.location.href === 'http://localhost:3000/') {
+        if (window.location.href === 'https://www.e46finder.app/') {
             return (
 
                 <>
@@ -73,7 +73,7 @@ const NavLinks = () => {
             )
         }
 
-        if (window.location.href === 'http://localhost:3000/account') {
+        if (window.location.href === 'https://www.e46finder.app/account') {
             return (
 
                 <>
@@ -106,7 +106,7 @@ const NavLinks = () => {
             )
         }
 
-        if (window.location.href === 'http://localhost:3000/about') {
+        if (window.location.href === 'https://www.e46finder.app/about') {
             return (
                 <>
                     <div id="left-nav">
@@ -167,7 +167,7 @@ const NavLinks = () => {
 
     }
     else if (loggedInCookie) {
-        if (window.location.href === 'http://localhost:3000/') {
+        if (window.location.href === 'https://www.e46finder.app/') {
             return (
                 <>
                     <div id="left-nav">
@@ -199,7 +199,7 @@ const NavLinks = () => {
             )
         }
 
-        if (window.location.href === 'http://localhost:3000/account') {
+        if (window.location.href === 'https://www.e46finder.app/account') {
             return (
                 <>
                     <div id="left-nav">
@@ -233,7 +233,7 @@ const NavLinks = () => {
             )
         }
 
-        if (window.location.href === 'http://localhost:3000/about') {
+        if (window.location.href === 'https://www.e46finder.app/about') {
             return (
                 <>
                     <div id="left-nav">
