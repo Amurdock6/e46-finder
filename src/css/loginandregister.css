@@ -155,7 +155,7 @@ input#keepmeloggedin {
   margin-left: 4px;
 }
 
-.css-1e6y48t-MuiButtonBase-root-MuiButton-root {
+#info-button {
   min-width: 0 !important;
   padding: 0px 3px !important;
   color: #000 !important;

@@ -106,11 +106,11 @@ h5 {
     }
 
     .footer-wrapper h3 {
-        font-size: 0.65em;
+        font-size: 0.55em;
     }
 
 h5 {
-    font-size: 0.2em;
+    font-size: 0.2em !important;
 } 
 }
 

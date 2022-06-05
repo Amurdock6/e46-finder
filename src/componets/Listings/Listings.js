@@ -122,7 +122,7 @@ let isLoggedIn = false
                 })) : 
                 <div id="loader-wrapper">
                     <span className="loader"></span> 
-                    <span>Loading Listings This Could Take a Minute...</span>
+                    <span id="loading-text">Loading Listings This Could Take a Minute...</span>
                 </div> 
                 }
             </div>
