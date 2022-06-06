@@ -3,13 +3,6 @@ import Footer from '../componets/Footer/Footer'
 import Slide1 from '../pictures/slide-1.jpg'
 import Listings from '../componets/Listings/Listings'
 import '../css/LandingPage.css';
-import ReactGA from 'react-ga';
-import { useEffect } from 'react';
-
-// ReactGA.initialize('G-X1RJGE867Q');
-    
-// // Reports page views
-// ReactGA.pageview(window.location.pathname + window.location.search);
 
 
 const LandingPage = () => {

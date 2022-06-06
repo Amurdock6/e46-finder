@@ -9,15 +9,7 @@ import Account from './pages/Account'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
 import './css/App.css';
-import { useEffect, useState } from 'react'
 import ProtectedRoutes from './componets/ProtectedRoutes'
-import ReactGA from 'react-ga';
-
-
-  ReactGA.initialize('G-X1RJGE867Q');
-
-  // Reports page views
-  ReactGA.pageview(window.location.pathname + window.location.search);
 
 function App() {
 
