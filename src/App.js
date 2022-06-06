@@ -20,6 +20,7 @@ function App() {
 
     // Reports page views
     ReactGa.pageview(window.location.pathname + window.location.search)
+    ReactGa.pageview('/')
   }, [])
 
   return (
