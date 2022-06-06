@@ -11,16 +11,15 @@ import ResetPassword from './pages/ResetPassword'
 import './css/App.css';
 import { useEffect, useState } from 'react'
 import ProtectedRoutes from './componets/ProtectedRoutes'
-import ReactGa from 'react-ga';
+import ReactGA from 'react-ga';
 
 
 function App() {
   useEffect (() => {
-    ReactGa.initialize('G-X1RJGE867Q')
+    ReactGA.initialize('G-X1RJGE867Q');
 
     // Reports page views
-    ReactGa.pageview(window.location.pathname + window.location.search)
-    ReactGa.pageview('/')
+    ReactGA.pageview(window.location.pathname + window.location.search)
   }, [])
 
   return (
