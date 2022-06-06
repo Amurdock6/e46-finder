@@ -1,12 +1,12 @@
 import { BrowserRouter as Router, Route, Routes, Link, Navigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faXmark, faCircleArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faCircleArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom'
 import NavBar from "../componets/NavBar/NavBar"
 import Footer from '../componets/Footer/Footer'
 import '../css/Logout.css'
 
-const Logout = () => {
+const Confirmation = () => {
     let navigate = useNavigate();
 
     const login = async () => {
@@ -37,4 +37,4 @@ const Logout = () => {
     )
 }
 
-export default Logout;
+export default Confirmation;
