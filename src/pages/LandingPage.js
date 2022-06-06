@@ -3,8 +3,12 @@ import Footer from '../componets/Footer/Footer'
 import Slide1 from '../pictures/slide-1.jpg'
 import Listings from '../componets/Listings/Listings'
 import '../css/LandingPage.css';
+import ReactGA from 'react-ga';
 
 const LandingPage = () => {
+
+    ReactGA.initialize('G-X1RJGE867Q');
+    ReactGA.pageview(window.location.pathname + window.location.search);
 
     return (
         <div className='wrapper'>
