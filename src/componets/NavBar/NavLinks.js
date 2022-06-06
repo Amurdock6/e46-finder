@@ -40,6 +40,12 @@ const NavLinks = () => {
         navigate('/logout');
     };
 
+
+    // Redirect to confirmation page to delete users account
+    const deleteAccount = async () => {
+        navigate('/deleted');
+    }
+
     // Logic that sets links in nav based off of the result of the function getCookie(name)
     var loggedInCookie = getCookie("LoggedIn");
 
@@ -217,6 +223,9 @@ const NavLinks = () => {
                         </Link>
                     </div>
                     <div id='right-nav'>
+                        <h3>
+                            <button onClick={deleteAccount} id="delete">Delete Account</button>
+                        </h3>
 
                         <GoogleLogout
                             clientId="793531866299-a0lqtj70qp6s1200hhpl08rba6195m7h.apps.googleusercontent.com"

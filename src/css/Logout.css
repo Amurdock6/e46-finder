@@ -22,6 +22,15 @@
     padding-bottom: 1vh;
 }
 
+#delete-or{
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+}
+
+#delete-button{
+    background-color: red;
+}
+
 @media (max-width: 1400px) {
     .center-box {
         width: 65%;
