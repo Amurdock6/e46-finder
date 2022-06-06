@@ -19,7 +19,7 @@ function App() {
     ReactGa.initialize('G-X1RJGE867Q')
 
     // Reports page views
-    ReactGa.pageview('/')
+    ReactGa.pageview(window.location.pathname + window.location.search)
   }, [])
 
   return (
