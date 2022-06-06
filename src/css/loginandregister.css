@@ -182,7 +182,7 @@ input#keepmeloggedin {
 }
 
 .button-wrapper {
-  padding-top: 5vh;
+  padding-top: 5vh;;
 }
 
 .button-wrapper a {
@@ -218,6 +218,7 @@ input#keepmeloggedin {
   display: flex;
   flex-direction: row;
   width: 20vw;
+  justify-content: center;
 }
 
 .legal-links a {
