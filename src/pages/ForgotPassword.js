@@ -22,7 +22,7 @@ const ForgotPassword = () => {
                 email: email,
             }).then(() => {
                 setEmailsent(true);
-                navigate('/login');
+                navigate('/confirmation');
             });
         } catch (error) {
             if (error.response.data === 'Password reset request all ready sent.') {
