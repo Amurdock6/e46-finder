@@ -14,13 +14,13 @@ import ProtectedRoutes from './componets/ProtectedRoutes'
 import ReactGA from 'react-ga';
 
 
-function App() {
-  useEffect (() => {
-    ReactGA.initialize('G-X1RJGE867Q');
+  ReactGA.initialize('G-X1RJGE867Q');
 
-    // Reports page views
-    ReactGA.pageview(window.location.pathname + window.location.search);
-  })
+  // Reports page views
+  ReactGA.pageview(window.location.pathname + window.location.search);
+
+function App() {
+
 
   return (
     <>
