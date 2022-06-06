@@ -293,6 +293,9 @@ const Register = () => {
                         <div className="button-wrapper">
                             <button type="button" onClick={register} className="submit-button"><FontAwesomeIcon icon={faCircleArrowRight} id="arrow-icon" />Continue</button>
                             <p> Already have an account? <Link to='/login'>Log in here</Link></p>
+                            <div className='legal-links'>
+                                <p>By creating an account you agree to our <a href='https://www.freeprivacypolicy.com/live/d1612332-98cd-490c-ae12-2885e4bc2c60'>Privacy Policy</a></p>
+                            </div>
                         </div>
                     </form>
                 </div>

@@ -185,6 +185,10 @@ input#keepmeloggedin {
   padding-top: 5vh;
 }
 
+.button-wrapper a {
+  color: #4290F5;
+}
+
 .button-wrapper p {
   padding-top: 1vh;
   font-size: 0.8em;
@@ -208,6 +212,16 @@ input#keepmeloggedin {
 
 #arrow-icon {
   padding-right: 1vw;
+}
+
+.legal-links{
+  display: flex;
+  flex-direction: row;
+  width: 20vw;
+}
+
+.legal-links a {
+  color: #4290F5;
 }
 
 
