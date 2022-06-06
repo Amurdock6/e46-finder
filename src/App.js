@@ -10,6 +10,7 @@ import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
 import './css/App.css';
 import ProtectedRoutes from './componets/ProtectedRoutes'
+import Confirmation from './pages/confirmation'
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
             <Route exact path="/account" element={<Account />} />
           </Route>
           <Route path="/Logout" element={<Logout />} />
+          <Route path="/confirmation" element={<Confirmation />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
