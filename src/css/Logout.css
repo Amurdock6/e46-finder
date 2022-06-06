@@ -14,6 +14,7 @@
 .center-box h1 {
     padding-bottom: 0;
     padding-bottom: 6vh;
+    font-size: 2.7em;
 }
 
 .center-box p {
@@ -29,11 +30,19 @@
 
 #delete-button{
     background-color: red;
+    padding: 1.1vh 8.35vw;
 }
+
+#delete-button:hover {
+    transition: 0.5s;
+    cursor: pointer;
+    background-color: rgb(157, 2, 2);
+  }
 
 @media (max-width: 1400px) {
     .center-box {
         width: 65%;
+        margin-bottom: 20vh;
     }
 
     .center-box p {
