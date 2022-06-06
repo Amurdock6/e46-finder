@@ -78,7 +78,7 @@ const ForgotPassword = () => {
                     </div>
 
                     <div id='arrow-wrapper'>
-                        <Link to='/login'>
+                        <Link to='/confirmation'>
                             <FontAwesomeIcon icon={faArrowLeft} /><span>Back to login</span>
                         </Link>
                     </div>
