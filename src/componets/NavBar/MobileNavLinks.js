@@ -60,6 +60,25 @@ const MobileNavLinks = (props) => {
 
             )
         }
+
+        if (window.location.href === 'https://www.e46finder.app') {
+            return (
+
+                <>
+                    <Link to='/about'>
+                        <h3>About</h3>
+                    </Link>
+                    <Link to="/login">
+                        <h3>Login</h3>
+                    </Link>
+                    <Link to="/register">
+                        <h3>Sign Up</h3>
+                    </Link>
+                    <div className="menu-background"></div>
+                </>
+
+            )
+        }
         
         return (
 
@@ -117,6 +136,31 @@ const MobileNavLinks = (props) => {
                 <>
                     <Link to='/'>
                         <h3>Listings</h3>
+                    </Link>
+                    <Link to="/account">
+                        <h3>View Account</h3>
+                    </Link>
+
+                    <GoogleLogout
+                        clientId="793531866299-a0lqtj70qp6s1200hhpl08rba6195m7h.apps.googleusercontent.com"
+                        render={renderProps => (
+                            <button id="logout" onClick={renderProps.onClick} disabled={renderProps.disabled}>Log Out</button>
+                        )}
+                        buttonText={"Logout"}
+                        onLogoutSuccess={onSuccess}
+                    />
+                    <div className="menu-background"></div>
+                </>
+
+            )
+        }
+
+        if (window.location.href === 'https://www.e46finder.app') {
+            return (
+
+                <>
+                    <Link to='/about'>
+                        <h3>About</h3>
                     </Link>
                     <Link to="/account">
                         <h3>View Account</h3>
