@@ -26,9 +26,9 @@ const ForgotPassword = () => {
             });
         } catch (error) {
             if (error.response.data === 'Password reset request all ready sent.') {
-                console.log("Password reset request all ready sent.")
+                setEmailError("Password reset request all ready sent.")
             } else if (error.response.status === 404) {
-                console.log("No email found. Please create an account.")
+                setEmailError("No email found. Please create an account.")
             };
         };
     };
