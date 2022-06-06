@@ -9,11 +9,19 @@ import Account from './pages/Account'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
 import './css/App.css';
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import ProtectedRoutes from './componets/ProtectedRoutes'
+import ReactGa from 'react-ga';
 
 
 function App() {
+  useEffect (() => {
+    ReactGa.initialize('G-X1RJGE867Q')
+
+    // Reports page views
+    ReactGa.pageview('/')
+  }, [])
+
   return (
     <>
       <Router>
