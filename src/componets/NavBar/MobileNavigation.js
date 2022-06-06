@@ -1,4 +1,5 @@
 import MobileNavLinks from './MobileNavLinks.js'
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
 import classes from './NavBar.module.css'
 import {FcMenu} from 'react-icons/fc'
 import {IoMdClose} from 'react-icons/io'
@@ -20,7 +21,9 @@ const MobileNav = () => {
     return(
         <nav id="nav" className={classes.MobileNav}>
             <div id="mobile-logo">
-                <img src={Logo} alt='E46 Logo'/>
+            <Link to="/">
+                <img src={Logo} alt='E46 Logo' />
+            </Link>
             </div>
             {open ? closeIcon : hamburgerIcon}
             {open && <MobileNavLinks isMobile={true} closeMobileMenu={closeMobileMenu} />}
