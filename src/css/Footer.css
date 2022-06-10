@@ -35,8 +35,32 @@
 }
 
 .footer-wrapper h3 {
-    padding-right: 2vw;
     text-decoration: blue underline;
+    position: relative;
+    display: inline-block;
+    transition: 0.5s;
+}
+
+.footer-wrapper a {
+    padding-right: 2vw;
+}
+
+.footer-wrapper h3:nth-child(1):after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 3.5px;
+    bottom: 0;
+    left: 0;
+    background-color: #4290F5;
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-out;
+}
+
+.footer-wrapper h3:nth-child(1):hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
 }
 
 h5 {

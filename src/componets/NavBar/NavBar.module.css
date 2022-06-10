@@ -10,6 +10,9 @@
 
 h3 {
     color: #fff;
+    position: relative;
+    display: inline-block;
+    transition: 0.5s;
 }  
 
 .NavBar .MobileNav {
