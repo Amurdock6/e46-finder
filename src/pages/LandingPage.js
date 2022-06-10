@@ -1,6 +1,6 @@
 import NavBar from '../componets/NavBar/NavBar.js'
 import Footer from '../componets/Footer/Footer'
-import Slide1 from '../pictures/slide-1.jpg'
+import Slide1 from '../pictures/slide-1.webp'
 import Listings from '../componets/Listings/Listings'
 import '../css/LandingPage.css';
 
@@ -12,7 +12,7 @@ const LandingPage = () => {
             <NavBar />
 
             <div className='top-img'>
-                <img src={Slide1} alt='E46 Slide Show Pic 1' />
+                <img src={Slide1} alt='E46 M3 crusing down the road' />
             </div>
 
             <div className='listings-container'>
