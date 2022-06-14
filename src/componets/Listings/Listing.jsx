@@ -166,7 +166,7 @@ const Listing = (props) => {
     return (
         <div className='listing-contanier'>
             <div id={`listing${postNum}`}>
-                <Tooltip title="Click here to save this listing for latter!" arrow>
+                <Tooltip title="Click here to save this listing for later!" arrow>
                     <button id='save-listing' className='save' onClick={save}><FontAwesomeIcon icon={faBookmark} /></button>
                 </Tooltip>
                 <Tooltip title="Click to unsave this listing." arrow>
