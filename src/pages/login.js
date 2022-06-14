@@ -184,7 +184,7 @@ const Login = () => {
                             <p><Link to='/forgotpassword'>Forgot Password?</Link></p>
 
                             <div className="checkBox" id="checkbox">
-                                <Tooltip title="Check this box if you would like to stay logged in even after you close your browser. You will stay logged in to e46finder.com as long as you don't clear your cookies." arrow>
+                                <Tooltip title="Check this box if you would like to stay logged in even after you close your browser. You will stay logged in to e46finder.app as long as you don't clear your cookies." arrow>
                                     <Button id="info-button"><FontAwesomeIcon icon={faCircleInfo} /></Button>
                                 </Tooltip>
                                 <label>
