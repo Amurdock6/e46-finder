@@ -67,10 +67,10 @@ const NavLinks = () => {
                     </div>
                     <div id='right-nav'>
                         <Link to="/login">
-                            <h3>Login</h3>
+                            <h3 id="loginnav">Login</h3>
                         </Link>
                         <Link to="/register">
-                            <h3>Sign Up</h3>
+                            <h3 id="registernav">Sign Up</h3>
                         </Link>
 
                     </div>
@@ -100,10 +100,10 @@ const NavLinks = () => {
                     </div>
                     <div id='right-nav'>
                         <Link to="/login">
-                            <h3>Login</h3>
+                            <h3 id="loginnav">Login</h3>
                         </Link>
                         <Link to="/register">
-                            <h3>Sign Up</h3>
+                            <h3 id="registernav">Sign Up</h3>
                         </Link>
 
                     </div>
@@ -128,10 +128,10 @@ const NavLinks = () => {
                     </div>
                     <div id='right-nav'>
                         <Link to="/login">
-                            <h3>Login</h3>
+                            <h3 id="loginnav">Login</h3>
                         </Link>
                         <Link to="/register">
-                            <h3>Sign Up</h3>
+                            <h3 id="registernav">Sign Up</h3>
                         </Link>
 
                     </div>
@@ -159,10 +159,10 @@ const NavLinks = () => {
                 </div>
                 <div id='right-nav'>
                     <Link to="/login">
-                        <h3>Login</h3>
+                        <h3 id="loginnav">Login</h3>
                     </Link>
                     <Link to="/register">
-                        <h3>Sign Up</h3>
+                        <h3 id="registernav">Sign Up</h3>
                     </Link>
 
                 </div>

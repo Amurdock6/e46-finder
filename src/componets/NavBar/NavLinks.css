@@ -1,4 +1,4 @@
-#nav a{
+#nav a {
     text-decoration: underline blue;
 }
 
@@ -26,6 +26,42 @@
 }
 
 #right-nav #viewAccount:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+#right-nav #loginnav:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 3.5px;
+    bottom: 0;
+    left: 0;
+    background-color: #4290F5;
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-out;
+}
+
+#right-nav #loginnav:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+#right-nav #registernav:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 3.5px;
+    bottom: 0;
+    left: 0;
+    background-color: #4290F5;
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-out;
+}
+
+#right-nav #registernav:hover::after {
     transform: scaleX(1);
     transform-origin: bottom left;
 }
@@ -63,7 +99,7 @@
     display: inline-block;
     transition: 0.5s;
     text-decoration: none;
-}  
+}
 
 #right-nav #logout:after {
     content: '';
@@ -164,7 +200,7 @@
     color: #fff;
 }
 
-@media (max-width: 990px){
+@media (max-width: 990px) {
     #logout {
         font-size: 2.3em;
         z-index: 99;
