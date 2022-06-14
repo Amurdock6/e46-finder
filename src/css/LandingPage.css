@@ -4,6 +4,10 @@
     margin-bottom: -1vh;
 }
 
+.top-img-mobile img{
+    display: none;
+}
+
 @media (min-width: 2560px) {
     .top-img img {
         height: 90vh;
@@ -13,6 +17,17 @@
 @media (max-width: 990px) {
     .top-img img {
         height: 28vh;
+    }
+}
+
+@media (max-width: 600px){
+    .top-img img {
+        display: none;
+    }
+    
+    .top-img-mobile img{
+        display: inline;
+        width: 100vw;
     }
 }
 
