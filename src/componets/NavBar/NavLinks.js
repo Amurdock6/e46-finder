@@ -188,7 +188,7 @@ const NavLinks = () => {
                     </div>
                     <div id='right-nav'>
                         <Link to="/account">
-                            <h3>View Account</h3>
+                            <h3 id="viewAccount">View Account</h3>
                         </Link>
 
                         <GoogleLogout
@@ -205,7 +205,7 @@ const NavLinks = () => {
             )
         }
 
-        if (window.location.href === 'https://www.e46finder.app/account') {
+        if (window.location.href === 'http://localhost:3000/account') {
             return (
                 <>
                     <div id="left-nav">
@@ -224,7 +224,7 @@ const NavLinks = () => {
                     </div>
                     <div id='right-nav'>
                         <h3>
-                            <button onClick={deleteAccount} id="delete">Delete Account</button>
+                            <button onClick={deleteAccount} id="delete"><p>Delete Account</p></button>
                         </h3>
 
                         <GoogleLogout
@@ -257,8 +257,8 @@ const NavLinks = () => {
                         </Link>
                     </div>
                     <div id='right-nav'>
-                    <Link to="/account">
-                            <h3>View Account</h3>
+                        <Link to="/account">
+                            <h3 id="viewAccount">View Account</h3>
                         </Link>
 
                         <GoogleLogout
@@ -293,7 +293,7 @@ const NavLinks = () => {
                 </div>
                 <div id='right-nav'>
                     <Link to="/account">
-                        <h3>View Account</h3>
+                        <h3 id="viewAccount">View Account</h3>
                     </Link>
 
                     <GoogleLogout

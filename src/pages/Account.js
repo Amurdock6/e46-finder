@@ -42,7 +42,7 @@ function Account() {
     useEffect(() => {
         grabListings();
     });
-
+    
     useEffect(() => {
         var els = document.getElementsByClassName("save");
         var el2s = document.getElementsByClassName("unsave");

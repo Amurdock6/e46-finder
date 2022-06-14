@@ -120,9 +120,9 @@ const MobileNavLinks = (props) => {
                         <h3>Listings</h3>
                     </Link>
 
-                    {/* <h3>
-                        <button onClick={deleteAccount} id="delete">Delete Account</button>
-                    </h3> */}
+                    <h3>
+                        <button onClick={deleteAccount} id="delete"><p>Delete Account</p></button>
+                    </h3>
 
                     <GoogleLogout
                         clientId="793531866299-a0lqtj70qp6s1200hhpl08rba6195m7h.apps.googleusercontent.com"
