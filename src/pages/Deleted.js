@@ -18,7 +18,7 @@ const Deleted = () => {
     // Send request to delete users account
     const deleteAccount = async () => {
         try {
-            await axios.get('https://backend.e46finder.app/delete', {
+            await axios.get('http://localhost:5000/delete', {
                 withCredentials: true
             });
 

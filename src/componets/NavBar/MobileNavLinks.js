@@ -28,7 +28,7 @@ const MobileNavLinks = (props) => {
     // Logsout current user
     const onSuccess = async () => {
         try {
-            await axios.get('https://backend.e46finder.app/googlelogout', {
+            await axios.get('http://localhost:5000/googlelogout', {
                 withCredentials: true
             });
 
@@ -47,7 +47,7 @@ const MobileNavLinks = (props) => {
     var loggedInCookie = getCookie("LoggedIn");
 
     if (loggedInCookie == null) {
-        if (window.location.href === 'https://www.e46finder.app/about') {
+        if (window.location.href === 'http://localhost:3000/about') {
             return (
 
                 <>
@@ -66,7 +66,7 @@ const MobileNavLinks = (props) => {
             )
         }
 
-        if (window.location.href === 'https://www.e46finder.app') {
+        if (window.location.href === 'http://localhost:3000') {
             return (
 
                 <>
@@ -109,7 +109,7 @@ const MobileNavLinks = (props) => {
 
     }
     else if (loggedInCookie) {
-        if (window.location.href === 'https://www.e46finder.app/account') {
+        if (window.location.href === 'http://localhost:3000/account') {
             return (
                 <>
                     <Link to='/about'>
@@ -139,7 +139,7 @@ const MobileNavLinks = (props) => {
             )
         }
 
-        if (window.location.href === 'https://www.e46finder.app/about') {
+        if (window.location.href === 'http://localhost:3000/about') {
             return (
 
                 <>
@@ -164,7 +164,7 @@ const MobileNavLinks = (props) => {
             )
         }
 
-        if (window.location.href === 'https://www.e46finder.app') {
+        if (window.location.href === 'http://localhost:3000') {
             return (
 
                 <>

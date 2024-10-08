@@ -19,8 +19,8 @@ const Logout = () => {
 
             <NavBar />
 
-<br />
-<br />
+            <br />
+            <br />
 
             <div className="center-box">
                 <h1>Logged Out</h1>
