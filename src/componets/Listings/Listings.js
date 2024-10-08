@@ -80,17 +80,17 @@ const Listings = () => {
     let jsonArray = []
     let isLoggedIn = false
 
-// Checks to see if user has already saved listings
-if (loggedInCookie) {
-    // Get postNum from DB and sends param to listing.jsx that says already saved or not
-    isLoggedIn = true;
+    // Checks to see if user has already saved listings
+    if (loggedInCookie) {
+        // Get postNum from DB and sends param to listing.jsx that says already saved or not
+        isLoggedIn = true;
 
-    // Grabs all postNum values and puts them into Sets
-    const savedSet = new Set(savedListing.map(saved => saved.postNum));
+        // Grabs all postNum values and puts them into Sets
+        const savedSet = new Set(savedListing.map(saved => saved.postNum));
 
-    // Create an array indicating if each listing is already saved or not
-    jsonArray = listings.map(listing => savedSet.has(listing.postNum));
-}
+        // Create an array indicating if each listing is already saved or not
+        jsonArray = listings.map(listing => savedSet.has(listing.postNum));
+    }
 
     return (
         <>
