@@ -12,7 +12,7 @@ import { faCircleArrowRight, faLock, faEnvelope, faXmark, faCircleInfo, faCheck,
 import Tooltip from '@mui/material/Tooltip';
 import Button from '@mui/material/Button';
 
-const clientId = "YOUR_GOOGLE_CLIENT_ID"; // Replace with your actual Google Client ID
+const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID; // Replace with your actual Google Client ID
 
 const Register = () => {
     let navigate = useNavigate();

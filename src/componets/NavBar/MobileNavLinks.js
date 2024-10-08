@@ -4,7 +4,7 @@ import axios from 'axios';
 import { GoogleOAuthProvider, googleLogout } from '@react-oauth/google';
 import './NavLinks.css'
 
-const clientId = "YOUR_GOOGLE_CLIENT_ID"; // Replace with your actual Google Client ID
+const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID; // Replace with your actual Google Client ID
 
 const MobileNavLinks = (props) => {
     let navigate = useNavigate();

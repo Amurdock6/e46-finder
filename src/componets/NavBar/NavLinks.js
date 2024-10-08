@@ -4,7 +4,7 @@ import { GoogleOAuthProvider, googleLogout } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
-const clientId = "YOUR_GOOGLE_CLIENT_ID"; // Replace with your actual Google Client ID
+const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID; // Replace with your actual Google Client ID
 
 const NavLinks = () => {
     let navigate = useNavigate();
