@@ -4,49 +4,54 @@ import '../../css/Listing.css';
 import { useState, useEffect } from 'react';
 
 const Listings = () => {
-    // Check localStorage for existing listings to initialize state
+    // State for storing car listings; initially fetched from local storage if available
     let [listings, setListings] = useState(() => {
         const storedListings = localStorage.getItem('listings');
         return storedListings ? JSON.parse(storedListings) : [];
     });
 
+    // State for storing saved listings
     let [savedListing, setSavedListings] = useState([]);
-    const [loading, setLoading] = useState(listings.length === 0); // Only show loader if no cached listings exist
-    const [hasFetched, setHasFetched] = useState(false); // Used to track whether we have fetched from server
+    // State to manage the loading spinner; initially true if no cached listings
+    const [loading, setLoading] = useState(listings.length === 0);
+    // State to track whether data has already been fetched to avoid redundant requests
+    const [hasFetched, setHasFetched] = useState(false);
 
-    // Grabs the Listings from the Backend
-    const grabListings = async () => {
-        try {
-            // Set loading state to true only if there are no cached listings
-            if (listings.length === 0) {
-                setLoading(true);
-            }
-
-            const response = await axios.get('http://localhost:5000/scrape', { withCredentials: true });
-
-            setListings(response.data);
-
-            // Save the new listings to localStorage
-            localStorage.setItem('listings', JSON.stringify(response.data));
-
-            // Mark that we have finished fetching data
-            setHasFetched(true);
-            setLoading(false);
-        } catch (err) {
-            console.error('Error fetching listings:', err);
-            setLoading(false); // Ensure loading is set to false even if there is an error
-        }
-    };
-
-    // Fetch listings on component mount if we haven't fetched them yet
+    // useEffect for fetching listings data from the backend
     useEffect(() => {
+        const grabListings = async () => {
+            try {
+                // Show the loading spinner only if there are no cached listings
+                if (listings.length === 0) {
+                    setLoading(true);
+                }
+
+                // Fetch the listings from the backend
+                const response = await axios.get('http://localhost:5000/scrape', { withCredentials: true });
+                setListings(response.data);
+
+                // Save the fetched listings to local storage
+                localStorage.setItem('listings', JSON.stringify(response.data));
+
+                // Mark that data has been fetched and set loading to false
+                setHasFetched(true);
+                setLoading(false);
+            } catch (err) {
+                console.error('Error fetching listings:', err);
+                setLoading(false); // Ensure loading state is set to false even if there is an error
+            }
+        };
+
+        // Only fetch listings if they have not already been fetched
         if (!hasFetched) {
             grabListings();
         }
-    }, [hasFetched]);
+    }, [listings.length, hasFetched]); // Dependencies to ensure effect runs only when needed
 
+    // Function to grab saved listings from the backend
     const grabSavedListings = async () => {
         try {
+            // Fetch the saved listings for the logged-in user
             const response = await axios.get('http://localhost:5000/accountpagesavedlistings', { withCredentials: true });
             setSavedListings(response.data);
         } catch (err) {
@@ -54,9 +59,10 @@ const Listings = () => {
         }
     };
 
+    // useEffect for fetching saved listings; runs once on component mount
     useEffect(() => {
         grabSavedListings();
-    }, []);
+    }, []); // Empty dependency array means this effect runs only once
 
     // Checks for Logged-In Cookie
     function getCookie(name) {
