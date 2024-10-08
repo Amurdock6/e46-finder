@@ -13,7 +13,8 @@ const Listings = () => {
     const grabListings = async () => {
 
         try {
-            var grabListingsData = await (await axios.get('https://backend.e46finder.app/scrape', {withCredentials: true })).data
+            // var grabListingsData = await (await axios.get('https://backend.e46finder.app/scrape', {withCredentials: true })).data // for production site
+            var grabListingsData = await (await axios.get('http://localhost:5000/scrape', { withCredentials: true })).data;
             setListings(grabListingsData)
             setLoading(true);
         } catch (err) {
@@ -29,9 +30,9 @@ const Listings = () => {
     const grabSavedListings = async () => {
 
         try {
-            var grabSavedListingsData = await (await axios.get('https://backend.e46finder.app/accountpagesavedlistings', { withCredentials: true })).data
+            // var grabSavedListingsData = await (await axios.get('https://backend.e46finder.app/accountpagesavedlistings', { withCredentials: true })).data // for production site
+            var grabSavedListingsData = await (await axios.get('http://localhost:5000/scrape', { withCredentials: true })).data;
             setSavedListings(grabSavedListingsData)
-
         } catch (err) {
             console.log(err);
         };

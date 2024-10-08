@@ -15,7 +15,7 @@ function Account() {
 
     useEffect(() => {
       const fetchUsername = async () => {
-        axios.get('https://backend.e46finder.app/accountpageusername', { withCredentials: true })
+        axios.get('http://localhost:5000/accountpageusername', { withCredentials: true })
         
           .then(res => {
               setUsername(res.data)
@@ -29,7 +29,7 @@ function Account() {
     const grabListings = async () => {
 
         try {
-            var grabListingsData = await (await axios.get('https://backend.e46finder.app/accountpagesavedlistings', { withCredentials: true })).data
+            var grabListingsData = await (await axios.get('http://localhost:5000/accountpagesavedlistings', { withCredentials: true })).data
             setListings(grabListingsData)
             setLoading(true);
             

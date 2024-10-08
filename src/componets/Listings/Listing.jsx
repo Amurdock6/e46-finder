@@ -121,7 +121,7 @@ const Listing = (props) => {
         // counter on back end is not working
         if (loggedInCookie) {
             try {
-                const data = await axios("https://backend.e46finder.app/savelisting", {
+                const data = await axios("http://localhost:5000/savelisting", {
                     method: "post",
                     data: {
                         link: link,

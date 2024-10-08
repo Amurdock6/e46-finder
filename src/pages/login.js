@@ -24,13 +24,13 @@ const Login = () => {
 
     const login = async () => {
         try {
-            await axios.post('https://backend.e46finder.app/login', {
+            await axios.post('http://localhost:5000/login', {
                 withCredentials: true,
                 email: email,
                 password: password,
                 keepmeloggedin: keepMeLoggedIn
             }).then(async () => {
-                return await axios.get('https://backend.e46finder.app', { withCredentials: true }).then((res) => { 
+                return await axios.get('http://localhost:5000/', { withCredentials: true }).then((res) => { 
 
                 }).then(() => {
                     navigate('/account');
@@ -81,11 +81,11 @@ const Login = () => {
         try {
             await axios({
                 method: 'POST',
-                url: 'https://backend.e46finder.app/googlelogin',
+                url: 'http://localhost:5000/googlelogin',
                 withCredentials: true,
                 data: { idToken: response.tokenId }
             }).then(sendToken => {
-                return axios.get('https://backend.e46finder.app/', { withCredentials: true }).then((res) => {
+                return axios.get('http://localhost:5000/', { withCredentials: true }).then((res) => {
                 })
 
             })

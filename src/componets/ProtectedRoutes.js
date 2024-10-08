@@ -3,32 +3,26 @@ import { Outlet, Navigate } from "react-router"
 import { useEffect, useState } from 'react'
 
 const useAuth = () => {
-
   const [data, setData] = useState();
 
   useEffect(() => {
-    const fetchAuthData = async () => {
-      axios.get('https://backend.e46finder.app/auth', { withCredentials: true })
-      
-        .then(resp => {
-          if (!!resp.data === true) {
-            setData(true)
-          } else if (!!resp.data === false) {
-            setData(false)
-          } else {
-            alert('Error')
+      const fetchAuthData = async () => {
+          try {
+              const resp = await axios.get('http://localhost:5000/auth', { withCredentials: true });
+
+              if (resp.data === true) {
+                  setData(true);
+              } else {
+                  setData(false);
+              }
+          } catch (err) {
+              setData(false);
           }
-        })
-        .catch(err => {
-          setData(false)
-        })
+      };
 
-    };
-
-    fetchAuthData()
+      fetchAuthData();
   }, []);
   return data;
-  
 };
 
 const ProtectedRoutes = () => {
