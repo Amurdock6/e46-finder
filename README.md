@@ -1,1 +1,1 @@
-Proggramed using the MERN tech stack. Go here to see the backend code: https://github.com/Amurdock6/E46_BackEnd
+For local use only. Proggramed using the MERN tech stack. Go here to see the backend code: https://github.com/Amurdock6/E46_BackEnd. To start front end run: 'npm start'. To start back end run: 'node index.js'.
