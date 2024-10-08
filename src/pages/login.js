@@ -4,13 +4,13 @@ import '../css/loginandregister.css'
 import { useState } from 'react'
 import axios from 'axios'
 import validator from 'validator';
-import { GoogleLogin } from 'react-google-login';
+import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleArrowRight, faLock, faEnvelope, faXmark, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import Tooltip from '@mui/material/Tooltip';
 import Button from '@mui/material/Button';
 
-
+const clientId = "YOUR_GOOGLE_CLIENT_ID"; // Replace with your actual Google Client ID
 
 const Login = () => {
     let navigate = useNavigate();
@@ -20,7 +20,7 @@ const Login = () => {
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
     const [password, setPassword] = useState("");
-    const [keepMeLoggedIn, setKeepMeLoggedIn] = useState(false); 
+    const [keepMeLoggedIn, setKeepMeLoggedIn] = useState(false);
 
     const login = async () => {
         try {
@@ -30,7 +30,7 @@ const Login = () => {
                 password: password,
                 keepmeloggedin: keepMeLoggedIn
             }).then(async () => {
-                return await axios.get('http://localhost:5000/', { withCredentials: true }).then((res) => { 
+                return await axios.get('http://localhost:5000/', { withCredentials: true }).then((res) => {
 
                 }).then(() => {
                     navigate('/account');
@@ -105,110 +105,105 @@ const Login = () => {
     const remeberMe = () => {
         setKeepMeLoggedIn(!keepMeLoggedIn);
     };
-    
 
-    return ( 
-        <div id='whole-page-wrapper'>
-            <div className='left-side'>
 
-            </div>
+    return (
+        <GoogleOAuthProvider clientId={clientId}>
+            <div id='whole-page-wrapper'>
+                <div className='left-side'>
 
-            <div className='right-side'>
-                <div id='x-wrapper'>
-                    <Link to="/"><FontAwesomeIcon icon={faXmark} id="back-to-home" /></Link>
                 </div>
 
-                <div id='content-wrapper'>
-
-
-                    <h1>
-                        Log into E46 Finder
-                    </h1>
-                    <p>
-                        Welcome back! Login to access your account!
-                    </p>
-
-                    <div id='google-login'>
-                        <GoogleLogin
-                            clientId={'793531866299-a0lqtj70qp6s1200hhpl08rba6195m7h.apps.googleusercontent.com'}
-                            onSuccess={onSuccess}
-                            onFailure={onFailure}
-                            cookiePolicy={'single_host_origin'}
-                            isSignedIn={true}
-                        />
+                <div className='right-side'>
+                    <div id='x-wrapper'>
+                        <Link to="/"><FontAwesomeIcon icon={faXmark} id="back-to-home" /></Link>
                     </div>
 
-                    <div className="line-wrapper">
-                        <hr className='or-line' /> <p>Or</p> <hr className='or-line' />
-                    </div>
+                    <div id='content-wrapper'>
 
-                    <form>
-                        <div id='email-wrapper'>
-                            <div className="textarea" id="email">
-                                <label><FontAwesomeIcon icon={faEnvelope} /> Email <br /></label>
-                                <input
-                                    type="email"
-                                    onChange={(e) => {
-                                        validateEmail(e);
-                                        setEmail(e.target.value);
-                                    }}
-                                    id="authentactor-email"
-                                    defaultValue=""
-                                    onKeyPress={(e) => e.key === 'Enter' && login()}
-                                    required
-                                />
-                            </div>
+
+                        <h1>
+                            Log into E46 Finder
+                        </h1>
+                        <p>
+                            Welcome back! Login to access your account!
+                        </p>
+
+                        <div id='google-login'>
+                            <GoogleLogin onSuccess={onSuccess} onError={() => console.log('Login Failed')} />
                         </div>
-                        <span id="email-span">{emailError}</span>
 
-                        <div id='password-wrapper'>
-                            <div className="textarea" id="password">
-                                <label>
-                                    <FontAwesomeIcon icon={faLock} /> Password <br /></label>
-                                <input
-                                    type="password"
-                                    onChange={(e) => {
-                                        setPassword(e.target.value);
-                                    }}
-                                    id="authentactor-password"
-                                    autoComplete="on"
-                                    onKeyPress={(e) => e.key === 'Enter' && login()}
-                                    required
-                                />
-                            </div>
+                        <div className="line-wrapper">
+                            <hr className='or-line' /> <p>Or</p> <hr className='or-line' />
                         </div>
-                        <span id="password-span">{passwordError}</span>
 
-
-                        <div className="bottom-form-container">
-                            <p><Link to='/forgotpassword'>Forgot Password?</Link></p>
-
-                            <div className="checkBox" id="checkbox">
-                                <Tooltip title="Check this box if you would like to stay logged in even after you close your browser. You will stay logged in to e46finder.app as long as you don't clear your cookies." arrow>
-                                    <Button id="info-button"><FontAwesomeIcon icon={faCircleInfo} /></Button>
-                                </Tooltip>
-                                <label>
-                                    Remember me?
+                        <form>
+                            <div id='email-wrapper'>
+                                <div className="textarea" id="email">
+                                    <label><FontAwesomeIcon icon={faEnvelope} /> Email <br /></label>
                                     <input
-                                        type="checkbox"
-                                        checked={keepMeLoggedIn}
-                                        onChange={remeberMe}
-                                        id="keepmeloggedin"
-                                        name="keepmeloggedin"
+                                        type="email"
+                                        onChange={(e) => {
+                                            validateEmail(e);
+                                            setEmail(e.target.value);
+                                        }}
+                                        id="authentactor-email"
+                                        defaultValue=""
+                                        onKeyPress={(e) => e.key === 'Enter' && login()}
+                                        required
                                     />
-                                </label>
+                                </div>
                             </div>
-                        </div>
+                            <span id="email-span">{emailError}</span>
 
-                        <div className="button-wrapper">
-                            <button type="button" onClick={login} className="submit-button"><FontAwesomeIcon icon={faCircleArrowRight} id="arrow-icon" />Continue</button>
-                            <p> Don't already have an account? <Link to='/register'>Create one here</Link></p>
-                        </div>
-                    </form>
+                            <div id='password-wrapper'>
+                                <div className="textarea" id="password">
+                                    <label>
+                                        <FontAwesomeIcon icon={faLock} /> Password <br /></label>
+                                    <input
+                                        type="password"
+                                        onChange={(e) => {
+                                            setPassword(e.target.value);
+                                        }}
+                                        id="authentactor-password"
+                                        autoComplete="on"
+                                        onKeyPress={(e) => e.key === 'Enter' && login()}
+                                        required
+                                    />
+                                </div>
+                            </div>
+                            <span id="password-span">{passwordError}</span>
+
+
+                            <div className="bottom-form-container">
+                                <p><Link to='/forgotpassword'>Forgot Password?</Link></p>
+
+                                <div className="checkBox" id="checkbox">
+                                    <Tooltip title="Check this box if you would like to stay logged in even after you close your browser. You will stay logged in to e46finder.app as long as you don't clear your cookies." arrow>
+                                        <Button id="info-button"><FontAwesomeIcon icon={faCircleInfo} /></Button>
+                                    </Tooltip>
+                                    <label>
+                                        Remember me?
+                                        <input
+                                            type="checkbox"
+                                            checked={keepMeLoggedIn}
+                                            onChange={remeberMe}
+                                            id="keepmeloggedin"
+                                            name="keepmeloggedin"
+                                        />
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div className="button-wrapper">
+                                <button type="button" onClick={login} className="submit-button"><FontAwesomeIcon icon={faCircleArrowRight} id="arrow-icon" />Continue</button>
+                                <p> Don't already have an account? <Link to='/register'>Create one here</Link></p>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-
-        </div> 
+        </GoogleOAuthProvider>
     )
 }
 

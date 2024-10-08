@@ -12,7 +12,7 @@ const Deleted = () => {
 
 
     const back = () => {
-
+        navigate('/account');
     }
 
     // Send request to delete users account
@@ -34,8 +34,8 @@ const Deleted = () => {
 
             <NavBar />
 
-<br />
-<br />
+            <br />
+            <br />
 
             <div className="center-box">
                 <h1>Are you sure you want to delete your account?</h1>

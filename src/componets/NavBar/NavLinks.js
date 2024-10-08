@@ -1,8 +1,10 @@
 import Logo from '../../logos-icons/e46-logo.jpg'
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
-import { GoogleLogout } from 'react-google-login';
+import { GoogleOAuthProvider, googleLogout } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+
+const clientId = "YOUR_GOOGLE_CLIENT_ID"; // Replace with your actual Google Client ID
 
 const NavLinks = () => {
     let navigate = useNavigate();
@@ -27,18 +29,20 @@ const NavLinks = () => {
     }
 
 
-    // Logsout current user
-    const onSuccess = async () => {
+    // Logs out the current user
+    const handleLogout = async () => {
         try {
             await axios.get('http://localhost:5000/googlelogout', {
-                withCredentials: true
+                withCredentials: true,
             });
-
+            googleLogout(); // Calls Google's logout logic
+            navigate('/logout');
         } catch (error) {
             console.log(error);
-        };
-        navigate('/logout');
+        }
     };
+
+
 
 
     // Redirect to confirmation page to delete users account
@@ -52,36 +56,97 @@ const NavLinks = () => {
     if (loggedInCookie == null) {
         if (window.location.href === 'http://localhost:3000/') {
             return (
+                <GoogleOAuthProvider clientId={clientId}>
+                    <>
+                        <div id="left-nav">
+                            <Link to='/about'>
+                                <h3>About</h3>
+                            </Link>
 
-                <>
-                    <div id="left-nav">
-                        <Link to='/about'>
-                            <h3>About</h3>
-                        </Link>
+                        </div>
+                        <div id="middle-nav">
+                            <Link to="/">
+                                <img src={Logo} alt='E46 Logo' />
+                            </Link>
+                        </div>
+                        <div id='right-nav'>
+                            <Link to="/login">
+                                <h3 id="loginnav">Login</h3>
+                            </Link>
+                            <Link to="/register">
+                                <h3 id="registernav">Sign Up</h3>
+                            </Link>
 
-                    </div>
-                    <div id="middle-nav">
-                        <Link to="/">
-                            <img src={Logo} alt='E46 Logo' />
-                        </Link>
-                    </div>
-                    <div id='right-nav'>
-                        <Link to="/login">
-                            <h3 id="loginnav">Login</h3>
-                        </Link>
-                        <Link to="/register">
-                            <h3 id="registernav">Sign Up</h3>
-                        </Link>
-
-                    </div>
-                </>
-
+                        </div>
+                    </>
+                </GoogleOAuthProvider>
             )
         }
 
         if (window.location.href === 'http://localhost:3000/account') {
             return (
+                <GoogleOAuthProvider clientId={clientId}>
+                    <>
+                        <div id="left-nav">
+                            <Link to='/about'>
+                                <h3>About</h3>
+                            </Link>
 
+                            <Link to='/'>
+                                <h3>Listings</h3>
+                            </Link>
+
+                        </div>
+                        <div id="middle-nav">
+                            <Link to="/">
+                                <img src={Logo} alt='E46 Logo' />
+                            </Link>
+                        </div>
+                        <div id='right-nav'>
+                            <Link to="/login">
+                                <h3 id="loginnav">Login</h3>
+                            </Link>
+                            <Link to="/register">
+                                <h3 id="registernav">Sign Up</h3>
+                            </Link>
+
+                        </div>
+                    </>
+                </GoogleOAuthProvider>
+            )
+        }
+
+        if (window.location.href === 'http://localhost:3000/about') {
+            return (
+                <GoogleOAuthProvider clientId={clientId}>
+                    <>
+                        <div id="left-nav">
+                            <Link to='/'>
+                                <h3>Listings</h3>
+                            </Link>
+
+                        </div>
+                        <div id="middle-nav">
+                            <Link to="/">
+                                <img src={Logo} alt='E46 Logo' />
+                            </Link>
+                        </div>
+                        <div id='right-nav'>
+                            <Link to="/login">
+                                <h3 id="loginnav">Login</h3>
+                            </Link>
+                            <Link to="/register">
+                                <h3 id="registernav">Sign Up</h3>
+                            </Link>
+
+                        </div>
+                    </>
+                </GoogleOAuthProvider>
+            )
+        }
+
+        return (
+            <GoogleOAuthProvider clientId={clientId}>
                 <>
                     <div id="left-nav">
                         <Link to='/about'>
@@ -108,65 +173,7 @@ const NavLinks = () => {
 
                     </div>
                 </>
-
-            )
-        }
-
-        if (window.location.href === 'http://localhost:3000/about') {
-            return (
-                <>
-                    <div id="left-nav">
-                        <Link to='/'>
-                            <h3>Listings</h3>
-                        </Link>
-
-                    </div>
-                    <div id="middle-nav">
-                        <Link to="/">
-                            <img src={Logo} alt='E46 Logo' />
-                        </Link>
-                    </div>
-                    <div id='right-nav'>
-                        <Link to="/login">
-                            <h3 id="loginnav">Login</h3>
-                        </Link>
-                        <Link to="/register">
-                            <h3 id="registernav">Sign Up</h3>
-                        </Link>
-
-                    </div>
-                </>
-
-            )
-        }
-
-        return (
-            <>
-                <div id="left-nav">
-                    <Link to='/about'>
-                        <h3>About</h3>
-                    </Link>
-
-                    <Link to='/'>
-                        <h3>Listings</h3>
-                    </Link>
-
-                </div>
-                <div id="middle-nav">
-                    <Link to="/">
-                        <img src={Logo} alt='E46 Logo' />
-                    </Link>
-                </div>
-                <div id='right-nav'>
-                    <Link to="/login">
-                        <h3 id="loginnav">Login</h3>
-                    </Link>
-                    <Link to="/register">
-                        <h3 id="registernav">Sign Up</h3>
-                    </Link>
-
-                </div>
-            </>
+            </GoogleOAuthProvider>
         )
 
 
@@ -175,38 +182,90 @@ const NavLinks = () => {
     else if (loggedInCookie) {
         if (window.location.href === 'http://localhost:3000/') {
             return (
-                <>
-                    <div id="left-nav">
-                        <Link to='/about'>
-                            <h3>About</h3>
-                        </Link>
-                    </div>
-                    <div id="middle-nav">
-                        <Link to="/">
-                            <img src={Logo} alt='E46 Logo' />
-                        </Link>
-                    </div>
-                    <div id='right-nav'>
-                        <Link to="/account">
-                            <h3 id="viewAccount">View Account</h3>
-                        </Link>
+                <GoogleOAuthProvider clientId={clientId}>
+                    <>
+                        <div id="left-nav">
+                            <Link to='/about'>
+                                <h3>About</h3>
+                            </Link>
+                        </div>
+                        <div id="middle-nav">
+                            <Link to="/">
+                                <img src={Logo} alt='E46 Logo' />
+                            </Link>
+                        </div>
+                        <div id='right-nav'>
+                            <Link to="/account">
+                                <h3 id="viewAccount">View Account</h3>
+                            </Link>
 
-                        <GoogleLogout
-                            clientId="793531866299-a0lqtj70qp6s1200hhpl08rba6195m7h.apps.googleusercontent.com"
-                            render={renderProps => (
-                                <button id="logout" onClick={renderProps.onClick} disabled={renderProps.disabled}>Log Out</button>
-                            )}
-                            buttonText={"Logout"}
-                            onLogoutSuccess={onSuccess}
-                        />
-
-                    </div>
-                </>
+                            <button id="logout" onClick={handleLogout}>Log Out</button>
+                        </div>
+                    </>
+                </GoogleOAuthProvider>
             )
         }
 
         if (window.location.href === 'http://localhost:3000/account') {
             return (
+                <GoogleOAuthProvider clientId={clientId}>
+                    <>
+                        <div id="left-nav">
+                            <Link to='/about'>
+                                <h3>About</h3>
+                            </Link>
+
+                            <Link to='/'>
+                                <h3>Listings</h3>
+                            </Link>
+                        </div>
+                        <div id="middle-nav">
+                            <Link to="/">
+                                <img src={Logo} alt='E46 Logo' />
+                            </Link>
+                        </div>
+                        <div id='right-nav'>
+                            <h3>
+                                <button onClick={deleteAccount} id="delete"><p>Delete Account</p></button>
+                            </h3>
+
+                            <button id="logout" onClick={handleLogout}>Log Out</button>
+
+                        </div>
+                    </>
+                </GoogleOAuthProvider>
+            )
+        }
+
+        if (window.location.href === 'http://localhost:3000/about') {
+            return (
+                <GoogleOAuthProvider clientId={clientId}>
+                    <>
+                        <div id="left-nav">
+                            <Link to='/'>
+                                <h3>Listings</h3>
+                            </Link>
+
+                        </div>
+                        <div id="middle-nav">
+                            <Link to="/">
+                                <img src={Logo} alt='E46 Logo' />
+                            </Link>
+                        </div>
+                        <div id='right-nav'>
+                            <Link to="/account">
+                                <h3 id="viewAccount">View Account</h3>
+                            </Link>
+
+                            <button id="logout" onClick={handleLogout}>Log Out</button>
+                        </div>
+                    </>
+                </GoogleOAuthProvider>
+            )
+        }
+
+        return (
+            <GoogleOAuthProvider clientId={clientId}>
                 <>
                     <div id="left-nav">
                         <Link to='/about'>
@@ -223,90 +282,15 @@ const NavLinks = () => {
                         </Link>
                     </div>
                     <div id='right-nav'>
-                        <h3>
-                            <button onClick={deleteAccount} id="delete"><p>Delete Account</p></button>
-                        </h3>
-
-                        <GoogleLogout
-                            clientId="793531866299-a0lqtj70qp6s1200hhpl08rba6195m7h.apps.googleusercontent.com"
-                            render={renderProps => (
-                                <button id="logout" onClick={renderProps.onClick} disabled={renderProps.disabled}>Log Out</button>
-                            )}
-                            buttonText={"Logout"}
-                            onLogoutSuccess={onSuccess}
-                        />
-
-                    </div>
-                </>
-
-            )
-        }
-
-        if (window.location.href === 'http://localhost:3000/about') {
-            return (
-                <>
-                    <div id="left-nav">
-                        <Link to='/'>
-                            <h3>Listings</h3>
-                        </Link>
-
-                    </div>
-                    <div id="middle-nav">
-                        <Link to="/">
-                            <img src={Logo} alt='E46 Logo' />
-                        </Link>
-                    </div>
-                    <div id='right-nav'>
                         <Link to="/account">
                             <h3 id="viewAccount">View Account</h3>
                         </Link>
 
-                        <GoogleLogout
-                            clientId="793531866299-a0lqtj70qp6s1200hhpl08rba6195m7h.apps.googleusercontent.com"
-                            render={renderProps => (
-                                <button id="logout" onClick={renderProps.onClick} disabled={renderProps.disabled}>Log Out</button>
-                            )}
-                            buttonText={"Logout"}
-                            onLogoutSuccess={onSuccess}
-                        />
+                        <button id="logout" onClick={handleLogout}>Log Out</button>
+
                     </div>
                 </>
-
-            )
-        }
-
-        return (
-            <>
-                <div id="left-nav">
-                    <Link to='/about'>
-                        <h3>About</h3>
-                    </Link>
-
-                    <Link to='/'>
-                        <h3>Listings</h3>
-                    </Link>
-                </div>
-                <div id="middle-nav">
-                    <Link to="/">
-                        <img src={Logo} alt='E46 Logo' />
-                    </Link>
-                </div>
-                <div id='right-nav'>
-                    <Link to="/account">
-                        <h3 id="viewAccount">View Account</h3>
-                    </Link>
-
-                    <GoogleLogout
-                        clientId="793531866299-a0lqtj70qp6s1200hhpl08rba6195m7h.apps.googleusercontent.com"
-                        render={renderProps => (
-                            <button id="logout" onClick={renderProps.onClick} disabled={renderProps.disabled}>Log Out</button>
-                        )}
-                        buttonText={"Logout"}
-                        onLogoutSuccess={onSuccess}
-                    />
-
-                </div>
-            </>
+            </GoogleOAuthProvider>
         )
     }
 

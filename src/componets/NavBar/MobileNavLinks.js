@@ -1,8 +1,10 @@
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import { GoogleLogout } from 'react-google-login';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { GoogleOAuthProvider, googleLogout } from '@react-oauth/google';
 import './NavLinks.css'
+
+const clientId = "YOUR_GOOGLE_CLIENT_ID"; // Replace with your actual Google Client ID
 
 const MobileNavLinks = (props) => {
     let navigate = useNavigate();
@@ -25,18 +27,18 @@ const MobileNavLinks = (props) => {
         return decodeURI(dc.substring(begin + prefix.length, end));
     }
 
-    // Logsout current user
-    const onSuccess = async () => {
+    // Logs out the current user
+    const handleLogout = async () => {
         try {
             await axios.get('http://localhost:5000/googlelogout', {
-                withCredentials: true
+                withCredentials: true,
             });
-
+            googleLogout(); // Logs the user out from Google
+            alert("Successfully logged out");
+            navigate('/');
         } catch (error) {
             console.log(error);
-        };
-        alert("Successfully logged out");
-        navigate('/');
+        }
     };
 
     // Redirect to confirmation page to delete users account
@@ -46,176 +48,38 @@ const MobileNavLinks = (props) => {
 
     var loggedInCookie = getCookie("LoggedIn");
 
-    if (loggedInCookie == null) {
-        if (window.location.href === 'http://localhost:3000/about') {
-            return (
-
-                <>
-                    <Link to='/'>
-                        <h3>Listings</h3>
-                    </Link>
-                    <Link to="/login">
-                        <h3>Login</h3>
-                    </Link>
-                    <Link to="/register">
-                        <h3>Sign Up</h3>
-                    </Link>
-                    <div className="menu-background"></div>
-                </>
-
-            )
-        }
-
-        if (window.location.href === 'http://localhost:3000') {
-            return (
-
-                <>
-                    <Link to='/about'>
-                        <h3>About</h3>
-                    </Link>
-                    <Link to="/login">
-                        <h3>Login</h3>
-                    </Link>
-                    <Link to="/register">
-                        <h3>Sign Up</h3>
-                    </Link>
-                    <div className="menu-background"></div>
-                </>
-
-            )
-        }
-        
-        return (
-
-            <>
-                <Link to='/'>
-                    <h3>Listings</h3>
-                </Link>
-                <Link to='/about'>
-                    <h3>About</h3>
-                </Link>
-                <Link to="/login">
-                    <h3>Login</h3>
-                </Link>
-                <Link to="/register">
-                    <h3>Sign Up</h3>
-                </Link>
-                <div className="menu-background"></div>
-            </>
-
-        )
-
-        
-
-    }
-    else if (loggedInCookie) {
-        if (window.location.href === 'http://localhost:3000/account') {
-            return (
-                <>
-                    <Link to='/about'>
-                        <h3>About</h3>
-                    </Link>
-
-                    <Link to='/'>
-                        <h3>Listings</h3>
-                    </Link>
-
-                    <h3>
+    return (
+        <GoogleOAuthProvider clientId={clientId}>
+            <div>
+                {loggedInCookie == null ? (
+                    <>
+                        <Link to='/about'>
+                            <h3>About</h3>
+                        </Link>
+                        <Link to="/login">
+                            <h3>Login</h3>
+                        </Link>
+                        <Link to="/register">
+                            <h3>Sign Up</h3>
+                        </Link>
+                        <div className="menu-background"></div>
+                    </>
+                ) : (
+                    <>
+                        <Link to='/about'>
+                            <h3>About</h3>
+                        </Link>
+                        <Link to="/account">
+                            <h3>View Account</h3>
+                        </Link>
+                        <button id="logout" onClick={handleLogout}>Log Out</button>
                         <button onClick={deleteAccount} id="delete"><p>Delete Account</p></button>
-                    </h3>
-
-                    <GoogleLogout
-                        clientId="793531866299-a0lqtj70qp6s1200hhpl08rba6195m7h.apps.googleusercontent.com"
-                        render={renderProps => (
-                            <button id="logout" onClick={renderProps.onClick} disabled={renderProps.disabled}>Log Out</button>
-                        )}
-                        buttonText={"Logout"}
-                        onLogoutSuccess={onSuccess}
-                    />
-                    <div className="menu-background"></div>
-
-                </>
-
-            )
-        }
-
-        if (window.location.href === 'http://localhost:3000/about') {
-            return (
-
-                <>
-                    <Link to='/'>
-                        <h3>Listings</h3>
-                    </Link>
-                    <Link to="/account">
-                        <h3>View Account</h3>
-                    </Link>
-
-                    <GoogleLogout
-                        clientId="793531866299-a0lqtj70qp6s1200hhpl08rba6195m7h.apps.googleusercontent.com"
-                        render={renderProps => (
-                            <button id="logout" onClick={renderProps.onClick} disabled={renderProps.disabled}>Log Out</button>
-                        )}
-                        buttonText={"Logout"}
-                        onLogoutSuccess={onSuccess}
-                    />
-                    <div className="menu-background"></div>
-                </>
-
-            )
-        }
-
-        if (window.location.href === 'http://localhost:3000') {
-            return (
-
-                <>
-                    <Link to='/about'>
-                        <h3>About</h3>
-                    </Link>
-                    <Link to="/account">
-                        <h3>View Account</h3>
-                    </Link>
-
-                    <GoogleLogout
-                        clientId="793531866299-a0lqtj70qp6s1200hhpl08rba6195m7h.apps.googleusercontent.com"
-                        render={renderProps => (
-                            <button id="logout" onClick={renderProps.onClick} disabled={renderProps.disabled}>Log Out</button>
-                        )}
-                        buttonText={"Logout"}
-                        onLogoutSuccess={onSuccess}
-                    />
-                    <div className="menu-background"></div>
-                </>
-
-            )
-        }
-
-
-        return (
-
-            <>
-                <Link to='/about'>
-                    <h3>About</h3>
-                </Link>
-                <Link to="/account">
-                    <h3>View Account</h3>
-                </Link>
-
-                <GoogleLogout
-                    clientId="793531866299-a0lqtj70qp6s1200hhpl08rba6195m7h.apps.googleusercontent.com"
-                    render={renderProps => (
-                        <button id="logout" onClick={renderProps.onClick} disabled={renderProps.disabled}>Log Out</button>
-                    )}
-                    buttonText={"Logout"}
-                    onLogoutSuccess={onSuccess}
-                />
-                <div className="menu-background"></div>
-
-            </>
-
-        )
-    }
-
-
-}
+                        <div className="menu-background"></div>
+                    </>
+                )}
+            </div>
+        </GoogleOAuthProvider>
+    );
+};
 
 export default MobileNavLinks;
