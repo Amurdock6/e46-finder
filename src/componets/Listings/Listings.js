@@ -1,10 +1,9 @@
-import axios from 'axios'
-import Listing from './Listing'
-import '../../css/Listing.css'
-import { useState, useEffect } from 'react'
+import axios from 'axios';
+import Listing from './Listing';
+import '../../css/Listing.css';
+import { useState, useEffect } from 'react';
 
 const Listings = () => {
-
     // Check localStorage for existing listings to initialize state
     let [listings, setListings] = useState(() => {
         const storedListings = localStorage.getItem('listings');
@@ -12,48 +11,52 @@ const Listings = () => {
     });
 
     let [savedListing, setSavedListings] = useState([]);
-    const [loading, setLoading] = useState(listings.length === 0); // Only show loader if no existing listings
-
+    const [loading, setLoading] = useState(listings.length === 0); // Only show loader if no cached listings exist
+    const [hasFetched, setHasFetched] = useState(false); // Used to track whether we have fetched from server
 
     // Grabs the Listings from the Backend
     const grabListings = async () => {
-
         try {
-            // var grabListingsData = await (await axios.get('https://backend.e46finder.app/scrape', {withCredentials: true })).data // for production site
-            var grabListingsData = await axios.get('http://localhost:5000/scrape', { withCredentials: true });
-            setListings(grabListingsData.data);
+            // Set loading state to true only if there are no cached listings
+            if (listings.length === 0) {
+                setLoading(true);
+            }
+
+            const response = await axios.get('http://localhost:5000/scrape', { withCredentials: true });
+
+            setListings(response.data);
 
             // Save the new listings to localStorage
-            localStorage.setItem('listings', JSON.stringify(grabListingsData.data));
+            localStorage.setItem('listings', JSON.stringify(response.data));
 
+            // Mark that we have finished fetching data
+            setHasFetched(true);
             setLoading(false);
         } catch (err) {
-            console.log(err);
-        };
-
+            console.error('Error fetching listings:', err);
+            setLoading(false); // Ensure loading is set to false even if there is an error
+        }
     };
 
-    // Fetch listings on component mount
+    // Fetch listings on component mount if we haven't fetched them yet
     useEffect(() => {
-        grabListings();
-    }, []);
+        if (!hasFetched) {
+            grabListings();
+        }
+    }, [hasFetched]);
 
     const grabSavedListings = async () => {
-
         try {
-            // var grabSavedListingsData = await axios.get('https://backend.e46finder.app/accountpagesavedlistings', { withCredentials: true }); // for production site
-            var grabSavedListingsData = await axios.get('http://localhost:5000/accountpagesavedlistings', { withCredentials: true });
-            setSavedListings(grabSavedListingsData.data);
+            const response = await axios.get('http://localhost:5000/accountpagesavedlistings', { withCredentials: true });
+            setSavedListings(response.data);
         } catch (err) {
-            console.log(err);
-        };
-
+            console.error('Error fetching saved listings:', err);
+        }
     };
 
     useEffect(() => {
         grabSavedListings();
     }, []);
-
 
     // Checks for Logged-In Cookie
     function getCookie(name) {
@@ -63,8 +66,7 @@ const Listings = () => {
         if (begin === -1) {
             begin = dc.indexOf(prefix);
             if (begin !== 0) return null;
-        }
-        else {
+        } else {
             begin += 2;
             var end = document.cookie.indexOf(";", begin);
             if (end === -1) {
@@ -74,11 +76,11 @@ const Listings = () => {
         return decodeURI(dc.substring(begin + prefix.length, end));
     }
 
-    // Logic that looks for the LooggedIn cookie based off of the result of the function getCookie(name)
-    var loggedInCookie = getCookie("LoggedIn");
+    // Logic that looks for the LoggedIn cookie based off of the result of the function getCookie(name)
+    const loggedInCookie = getCookie("LoggedIn");
 
-    let jsonArray = []
-    let isLoggedIn = false
+    let jsonArray = [];
+    let isLoggedIn = false;
 
     // Checks to see if user has already saved listings
     if (loggedInCookie) {
@@ -96,37 +98,37 @@ const Listings = () => {
         <>
             <h1 id='listings-header'> Listings </h1>
             <div className='listings-wrapper'>
-                {loading ? (listings.map((listing, saved) => {
-                    const alreadySaved = jsonArray[saved];
-                    return (
-                        <Listing
-                            key={listing.postNum}
-                            site={listing.site}
-                            link={listing.link}
-                            car={listing.car}
-                            price={listing.price}
-                            picture={listing.picture}
-                            timeleft={listing.timeLeft}
-                            mileage={listing.mileage}
-                            location={listing.location}
-                            trans={listing.trans}
-                            postNum={listing.postNum}
-                            isAlreadySaved={alreadySaved}
-                            loggedInCookie={isLoggedIn}
-                        />
-                    )
-
-                })) :
+                {/* Show loading spinner only if we don't have cached listings and are fetching */}
+                {loading && listings.length === 0 ? (
                     <div id="loader-wrapper">
                         <span className="loader"></span>
                         <span id="loading-text">Loading Listings This Could Take a Minute...</span>
                     </div>
-                }
+                ) : (
+                    listings.map((listing, index) => {
+                        const alreadySaved = jsonArray[index];
+                        return (
+                            <Listing
+                                key={listing.postNum}
+                                site={listing.site}
+                                link={listing.link}
+                                car={listing.car}
+                                price={listing.price}
+                                picture={listing.picture}
+                                timeleft={listing.timeLeft}
+                                mileage={listing.mileage}
+                                location={listing.location}
+                                trans={listing.trans}
+                                postNum={listing.postNum}
+                                isAlreadySaved={alreadySaved}
+                                loggedInCookie={isLoggedIn}
+                            />
+                        );
+                    })
+                )}
             </div>
-
         </>
-    )
+    );
+};
 
-}
-
-export default Listings
+export default Listings;
