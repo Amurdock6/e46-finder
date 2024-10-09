@@ -10,9 +10,10 @@ import { faCircleArrowRight, faLock, faEnvelope, faXmark, faCircleInfo } from '@
 import Tooltip from '@mui/material/Tooltip';
 import Button from '@mui/material/Button';
 
-const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID; // Replace with your actual Google Client ID // Replace with your actual Google Client ID
+const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
 const Login = () => {
+
     let navigate = useNavigate();
 
 
@@ -83,23 +84,18 @@ const Login = () => {
                 method: 'POST',
                 url: 'http://localhost:5000/googlelogin',
                 withCredentials: true,
-                data: { idToken: response.tokenId }
+                data: { idToken: response.credential }  // Use 'credential' instead of 'tokenId'
             }).then(sendToken => {
                 return axios.get('http://localhost:5000/', { withCredentials: true }).then((res) => {
-                })
+                    // Handle the response if needed
+                });
+            });
 
-            })
-
+            navigate('/account');
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }
-
-        navigate('/account');
-    }
-
-    const onFailure = (res) => {
-
-    }
+    };
 
     // Remeber me check box logic
     const remeberMe = () => {
@@ -108,8 +104,8 @@ const Login = () => {
 
 
     return (
-        <GoogleOAuthProvider clientId={clientId}>
-            <div id='whole-page-wrapper'>
+        <div id='whole-page-wrapper'>
+            <GoogleOAuthProvider clientId={clientId}>
                 <div className='left-side'>
 
                 </div>
@@ -130,7 +126,14 @@ const Login = () => {
                         </p>
 
                         <div id='google-login'>
-                            <GoogleLogin onSuccess={onSuccess} onError={() => console.log('Login Failed')} />
+                            <GoogleLogin 
+                            clientId={clientId}
+                            buttonText="Login"
+                            onSuccess={onSuccess} 
+                            onError={() => console.log('Login Failed')}
+                            cookiePolicy={'single_host_origin'} 
+                            isSignedIn={true}
+                            />
                         </div>
 
                         <div className="line-wrapper">
@@ -202,8 +205,8 @@ const Login = () => {
                         </form>
                     </div>
                 </div>
-            </div>
-        </GoogleOAuthProvider>
+            </GoogleOAuthProvider>
+        </div>
     )
 }
 

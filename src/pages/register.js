@@ -12,7 +12,7 @@ import { faCircleArrowRight, faLock, faEnvelope, faXmark, faCircleInfo, faCheck,
 import Tooltip from '@mui/material/Tooltip';
 import Button from '@mui/material/Button';
 
-const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID; // Replace with your actual Google Client ID
+const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
 const Register = () => {
     let navigate = useNavigate();
@@ -153,9 +153,6 @@ const Register = () => {
         } catch (error) {
             console.log(error);
         }
-    };
-
-    const onFailure = (res) => {
     };
 
     // Remeber me check box logic
