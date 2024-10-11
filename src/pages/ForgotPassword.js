@@ -17,7 +17,7 @@ const ForgotPassword = () => {
 
     const login = async () => {
         try {
-            await axios.post('https://backend.e46finder.app/forgot', {
+            await axios.post('http://localhost:5000/forgot', {
                 withCredentials: true,
                 email: email,
             }).then(() => {

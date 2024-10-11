@@ -6,13 +6,11 @@ import sideIamge from '../pictures/register.webp';
 import { useState } from 'react'
 import axios from 'axios';
 import validator from 'validator';
-import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google'
+// import { GoogleLogin } from '@react-oauth/google';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleArrowRight, faLock, faEnvelope, faXmark, faCircleInfo, faCheck, faUser } from '@fortawesome/free-solid-svg-icons';
 import Tooltip from '@mui/material/Tooltip';
 import Button from '@mui/material/Button';
-
-const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
 const Register = () => {
     let navigate = useNavigate();
@@ -139,21 +137,23 @@ const Register = () => {
         }
     };
 
-    // Google functions
-    const onSuccess = async (response) => {
-        try {
-            await axios({
-                method: 'POST',
-                url: 'http://localhost:5000/googlelogin',
-                data: { credential: response.credential },
-                withCredentials: true,
-            }).then(() => {
-                navigate('/account');
-            });
-        } catch (error) {
-            console.log(error);
-        }
-    };
+    // // Google functions
+    // const onSuccess = (credentialResponse) => {
+    //     axios
+    //         .post('http://localhost:5000/googlelogin', {
+    //             idToken: credentialResponse.credential,
+    //         })
+    //         .then(() => {
+    //             navigate('/account');
+    //         })
+    //         .catch((error) => {
+    //             console.error('Server Error:', error);
+    //         });
+    // };
+
+    // const onError = () => {
+    //     console.log('Login Failed');
+    // };
 
     // Remeber me check box logic
     const remeberMe = () => {
@@ -161,139 +161,137 @@ const Register = () => {
     };
 
     return (
-        <GoogleOAuthProvider clientId={clientId}>
-            <div id='whole-page-wrapper'>
-                <div className='left-side' style={{ backgroundImage: `url(${sideIamge})`, backgroundPosition: 'left' }}>
+        <div id='whole-page-wrapper'>
+            <div className='left-side' style={{ backgroundImage: `url(${sideIamge})`, backgroundPosition: 'left' }}>
 
+            </div>
+
+            <div className='right-side'>
+                <div id='x-wrapper'>
+                    <Link to="/"><FontAwesomeIcon icon={faXmark} id="back-to-home" /></Link>
                 </div>
 
-                <div className='right-side'>
-                    <div id='x-wrapper'>
-                        <Link to="/"><FontAwesomeIcon icon={faXmark} id="back-to-home" /></Link>
-                    </div>
-
-                    <div id='content-wrapper'>
+                <div id='content-wrapper'>
 
 
-                        <h1>
-                            Create an Account
-                        </h1>
-                        <p>
-                            Please fill out the required felids below to create your E46 Finder account!
-                        </p>
+                    <h1>
+                        Create an Account
+                    </h1>
+                    <p>
+                        Please fill out the required felids below to create your E46 Finder account!
+                    </p>
 
-                        <div id='google-login'>
-                            <GoogleLogin onSuccess={onSuccess} onError={() => console.log('Login Failed')} />
+                    {/* <div id='google-login'> */}
+                        {/* <GoogleLogin onSuccess={onSuccess} onError={onError} /> */}
+                    {/* </div> */}
+
+                    {/* <div className="line-wrapper"> */}
+                        {/* <hr className='or-line' /> <p>Or</p> <hr className='or-line' /> */}
+                    {/* </div> */}
+
+                    <form>
+                        <div id='email-wrapper'>
+                            <div className="textarea" id="email">
+                                <label><FontAwesomeIcon icon={faEnvelope} /> Email <br /></label>
+                                <input
+                                    type="email"
+                                    onChange={(e) => {
+                                        validateEmail(e);
+                                        setEmailReg(e.target.value);
+                                    }}
+                                    id="authentactor-email"
+                                    defaultValue=""
+                                    onKeyPress={(e) => e.key === 'Enter' && register()}
+                                    required
+                                />
+                            </div>
+                        </div>
+                        <span id="email-span">{emailError}</span>
+
+                        <div id='email-wrapper'>
+                            <div className="textarea" id="username">
+                                <label><FontAwesomeIcon icon={faUser} /> Username <br /></label>
+                                <input
+                                    type="text"
+                                    onChange={(e) => {
+                                        setUsernameReg(e.target.value);
+                                    }}
+                                    id="authentactor-text"
+                                    defaultValue=""
+                                    onKeyPress={(e) => e.key === 'Enter' && register()}
+                                    required
+                                />
+                            </div>
+                        </div>
+                        <span id="username-span">{usernameError}</span>
+
+                        <div id='password-wrapper'>
+                            <div className="textarea" id="password">
+                                <label>
+                                    <FontAwesomeIcon icon={faLock} /> Password <br /></label>
+                                <input
+                                    type="password"
+                                    onChange={(e) => {
+                                        setPasswordReg(e.target.value);
+                                    }}
+                                    id="reg-password"
+                                    autoComplete="on"
+                                    onKeyPress={(e) => e.key === 'Enter' && register()}
+                                    required
+                                />
+                            </div>
+                        </div>
+                        <span id="password-span">{passwordError}</span>
+
+                        <div id='password-wrapper'>
+                            <div className="textarea" id="password">
+                                <label>
+                                    <FontAwesomeIcon icon={faCheck} /> Confirm Password <br /></label>
+                                <input
+                                    type="password"
+                                    onChange={(e) => {
+                                        validatePassword(e);
+                                        setConfirmationPasswordReg(e.target.value);
+                                    }}
+                                    id="authentactor-password"
+                                    autoComplete="on"
+                                    onKeyPress={(e) => e.key === 'Enter' && register()}
+                                    required
+                                />
+                            </div>
+                        </div>
+                        <span id="password-span">{passwordConfError}</span>
+
+                        <div className="bottom-form-container">
+
+                            <div className="checkBox" id="checkbox">
+                                <Tooltip title="Check this box if you would like to stay logged in even after you close your browser. You will stay logged in to e46finder.com as long as you don't clear your cookies." arrow>
+                                    <Button id="info-button"><FontAwesomeIcon icon={faCircleInfo} /></Button>
+                                </Tooltip>
+                                <label>
+                                    Remember me?
+                                    <input
+                                        type="checkbox"
+                                        checked={keepMeLoggedIn}
+                                        onChange={remeberMe}
+                                        id="keepmeloggedin"
+                                        name="keepmeloggedin"
+                                    />
+                                </label>
+                            </div>
                         </div>
 
-                        <div className="line-wrapper">
-                            <hr className='or-line' /> <p>Or</p> <hr className='or-line' />
+                        <div className="button-wrapper">
+                            <button type="button" onClick={register} className="submit-button"><FontAwesomeIcon icon={faCircleArrowRight} id="arrow-icon" />Continue</button>
+                            <p> Already have an account? <Link to='/login'>Log in here</Link></p>
+                            <div className='legal-links'>
+                                <p>By creating an account you agree to our <a href='https://www.freeprivacypolicy.com/live/d1612332-98cd-490c-ae12-2885e4bc2c60'>Privacy Policy</a></p>
+                            </div>
                         </div>
-
-                        <form>
-                            <div id='email-wrapper'>
-                                <div className="textarea" id="email">
-                                    <label><FontAwesomeIcon icon={faEnvelope} /> Email <br /></label>
-                                    <input
-                                        type="email"
-                                        onChange={(e) => {
-                                            validateEmail(e);
-                                            setEmailReg(e.target.value);
-                                        }}
-                                        id="authentactor-email"
-                                        defaultValue=""
-                                        onKeyPress={(e) => e.key === 'Enter' && register()}
-                                        required
-                                    />
-                                </div>
-                            </div>
-                            <span id="email-span">{emailError}</span>
-
-                            <div id='email-wrapper'>
-                                <div className="textarea" id="username">
-                                    <label><FontAwesomeIcon icon={faUser} /> Username <br /></label>
-                                    <input
-                                        type="text"
-                                        onChange={(e) => {
-                                            setUsernameReg(e.target.value);
-                                        }}
-                                        id="authentactor-text"
-                                        defaultValue=""
-                                        onKeyPress={(e) => e.key === 'Enter' && register()}
-                                        required
-                                    />
-                                </div>
-                            </div>
-                            <span id="username-span">{usernameError}</span>
-
-                            <div id='password-wrapper'>
-                                <div className="textarea" id="password">
-                                    <label>
-                                        <FontAwesomeIcon icon={faLock} /> Password <br /></label>
-                                    <input
-                                        type="password"
-                                        onChange={(e) => {
-                                            setPasswordReg(e.target.value);
-                                        }}
-                                        id="reg-password"
-                                        autoComplete="on"
-                                        onKeyPress={(e) => e.key === 'Enter' && register()}
-                                        required
-                                    />
-                                </div>
-                            </div>
-                            <span id="password-span">{passwordError}</span>
-
-                            <div id='password-wrapper'>
-                                <div className="textarea" id="password">
-                                    <label>
-                                        <FontAwesomeIcon icon={faCheck} /> Confirm Password <br /></label>
-                                    <input
-                                        type="password"
-                                        onChange={(e) => {
-                                            validatePassword(e);
-                                            setConfirmationPasswordReg(e.target.value);
-                                        }}
-                                        id="authentactor-password"
-                                        autoComplete="on"
-                                        onKeyPress={(e) => e.key === 'Enter' && register()}
-                                        required
-                                    />
-                                </div>
-                            </div>
-                            <span id="password-span">{passwordConfError}</span>
-
-                            <div className="bottom-form-container">
-
-                                <div className="checkBox" id="checkbox">
-                                    <Tooltip title="Check this box if you would like to stay logged in even after you close your browser. You will stay logged in to e46finder.com as long as you don't clear your cookies." arrow>
-                                        <Button id="info-button"><FontAwesomeIcon icon={faCircleInfo} /></Button>
-                                    </Tooltip>
-                                    <label>
-                                        Remember me?
-                                        <input
-                                            type="checkbox"
-                                            checked={keepMeLoggedIn}
-                                            onChange={remeberMe}
-                                            id="keepmeloggedin"
-                                            name="keepmeloggedin"
-                                        />
-                                    </label>
-                                </div>
-                            </div>
-
-                            <div className="button-wrapper">
-                                <button type="button" onClick={register} className="submit-button"><FontAwesomeIcon icon={faCircleArrowRight} id="arrow-icon" />Continue</button>
-                                <p> Already have an account? <Link to='/login'>Log in here</Link></p>
-                                <div className='legal-links'>
-                                    <p>By creating an account you agree to our <a href='https://www.freeprivacypolicy.com/live/d1612332-98cd-490c-ae12-2885e4bc2c60'>Privacy Policy</a></p>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                    </form>
                 </div>
             </div>
-        </GoogleOAuthProvider>
+        </div>
     )
 }
 

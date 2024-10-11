@@ -18,7 +18,7 @@ const ResetPassword = (props) => {
 
     const resetPassword = async () => {
         try {
-            await axios.patch('https://backend.e46finder.app/reset', {
+            await axios.patch('http://localhost:5000/reset', {
                 withCredentials: true,
                 password: passwordRes,
                 confpassword: confirmationPassword,
