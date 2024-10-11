@@ -4,8 +4,6 @@ import axios from 'axios';
 // import {  googleLogout } from '@react-oauth/google';
 import './NavLinks.css'
 
-const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
-
 const MobileNavLinks = (props) => {
     let navigate = useNavigate();
 
@@ -27,22 +25,18 @@ const MobileNavLinks = (props) => {
         return decodeURI(dc.substring(begin + prefix.length, end));
     }
 
-    // Logs out the current user
-    const onSuccess = async () => {
+    // Logout logic
+    const handleLogout = async () => {
         try {
             await axios.get('http://localhost:5000/googlelogout', {
-                withCredentials: true
+                withCredentials: true,
             });
-            // googleLogout(); // Logs the user out from Google
-            alert("Successfully logged out");
-            navigate('/');
+            navigate('/logout');
         } catch (error) {
             console.log(error);
         }
     };
-    alert("Successfully logged out");
-    navigate('/');
-    
+
 
     // Redirect to confirmation page to delete users account
     const deleteAccount = async () => {
@@ -70,7 +64,6 @@ const MobileNavLinks = (props) => {
 
             )
         }
-
         if (window.location.href === 'http://localhost:3000') {
             return (
 
@@ -89,7 +82,6 @@ const MobileNavLinks = (props) => {
 
             )
         }
-
         return (
 
             <>
@@ -109,9 +101,6 @@ const MobileNavLinks = (props) => {
             </>
 
         )
-
-
-
     }
     else if (loggedInCookie) {
         if (window.location.href === 'http://localhost:3000/account') {
@@ -129,6 +118,8 @@ const MobileNavLinks = (props) => {
                         <button onClick={deleteAccount} id="delete"><p>Delete Account</p></button>
                     </h3>
 
+
+                    <button onClick={handleLogout} id="logout"><p>Log Out</p></button>
                     {/* <googleLogout
                         clientId="793531866299-a0lqtj70qp6s1200hhpl08rba6195m7h.apps.googleusercontent.com"
                         render={renderProps => (
@@ -143,7 +134,6 @@ const MobileNavLinks = (props) => {
 
             )
         }
-
         if (window.location.href === 'http://localhost:3000/about') {
             return (
 
@@ -155,6 +145,7 @@ const MobileNavLinks = (props) => {
                         <h3>View Account</h3>
                     </Link>
 
+                    <button onClick={handleLogout} id="logout"><p>Log Out</p></button>
                     {/* <googleLogout
                         clientId={clientId}
                         render={renderProps => (
@@ -168,7 +159,6 @@ const MobileNavLinks = (props) => {
 
             )
         }
-
         if (window.location.href === 'http://localhost:3000') {
             return (
 
@@ -180,6 +170,7 @@ const MobileNavLinks = (props) => {
                         <h3>View Account</h3>
                     </Link>
 
+                    <button onClick={handleLogout} id="logout"><p>Log Out</p></button>
                     {/* <googleLogout
                         clientId={clientId}
                         render={renderProps => (
@@ -193,9 +184,7 @@ const MobileNavLinks = (props) => {
 
             )
         }
-
         return (
-
             <>
                 <Link to='/about'>
                     <h3>About</h3>
@@ -204,6 +193,7 @@ const MobileNavLinks = (props) => {
                     <h3>View Account</h3>
                 </Link>
 
+                <button onClick={handleLogout} id="logout"><p>Log Out</p></button>
                 {/* <googleLogout
                     clientId={clientId}
                     render={renderProps => (
@@ -215,11 +205,8 @@ const MobileNavLinks = (props) => {
                 <div className="menu-background"></div>
 
             </>
-
         )
     }
-
-
 }
 
 export default MobileNavLinks;

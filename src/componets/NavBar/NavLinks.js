@@ -31,7 +31,7 @@ const NavLinks = () => {
     const handleLogout = async () => {
         try {
             await axios.get('http://localhost:5000/googlelogout', {
-                withCredentials: true,
+                withCredentials: true
             });
             // googleLogout(); // Calls Google's logout logic
             navigate('/logout');
@@ -244,7 +244,6 @@ const NavLinks = () => {
                 </>
             )
         }
-
         return (
             <>
                 <div id="left-nav">
@@ -265,7 +264,6 @@ const NavLinks = () => {
                     <Link to="/account">
                         <h3 id="viewAccount">View Account</h3>
                     </Link>
-
                     <button id="logout" onClick={handleLogout}>Log Out</button>
 
                 </div>

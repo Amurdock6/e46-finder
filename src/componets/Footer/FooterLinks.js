@@ -49,29 +49,55 @@ function FooterLinks() {
             </>
         )
     } else if (loggedInCookie) {
-        return (
-            <>
-                <div className='footer-left'>
-                    <Link to="/">
-                        <img src={Logo} alt='E46 Logo' />
-                    </Link>
-                </div>
+        if (window.location.href === 'http://localhost:3000/account') {
+            return (
+                <>
+                    <div className='footer-left'>
+                        <Link to="/">
+                            <img src={Logo} alt='E46 Logo' />
+                        </Link>
+                    </div>
 
-                <div className='footer-center'>
-                    <h5>&copy; Copyright 2024 Alexander Murdock</h5>
-                </div>
+                    <div className='footer-center'>
+                        <h5>&copy; Copyright 2024 Alexander Murdock</h5>
+                    </div>
 
-                <div className='footer-right'>
-                    <Link to="/account">
-                        <h3>View Account</h3>
-                    </Link>
+                    <div className='footer-right'>
+                        <Link to='/'>
+                            <h3>Listings</h3>
+                        </Link>
 
-                    <Link to="/about">
-                        <h3>About</h3>
-                    </Link>
-                </div>
-            </>
-        )
+                        <Link to="/about">
+                            <h3>About</h3>
+                        </Link>
+                    </div>
+                </>
+            )
+        } else {
+            return (
+                <>
+                    <div className='footer-left'>
+                        <Link to="/">
+                            <img src={Logo} alt='E46 Logo' />
+                        </Link>
+                    </div>
+
+                    <div className='footer-center'>
+                        <h5>&copy; Copyright 2024 Alexander Murdock</h5>
+                    </div>
+
+                    <div className='footer-right'>
+                        <Link to="/account">
+                            <h3>View Account</h3>
+                        </Link>
+
+                        <Link to="/about">
+                            <h3>About</h3>
+                        </Link>
+                    </div>
+                </>
+            )
+        }
     }
 
 

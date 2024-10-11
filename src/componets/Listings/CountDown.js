@@ -9,7 +9,6 @@ const defaultRemainingTime = {
 }
 
 const CountdownTimer = (props) => {
-    // console.log(props.savedlisting);
 
     const [remainingTime, setRemainingTime] = useState(defaultRemainingTime);
 
