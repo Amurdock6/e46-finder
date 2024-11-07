@@ -14,7 +14,7 @@ const Listing = (props) => {
     var colonsInString = (timeleft.match(/:/g) || []).length;
     var isMillisecond = timeleft.startsWith('2022-');
 
-// converts what ever the current time format is to milliseconds    
+    // converts what ever the current time format is to milliseconds    
     if (startOfTime) {
         var daysleft = timeleft
         .split(' ')[0] * 86400000;

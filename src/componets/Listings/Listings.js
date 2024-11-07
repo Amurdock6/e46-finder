@@ -27,7 +27,9 @@ const Listings = () => {
                 }
 
                 // Fetch the listings from the backend
+                console.log('Backend URL:', process.env.BACKEND_URL);
                 const response = await axios.get(`${process.env.BACKEND_URL}/scrape`, { withCredentials: true });
+                console.log('Listings fetched:', response.data); // Log response data
                 setListings(response.data);
 
                 // Save the fetched listings to local storage
