@@ -21,13 +21,13 @@ const Login = () => {
 
     const login = async () => {
         try {
-            await axios.post('http://localhost:5000/login', {
+            await axios.post(`${process.env.BACKEND_URL}/login`, {
                 withCredentials: true,
                 email: email,
                 password: password,
                 keepmeloggedin: keepMeLoggedIn,
             }).then(async () => {
-                return await axios.get('http://localhost:5000/', { withCredentials: true }).then((res) => {
+                return await axios.get(`${process.env.BACKEND_URL}`, { withCredentials: true }).then((res) => {
 
                 }).then(() => {
                     navigate('/account');
@@ -75,7 +75,7 @@ const Login = () => {
 
     const onSuccess = (credentialResponse) => {
         axios
-            .post('http://localhost:5000/googlelogin', {
+            .post(`${process.env.BACKEND_URL}/googlelogin`, {
                 idToken: credentialResponse.credential,
             })
             .then(() => {

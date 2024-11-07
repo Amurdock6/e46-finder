@@ -1,7 +1,6 @@
 import NavBar from '../componets/NavBar/NavBar'
 import Footer from '../componets/Footer/Footer'
 import '../css/AboutStyle.css'
-import { useHref } from 'react-router';
 
 function About() {
     return (

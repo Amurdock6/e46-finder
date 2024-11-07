@@ -18,7 +18,7 @@ const Deleted = () => {
     // Send request to delete users account
     const deleteAccount = async () => {
         try {
-            await axios.get('http://localhost:5000/delete', {
+            await axios.get(`${process.env.BACKEND_URL}/delete`, {
                 withCredentials: true
             });
 

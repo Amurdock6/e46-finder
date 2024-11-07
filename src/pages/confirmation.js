@@ -19,8 +19,8 @@ const Confirmation = () => {
 
             <NavBar />
 
-<br />
-<br />
+        <br />
+        <br />
 
             <div className="center-box">
                 <h1>Reset instructions sent</h1>

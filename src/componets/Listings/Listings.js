@@ -27,7 +27,7 @@ const Listings = () => {
                 }
 
                 // Fetch the listings from the backend
-                const response = await axios.get('http://localhost:5000/scrape', { withCredentials: true });
+                const response = await axios.get(`${process.env.BACKEND_URL}/scrape`, { withCredentials: true });
                 setListings(response.data);
 
                 // Save the fetched listings to local storage
@@ -52,7 +52,7 @@ const Listings = () => {
     const grabSavedListings = async () => {
         try {
             // Fetch the saved listings for the logged-in user
-            const response = await axios.get('http://localhost:5000/accountpagesavedlistings', { withCredentials: true });
+            const response = await axios.get(`${process.env.BACKEND_URL}/accountpagesavedlistings`, { withCredentials: true });
             setSavedListings(response.data);
         } catch (err) {
             console.error('Error fetching saved listings:', err);

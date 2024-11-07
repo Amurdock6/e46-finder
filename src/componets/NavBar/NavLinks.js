@@ -30,7 +30,7 @@ const NavLinks = () => {
     // Logs out the current user
     const handleLogout = async () => {
         try {
-            await axios.get('http://localhost:5000/googlelogout', {
+            await axios.get(`${process.env.BACKEND_URL}/googlelogout`, {
                 withCredentials: true
             });
             // googleLogout(); // Calls Google's logout logic
@@ -39,9 +39,6 @@ const NavLinks = () => {
             console.log(error);
         }
     };
-
-
-
 
     // Redirect to confirmation page to delete users account
     const deleteAccount = async () => {
@@ -52,7 +49,7 @@ const NavLinks = () => {
     var loggedInCookie = getCookie("LoggedIn");
 
     if (loggedInCookie == null) {
-        if (window.location.href === 'http://localhost:3000/') {
+        if (window.location.href === '/') {
             return (
                 <>
                     <div id="left-nav">
@@ -78,8 +75,7 @@ const NavLinks = () => {
                 </>
             )
         }
-
-        if (window.location.href === 'http://localhost:3000/account') {
+        if (window.location.href === '/account') {
             return (
                 <>
                     <div id="left-nav">
@@ -110,7 +106,7 @@ const NavLinks = () => {
             )
         }
 
-        if (window.location.href === 'http://localhost:3000/about') {
+        if (window.location.href === '/about') {
             return (
                 <>
                     <div id="left-nav">
@@ -167,7 +163,7 @@ const NavLinks = () => {
         )
     }
     else if (loggedInCookie) {
-        if (window.location.href === 'http://localhost:3000/') {
+        if (window.location.href === '/') {
             return (
                 <>
                     <div id="left-nav">
@@ -191,7 +187,7 @@ const NavLinks = () => {
             )
         }
 
-        if (window.location.href === 'http://localhost:3000/account') {
+        if (window.location.href === '/account') {
             return (
                 <>
                     <div id="left-nav">
@@ -220,7 +216,7 @@ const NavLinks = () => {
             )
         }
 
-        if (window.location.href === 'http://localhost:3000/about') {
+        if (window.location.href === '/about') {
             return (
                 <>
                     <div id="left-nav">

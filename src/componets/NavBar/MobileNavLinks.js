@@ -28,7 +28,7 @@ const MobileNavLinks = (props) => {
     // Logout logic
     const handleLogout = async () => {
         try {
-            await axios.get('http://localhost:5000/googlelogout', {
+            await axios.get(`${process.env.BACKEND_URL}/googlelogout`, {
                 withCredentials: true,
             });
             navigate('/logout');
@@ -46,7 +46,7 @@ const MobileNavLinks = (props) => {
     var loggedInCookie = getCookie("LoggedIn");
 
     if (loggedInCookie == null) {
-        if (window.location.href === 'http://localhost:3000/about') {
+        if (window.location.href === '/about') {
             return (
 
                 <>
@@ -64,7 +64,7 @@ const MobileNavLinks = (props) => {
 
             )
         }
-        if (window.location.href === 'http://localhost:3000') {
+        if (window.location.href === '/') {
             return (
 
                 <>
@@ -103,7 +103,7 @@ const MobileNavLinks = (props) => {
         )
     }
     else if (loggedInCookie) {
-        if (window.location.href === 'http://localhost:3000/account') {
+        if (window.location.href === '/account') {
             return (
                 <>
                     <Link to='/about'>
@@ -134,7 +134,7 @@ const MobileNavLinks = (props) => {
 
             )
         }
-        if (window.location.href === 'http://localhost:3000/about') {
+        if (window.location.href === '/about') {
             return (
 
                 <>
@@ -159,7 +159,7 @@ const MobileNavLinks = (props) => {
 
             )
         }
-        if (window.location.href === 'http://localhost:3000') {
+        if (window.location.href === '/') {
             return (
 
                 <>
