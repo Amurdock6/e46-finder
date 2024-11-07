@@ -27,9 +27,7 @@ const Listings = () => {
                 }
 
                 // Fetch the listings from the backend
-                console.log("env key " + process.env.REACT_APP_BACKEND_URL);
                 const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/scrape`, { withCredentials: true });
-                console.log("response is " + response);
                 setListings(response.data);
 
                 // Save the fetched listings to local storage
