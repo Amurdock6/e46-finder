@@ -28,7 +28,7 @@ const Listings = () => {
 
                 // Fetch the listings from the backend
                 console.log('Backend URL:', process.env.BACKEND_URL);
-                const response = await axios.get(`${process.env.BACKEND_URL}/scrape`, { withCredentials: true });
+                const response = await axios.get(`https://e46backend-ff7ea4ed3b16.herokuapp.com/scrape`, { withCredentials: true });
                 console.log('Listings fetched:', response.data); // Log response data
                 setListings(response.data);
 
@@ -54,7 +54,7 @@ const Listings = () => {
     const grabSavedListings = async () => {
         try {
             // Fetch the saved listings for the logged-in user
-            const response = await axios.get(`${process.env.BACKEND_URL}/accountpagesavedlistings`, { withCredentials: true });
+            const response = await axios.get(`https://e46backend-ff7ea4ed3b16.herokuapp.com/accountpagesavedlistings`, { withCredentials: true });
             setSavedListings(response.data);
         } catch (err) {
             console.error('Error fetching saved listings:', err);
