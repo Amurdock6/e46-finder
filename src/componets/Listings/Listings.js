@@ -16,7 +16,7 @@ const Listings = () => {
     const [loading, setLoading] = useState(listings.length === 0);
     // State to track whether data has already been fetched to avoid redundant requests
     const [hasFetched, setHasFetched] = useState(false);
-
+//
     // useEffect for fetching listings data from the backend
     useEffect(() => {
         const grabListings = async () => {
