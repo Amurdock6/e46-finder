@@ -17,7 +17,7 @@ const ForgotPassword = () => {
 
     const login = async () => {
         try {
-            await axios.post(`${process.env.BACKEND_URL}/forgot`, {
+            await axios.post(`${process.env.REACT_APP_BACKEND_URL}/forgot`, {
                 withCredentials: true,
                 email: email,
             }).then(() => {

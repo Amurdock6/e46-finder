@@ -15,7 +15,7 @@ function Account() {
 
     useEffect(() => {
       const fetchUsername = async () => {
-        axios.get(`${process.env.BACKEND_URL}/accountpageusername`, { withCredentials: true })
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/accountpageusername`, { withCredentials: true })
         
           .then(res => {
               setUsername(res.data)
@@ -29,7 +29,7 @@ function Account() {
     const grabListings = async () => {
 
         try {
-            var grabListingsData = await (await axios.get(`${process.env.BACKEND_URL}/accountpagesavedlistings`, { withCredentials: true })).data
+            var grabListingsData = await (await axios.get(`${process.env.REACT_APP_BACKEND_URL}/accountpagesavedlistings`, { withCredentials: true })).data
             setListings(grabListingsData)
             setLoading(true);
             

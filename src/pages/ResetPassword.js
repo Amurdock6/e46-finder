@@ -18,7 +18,7 @@ const ResetPassword = (props) => {
 
     const resetPassword = async () => {
         try {
-            await axios.patch(`${process.env.BACKEND_URL}/reset`, {
+            await axios.patch(`${process.env.REACT_APP_BACKEND_URL}/reset`, {
                 withCredentials: true,
                 password: passwordRes,
                 confpassword: confirmationPassword,

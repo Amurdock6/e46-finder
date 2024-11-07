@@ -121,7 +121,7 @@ const Listing = (props) => {
         // counter on back end is not working
         if (loggedInCookie) {
             try {
-                const data = await axios(`${process.env.BACKEND_URL}/savelisting`, {
+                const data = await axios(`${process.env.REACT_APP_BACKEND_URL}/savelisting`, {
                     method: "post",
                     data: {
                         link: link,

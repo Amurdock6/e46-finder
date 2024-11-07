@@ -30,7 +30,7 @@ const NavLinks = () => {
     // Logs out the current user
     const handleLogout = async () => {
         try {
-            await axios.get(`${process.env.BACKEND_URL}/googlelogout`, {
+            await axios.get(`${process.env.REACT_APP_BACKEND_URL}/googlelogout`, {
                 withCredentials: true
             });
             // googleLogout(); // Calls Google's logout logic

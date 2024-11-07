@@ -8,7 +8,7 @@ const useAuth = () => {
   useEffect(() => {
       const fetchAuthData = async () => {
           try {
-              const resp = await axios.get('http://localhost:5000/auth', { withCredentials: true });
+              const resp = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/auth`, { withCredentials: true });
 
               if (resp.data === true) {
                   setData(true);

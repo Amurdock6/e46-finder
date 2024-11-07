@@ -28,7 +28,7 @@ const MobileNavLinks = (props) => {
     // Logout logic
     const handleLogout = async () => {
         try {
-            await axios.get(`${process.env.BACKEND_URL}/googlelogout`, {
+            await axios.get(`${process.env.REACT_APP_BACKEND_URL}/googlelogout`, {
                 withCredentials: true,
             });
             navigate('/logout');

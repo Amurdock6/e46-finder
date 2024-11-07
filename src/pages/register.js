@@ -33,7 +33,7 @@ const Register = () => {
     // Sends Registration form data to API
     const register = async () => {
         try {
-            await axios.post(`${process.env.BACKEND_URL}/register`, {
+            await axios.post(`${process.env.REACT_APP_BACKEND_URL}/register`, {
                 email: emailReg,
                 username: usernameReg,
                 password: passwordReg,
@@ -42,7 +42,7 @@ const Register = () => {
 
                 // Sets httpOnly cookie with jwt from backend
             }).then(async () => {
-                return await axios.get(`${process.env.BACKEND_URL}`, { withCredentials: true }).then((res) => {
+                return await axios.get(`${process.env.REACT_APP_BACKEND_URL}`, { withCredentials: true }).then((res) => {
                 }).then(() => {
                     navigate('/account');
                 });
@@ -140,7 +140,7 @@ const Register = () => {
     // // Google functions
     // const onSuccess = (credentialResponse) => {
     //     axios
-    //         .post(`${process.env.BACKEND_URL}/googlelogin`, {
+    //         .post(`${process.env.REACT_APP_BACKEND_URL}/googlelogin`, {
     //             idToken: credentialResponse.credential,
     //         })
     //         .then(() => {
