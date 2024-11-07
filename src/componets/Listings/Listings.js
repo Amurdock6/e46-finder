@@ -16,7 +16,7 @@ const Listings = () => {
     const [loading, setLoading] = useState(listings.length === 0);
     // State to track whether data has already been fetched to avoid redundant requests
     const [hasFetched, setHasFetched] = useState(false);
-//
+
     // useEffect for fetching listings data from the backend
     useEffect(() => {
         const grabListings = async () => {
@@ -27,7 +27,9 @@ const Listings = () => {
                 }
 
                 // Fetch the listings from the backend
+                console.log("env key " + process.env.REACT_APP_BACKEND_URL);
                 const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/scrape`, { withCredentials: true });
+                console.log("response is " + response);
                 setListings(response.data);
 
                 // Save the fetched listings to local storage
