@@ -12,7 +12,7 @@ function About() {
 
             <p>
               E46 Finder is a passion project of mine. I first came up with the idea of E46 finder when thinking of
-              potential projects I could add to my resume to help get me a Junior Web Development job.
+              potential projects I could add to my resume to help get me a web dev job.
               With E46 finder I am able to combine my favourite things: cars and coding and not just any ordinary cars. One of my favourite cars the BMW E46 3 series.
               I also realised that with my project I could contribute to the E46 community and create a hub for E46 enthusiast to find E46s by providing a place
               for enthusiasts to find their dream car without having to jump from website to website trying to find the perfect car for them. So I created
