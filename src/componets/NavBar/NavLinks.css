@@ -209,7 +209,10 @@
         font-size: 2.3em;
         z-index: 99;
         position: relative;
-        top: 30vh;
+        top: 7vh;
     }
 
+    #logout p {
+        color: white;
+    }
 }
