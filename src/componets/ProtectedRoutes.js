@@ -24,7 +24,7 @@ const useAuth = () => {
   }, []);
   return data;
 };
-
+//
 const ProtectedRoutes = () => {
   const isAuth = useAuth();
   if (isAuth === undefined) {
