@@ -1,5 +1,6 @@
 #nav a {
-    text-decoration: underline blue;
+    text-decoration-color: blue;
+    text-decoration-line: underline;
 }
 
 #middle-nav {
@@ -171,6 +172,7 @@
     width: 73%;
     top: 2%;
     left: 5vw;
+    z-index: 99;
 }
 
 #logout {
@@ -181,7 +183,8 @@
     font-family: 'Poppins', sans-serif;
     font-weight: bold;
     cursor: pointer;
-    text-decoration: underline blue;
+    text-decoration-color: blue;
+    text-decoration-line: underline;
 }
 
 #delete {
@@ -192,7 +195,8 @@
     font-family: 'Poppins', sans-serif;
     font-weight: bold;
     cursor: pointer;
-    text-decoration: underline blue;
+    text-decoration-color: blue;
+    text-decoration-line: underline;
     padding-right: 2.4vw;
 }
 

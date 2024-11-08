@@ -46,7 +46,7 @@ const MobileNavLinks = (props) => {
     var loggedInCookie = getCookie("LoggedIn");
 
     if (loggedInCookie == null) {
-        if (window.location.href === '/about') {
+        if (window.location.href === 'https://www.e46finder.com/about') {
             return (
 
                 <>
@@ -64,7 +64,7 @@ const MobileNavLinks = (props) => {
 
             )
         }
-        if (window.location.href === '/') {
+        if (window.location.href === 'https://www.e46finder.com/') {
             return (
 
                 <>
@@ -103,7 +103,7 @@ const MobileNavLinks = (props) => {
         )
     }
     else if (loggedInCookie) {
-        if (window.location.href === '/account') {
+        if (window.location.href === 'https://www.e46finder.com/account') {
             return (
                 <>
                     <Link to='/about'>
@@ -120,21 +120,19 @@ const MobileNavLinks = (props) => {
 
 
                     <button onClick={handleLogout} id="logout"><p>Log Out</p></button>
-                    {/* <googleLogout
-                        clientId="793531866299-a0lqtj70qp6s1200hhpl08rba6195m7h.apps.googleusercontent.com"
+                    <googleLogout
                         render={renderProps => (
                             <button id="logout" onClick={renderProps.onClick} disabled={renderProps.disabled}>Log Out</button>
                         )}
                         buttonText={"Logout"}
-                        onLogoutSuccess={onSuccess}
-                    /> */}
+                    /> 
                     <div className="menu-background"></div>
 
                 </>
 
             )
         }
-        if (window.location.href === '/about') {
+        if (window.location.href === 'https://www.e46finder.com/about') {
             return (
 
                 <>
@@ -146,20 +144,18 @@ const MobileNavLinks = (props) => {
                     </Link>
 
                     <button onClick={handleLogout} id="logout"><p>Log Out</p></button>
-                    {/* <googleLogout
-                        clientId={clientId}
+                    <googleLogout
                         render={renderProps => (
                             <button id="logout" onClick={renderProps.onClick} disabled={renderProps.disabled}>Log Out</button>
                         )}
                         buttonText={"Logout"}
-                        onLogoutSuccess={onSuccess} */}
-                    {/* /> */}
+                    /> 
                     <div className="menu-background"></div>
                 </>
 
             )
         }
-        if (window.location.href === '/') {
+        if (window.location.href === 'https://www.e46finder.com/') {
             return (
 
                 <>
@@ -171,14 +167,12 @@ const MobileNavLinks = (props) => {
                     </Link>
 
                     <button onClick={handleLogout} id="logout"><p>Log Out</p></button>
-                    {/* <googleLogout
-                        clientId={clientId}
+                    <googleLogout
                         render={renderProps => (
                             <button id="logout" onClick={renderProps.onClick} disabled={renderProps.disabled}>Log Out</button>
                         )}
                         buttonText={"Logout"}
-                        onLogoutSuccess={onSuccess}
-                    /> */}
+                    />
                     <div className="menu-background"></div>
                 </>
 
@@ -194,14 +188,12 @@ const MobileNavLinks = (props) => {
                 </Link>
 
                 <button onClick={handleLogout} id="logout"><p>Log Out</p></button>
-                {/* <googleLogout
-                    clientId={clientId}
-                    render={renderProps => (
-                        <button id="logout" onClick={renderProps.onClick} disabled={renderProps.disabled}>Log Out</button>
-                    )}
-                    buttonText={"Logout"}
-                    onLogoutSuccess={onSuccess}
-                /> */}
+                <googleLogout
+                        render={renderProps => (
+                            <button id="logout" onClick={renderProps.onClick} disabled={renderProps.disabled}>Log Out</button>
+                        )}
+                        buttonText={"Logout"}
+                    /> 
                 <div className="menu-background"></div>
 
             </>
