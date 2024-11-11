@@ -4,7 +4,7 @@ import { faBookmark, faRectangleXmark } from '@fortawesome/free-solid-svg-icons'
 import Tooltip from '@mui/material/Tooltip';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react'
+import { useEffect, useCallback } from 'react'
 
 const Listing = (props) => {
     var { link, car, price, picture, timeleft, site, mileage, location, trans, postNum, isAlreadySaved, loggedInCookie } = props;
@@ -94,15 +94,19 @@ const Listing = (props) => {
 
     let navigate = useNavigate(); 
 
-    function setSaved() {
+    const setSaved = useCallback(() => {
         var el = document.querySelector(`#listing${postNum}:first-child #save-listing`);
-        el.style.display = "none";
-        el.style.pointerEvents = "none";
-
+        if (el) {
+            el.style.display = "none";
+            el.style.pointerEvents = "none";
+        }
+    
         var el2 = document.querySelector(`#listing${postNum}:nth-child(1) #unsave-listing`);
-        el2.style.display = "block";
-        el2.style.pointerEvents = "all";
-    }
+        if (el2) {
+            el2.style.display = "block";
+            el2.style.pointerEvents = "all";
+        }
+    }, [postNum]);
 
     function setDelete() {
 
@@ -161,7 +165,7 @@ const Listing = (props) => {
         if (isAlreadySaved === true) {
             setSaved();
         };
-    },);
+    }, [isAlreadySaved, setSaved]);    
     
     return (
         <div className='listing-contanier'>

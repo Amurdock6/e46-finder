@@ -19,7 +19,7 @@ function Account() {
         
           .then(res => {
               setUsername(res.data)
-          })
+          }, )
   
       };
   
@@ -41,7 +41,7 @@ function Account() {
 
     useEffect(() => {
         grabListings();
-    });
+    }, []); // will only run once when the component mounts
     
     useEffect(() => {
         var els = document.getElementsByClassName("save");
