@@ -49,7 +49,7 @@ const NavLinks = () => {
     var loggedInCookie = getCookie("LoggedIn");
 
     if (loggedInCookie == null) {
-        if (window.location.href === 'https://www.e46finder.com/') {
+        if (window.location.href === 'http://localhost:3000/') {
             return (
                 <>
                     <div id="left-nav">
@@ -75,7 +75,7 @@ const NavLinks = () => {
                 </>
             )
         }
-        if (window.location.href === 'https://www.e46finder.com/account') {
+        if (window.location.href === 'http://localhost:3000/account') {
             return (
                 <>
                     <div id="left-nav">
@@ -106,7 +106,7 @@ const NavLinks = () => {
             )
         }
 
-        if (window.location.href === 'https://www.e46finder.com/about') {
+        if (window.location.href === 'http://localhost:3000/about') {
             return (
                 <>
                     <div id="left-nav">
@@ -163,7 +163,7 @@ const NavLinks = () => {
         )
     }
     else if (loggedInCookie) {
-        if (window.location.href === 'https://www.e46finder.com/') {
+        if (window.location.href === 'http://localhost:3000/') {
             return (
                 <>
                     <div id="left-nav">
@@ -187,7 +187,7 @@ const NavLinks = () => {
             )
         }
 
-        if (window.location.href === 'https://www.e46finder.com/account') {
+        if (window.location.href === 'http://localhost:3000/account') {
             return (
                 <>
                     <div id="left-nav">
@@ -216,7 +216,7 @@ const NavLinks = () => {
             )
         }
 
-        if (window.location.href === 'https://www.e46finder.com/about') {
+        if (window.location.href === 'http://localhost:3000/about') {
             return (
                 <>
                     <div id="left-nav">
