@@ -49,7 +49,7 @@ function FooterLinks() {
             </>
         )
     } else if (loggedInCookie) {
-        if (window.location.href === 'http://localhost:3000/account') {
+        if (window.location.href === 'https://www.e46finder.com/account') {
             return (
                 <>
                     <div className='footer-left'>
