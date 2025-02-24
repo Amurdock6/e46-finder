@@ -80,9 +80,6 @@ function Account() {
 
         )
     } else {
-
-
-        
         return (
             <div>
                 <NavBar />

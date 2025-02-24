@@ -19,8 +19,8 @@ const AccountDeleted = () => {
 
             <NavBar />
 
-<br />
-<br />
+            <br />
+            <br />
 
             <div className="center-box">
                 <h1>Account Deleted</h1>

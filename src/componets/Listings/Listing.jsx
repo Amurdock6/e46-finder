@@ -12,7 +12,7 @@ const Listing = (props) => {
     var startOfTime = timeleft.endsWith('days')
     var oneday = timeleft.endsWith('day')
     var colonsInString = (timeleft.match(/:/g) || []).length;
-    var isMillisecond = timeleft.startsWith('2022-');
+    var isMillisecond = timeleft.startsWith('2022-'); //  Backend bug with count down might be coming from here.
 
     // converts what ever the current time format is to milliseconds    
     if (startOfTime) {
