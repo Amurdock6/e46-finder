@@ -12,7 +12,7 @@ const Listing = (props) => {
         car,
         price,
         picture,
-        expiresAt,         // Must be a valid ISO string or date string from backend
+        expiresAt,       
         site,
         mileage,
         location,

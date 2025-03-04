@@ -57,11 +57,6 @@ const Listings = () => {
         }
     };
 
-    // useEffect for fetching saved listings; runs once on component mount
-    useEffect(() => {
-        grabSavedListings();
-    }, []); // Empty dependency array means this effect runs only once
-
   // Checks for Logged-In Cookie
   function getCookie(name) {
     const dc = document.cookie;
@@ -82,6 +77,12 @@ const Listings = () => {
 
   const loggedInCookie = getCookie("LoggedIn");
   let isLoggedIn = !!loggedInCookie;
+
+    // useEffect for fetching saved listings; runs once on component mount
+    useEffect(() => {
+      if (!loggedInCookie) return;
+       grabSavedListings();
+   }, [loggedInCookie]); // Empty dependency array means this effect runs only once
 
   // Create a Set of saved listing IDs from the savedListing state.
   const savedArray = Array.isArray(savedListing) ? savedListing : [];
