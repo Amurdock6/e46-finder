@@ -195,9 +195,9 @@ const NavLinks = () => {
                             <h3>About</h3>
                         </Link>
 
-                        <h3>
-                            <button onClick={deleteAccount} id="delete"><p>Delete Account</p></button>
-                        </h3>
+                        <Link to='/deleted'>
+                            <h3>Delete Account</h3>
+                        </Link>
                     </div>
                     <div id="middle-nav">
                         <Link to="/">
