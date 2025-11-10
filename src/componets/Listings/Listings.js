@@ -82,7 +82,7 @@ const Listings = () => {
     useEffect(() => {
       if (!loggedInCookie) return;
        grabSavedListings();
-   }, [loggedInCookie]); // Empty dependency array means this effect runs only once
+   }, [loggedInCookie]); 
 
   // Create a Set of saved listing IDs from the savedListing state.
   const savedArray = Array.isArray(savedListing) ? savedListing : [];
