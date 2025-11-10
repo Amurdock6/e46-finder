@@ -110,22 +110,16 @@ const MobileNavLinks = (props) => {
                         <h3>About</h3>
                     </Link>
 
+                    <Link to='/deleted'>
+                        <h3>Delete Account</h3>
+                    </Link>
+
                     <Link to='/'>
                         <h3>Listings</h3>
                     </Link>
 
-                    <h3>
-                        <button onClick={deleteAccount} id="delete"><p>Delete Account</p></button>
-                    </h3>
-
 
                     <button onClick={handleLogout} id="logout"><p>Log Out</p></button>
-                    <googleLogout
-                        render={renderProps => (
-                            <button id="logout" onClick={renderProps.onClick} disabled={renderProps.disabled}>Log Out</button>
-                        )}
-                        buttonText={"Logout"}
-                    /> 
                     <div className="menu-background"></div>
 
                 </>
@@ -144,12 +138,6 @@ const MobileNavLinks = (props) => {
                     </Link>
 
                     <button onClick={handleLogout} id="logout"><p>Log Out</p></button>
-                    <googleLogout
-                        render={renderProps => (
-                            <button id="logout" onClick={renderProps.onClick} disabled={renderProps.disabled}>Log Out</button>
-                        )}
-                        buttonText={"Logout"}
-                    /> 
                     <div className="menu-background"></div>
                 </>
 
@@ -167,12 +155,6 @@ const MobileNavLinks = (props) => {
                     </Link>
 
                     <button onClick={handleLogout} id="logout"><p>Log Out</p></button>
-                    <googleLogout
-                        render={renderProps => (
-                            <button id="logout" onClick={renderProps.onClick} disabled={renderProps.disabled}>Log Out</button>
-                        )}
-                        buttonText={"Logout"}
-                    />
                     <div className="menu-background"></div>
                 </>
 
@@ -188,12 +170,6 @@ const MobileNavLinks = (props) => {
                 </Link>
 
                 <button onClick={handleLogout} id="logout"><p>Log Out</p></button>
-                <googleLogout
-                        render={renderProps => (
-                            <button id="logout" onClick={renderProps.onClick} disabled={renderProps.disabled}>Log Out</button>
-                        )}
-                        buttonText={"Logout"}
-                    /> 
                 <div className="menu-background"></div>
 
             </>

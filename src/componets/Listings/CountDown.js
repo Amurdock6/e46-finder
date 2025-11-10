@@ -31,6 +31,15 @@ const CountdownTimer = (props) => {
     }
 
     // Conditional rendering based on the props passed to the component
+    // If time can't be parsed or is missing, show a helpful fallback
+    if (props.setnotime) {
+        return (
+            <div className="countdown-timer">
+                <span> Time Left: </span>
+                <span>Check Listing Site For Details</span>
+            </div>
+        );
+    }
 
     // If 'justoneday' prop is true, display a specific message
     if (props.justoneday === true) {

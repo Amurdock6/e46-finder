@@ -4,33 +4,40 @@ import { faBookmark, faRectangleXmark } from '@fortawesome/free-solid-svg-icons'
 import Tooltip from '@mui/material/Tooltip';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useCallback } from 'react'
+import { useEffect, useCallback } from 'react';
 
 const Listing = (props) => {
     var { link, car, price, picture, timeleft, site, mileage, location, trans, postNum, isAlreadySaved, loggedInCookie } = props;
 
-    var startOfTime = timeleft.endsWith('days')
-    var oneday = timeleft.endsWith('day')
-    var colonsInString = (timeleft.match(/:/g) || []).length;
-    var isMillisecond = timeleft.startsWith('2022-'); //  Backend bug with count down might be coming from here.
+    // Normalize time value to a string to avoid calling string methods on undefined/null
+    var timeStr = typeof timeleft === 'string' ? timeleft : '';
+
+    // Fallback flag for when we cannot parse time
+    var setnotime = false;
+
+    // Safely derive format checks from the normalized string
+    var startOfTime = timeStr.endsWith('days')
+    var oneday = timeStr.endsWith('day')
+    var colonsInString = (timeStr.match(/:/g) || []).length;
+    var isMillisecond = timeStr.startsWith('2022-'); //  Backend bug with count down might be coming from here.
 
     // converts what ever the current time format is to milliseconds    
     if (startOfTime) {
-        var daysleft = timeleft
+        var daysleft = timeStr
         .split(' ')[0] * 86400000;
         var timetill = daysleft + 86400000;
         var days = true;
     } else if (isMillisecond) {
-        days = timeleft
+        days = timeStr
             .slice(8, 10) * 86400000;
 
-        var hours = timeleft
+        var hours = timeStr
             .slice(11, 13) * 3600000;
 
-        var minutes = timeleft
+        var minutes = timeStr
             .slice(14, 16) * 60000;
 
-        var secondes = timeleft
+        var secondes = timeStr
             .slice(17, 19) * 1000;
 
         var timeuntilexperation = days + hours + minutes + secondes
@@ -49,7 +56,7 @@ const Listing = (props) => {
         }
 
         if (timeuntilexperation <= 172800000) {
-            var setnotime = true
+            setnotime = true
         }
 
         timetill = days + hours + minutes + secondes;
@@ -61,32 +68,40 @@ const Listing = (props) => {
         timetill = daysleft + 86400000;
     }
     else if (colonsInString === 2) {
-        var secondesLeft = timeleft
+        var secondesLeft = timeStr
             .split(':')[2] * 1000;
 
-        var minutesLeft = timeleft
+        var minutesLeft = timeStr
             .split(':')[1] * 60000;
 
-        var hoursLeft = timeleft
+        var hoursLeft = timeStr
             .split(':')[0] * 3600000;
 
         timetill = hoursLeft + minutesLeft + secondesLeft
         days = false
         dayone = false
     } else if (colonsInString === 1) {
-         secondesLeft = timeleft
+         secondesLeft = timeStr
             .split(':')[1] * 1000;
 
-         minutesLeft = timeleft
+         minutesLeft = timeStr
             .split(':')[0] * 60000;
 
         timetill = minutesLeft + secondesLeft
         days = false
         dayone = false
+    } else {
+        // Unrecognized or missing time format; show fallback message
+        setnotime = true;
+        var timetill = 0;
+        var days = false;
+        var dayone = false;
     };
 
 
-    const time = Date.now() + parseInt(timetill)
+    // Guard against NaN to avoid propagating invalid timestamps
+    const parsedTill = parseInt(timetill);
+    const time = isNaN(parsedTill) ? Date.now() : Date.now() + parsedTill
     const justdays = days
     const justoneday = dayone
     const savedlisting = saved;
@@ -122,10 +137,9 @@ const Listing = (props) => {
 
 
     const save = async () => {
-        // counter on back end is not working
         if (loggedInCookie) {
             try {
-                const data = await axios(`${process.env.REACT_APP_BACKEND_URL}/savelisting`, {
+                const res = await axios(`${process.env.REACT_APP_BACKEND_URL}/savelisting`, {
                     method: "post",
                     data: {
                         link: link,
@@ -142,23 +156,20 @@ const Listing = (props) => {
                     withCredentials: true
                 });
 
-                if (data.status === 200) {
-                    setSaved(postNum);
-                }   
+                if (res.status === 200) {
+                    const action = res?.data?.action;
+                    if (action === 'saved') {
+                        setSaved(postNum);
+                    } else if (action === 'removed') {
+                        setDelete(postNum);
+                    }
+                }
             } catch (err) {
-                if (err.message === 'Request failed with status code 409') {
-                    setDelete(postNum);
-                }
-
-                if (err.message === 'Request failed with status code 404') {
-                    setDelete(postNum);
-                }
+                console.error('Save/Unsave failed:', err);
             }
-
         } else {
             navigate('/login');
-        };
-
+        }
     };
 
     useEffect(() => {
@@ -188,7 +199,7 @@ const Listing = (props) => {
                     countdownTimestampMs={time}
                     justdays={justdays}
                     justoneday={justoneday}
-                    timeleft={timeleft}
+                    timeleft={timeStr}
                     savedlisting={savedlisting}
                     setnotime={setnotime}
                 />

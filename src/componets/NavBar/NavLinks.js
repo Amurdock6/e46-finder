@@ -195,9 +195,9 @@ const NavLinks = () => {
                             <h3>About</h3>
                         </Link>
 
-                        <Link to='/'>
-                            <h3>Listings</h3>
-                        </Link>
+                        <h3>
+                            <button onClick={deleteAccount} id="delete"><p>Delete Account</p></button>
+                        </h3>
                     </div>
                     <div id="middle-nav">
                         <Link to="/">
@@ -205,9 +205,9 @@ const NavLinks = () => {
                         </Link>
                     </div>
                     <div id='right-nav'>
-                        <h3>
-                            <button onClick={deleteAccount} id="delete"><p>Delete Account</p></button>
-                        </h3>
+                        <Link to='/'>
+                            <h3>Listings</h3>
+                        </Link>
 
                         <button id="logout" onClick={handleLogout}>Log Out</button>
 

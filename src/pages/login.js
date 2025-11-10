@@ -73,22 +73,23 @@ const Login = () => {
         }
     };
 
-    const onSuccess = (credentialResponse) => {
-        axios
-            .post(`${process.env.REACT_APP_BACKEND_URL}/googlelogin`, {
-                idToken: credentialResponse.credential,
-            })
-            .then(() => {
-                navigate('/account');
-            })
-            .catch((error) => {
-                console.error('Server Error:', error);
-            });
-    };
+    // Used for google auth. Currently not useing it. 
+    // const onSuccess = (credentialResponse) => {
+    //     axios
+    //         .post(`${process.env.REACT_APP_BACKEND_URL}/googlelogin`, {
+    //             idToken: credentialResponse.credential,
+    //         })
+    //         .then(() => {
+    //             navigate('/account');
+    //         })
+    //         .catch((error) => {
+    //             console.error('Server Error:', error);
+    //         });
+    // };
 
-    const onError = () => {
-        console.log('Login Failed');
-    };
+    // const onError = () => {
+    //     console.log('Login Failed');
+    // };
 
 
     // Remeber me check box logic
