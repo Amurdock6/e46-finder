@@ -91,32 +91,33 @@ const Listing = (props) => {
     let navigate = useNavigate(); 
 
     const setSaved = useCallback(() => {
-        var el = document.querySelector(`#listing${postNum}:first-child #save-listing`);
+        const el = document.querySelector(`#listing${listingId} #save-listing`);
         if (el) {
             el.style.display = "none";
             el.style.pointerEvents = "none";
         }
-    
-        var el2 = document.querySelector(`#listing${postNum}:nth-child(1) #unsave-listing`);
+        const el2 = document.querySelector(`#listing${listingId} #unsave-listing`);
         if (el2) {
             el2.style.display = "block";
             el2.style.pointerEvents = "all";
         }
-    }, [postNum]);
-
-    function setDelete() {
-
-        var el = document.querySelector(`#listing${postNum}:first-child #save-listing`);
-        el.style.display = "block";
-        el.style.pointerEvents = "all";
-
-        
-        var el2 = document.querySelector(`#listing${postNum}:nth-child(1) #unsave-listing`);
-        el2.style.display = "none";
-        el2.style.pointerEvents = "none";
-    }
+    }, [listingId]);
 
 
+    const setDelete = () => {
+        const el = document.querySelector(`#listing${listingId} #save-listing`);
+        if (el) {
+            el.style.display = "block";
+            el.style.pointerEvents = "all";
+        }
+        const el2 = document.querySelector(`#listing${listingId} #unsave-listing`);
+        if (el2) {
+            el2.style.display = "none";
+            el2.style.pointerEvents = "none";
+        }
+    };
+
+    // Save/Unsave action: use the listingId (pointer) for saving.
     const save = async () => {
         if (loggedInCookie) {
             try {
@@ -154,7 +155,7 @@ const Listing = (props) => {
     };
 
     useEffect(() => {
-        if (isAlreadySaved === true) {
+        if (isAlreadySaved) {
             setSaved();
         };
     }, [isAlreadySaved, setSaved]);    
@@ -190,19 +191,23 @@ const Listing = (props) => {
     
     return (
         <div className='listing-contanier'>
-            <div id={`listing${postNum}`}>
+            <div id={`listing${listingId}`}>
                 <Tooltip title="Click here to save this listing for later!" arrow>
-                    <button id='save-listing' className='save' onClick={save}><FontAwesomeIcon icon={faBookmark} /></button>
+                    <button id='save-listing' className='save' onClick={save}>
+                        <FontAwesomeIcon icon={faBookmark} />
+                    </button>
                 </Tooltip>
                 <Tooltip title="Click to unsave this listing." arrow>
-                    <button id="unsave-listing" className='unsave' onClick={save}><FontAwesomeIcon icon={faRectangleXmark} /></button>
+                    <button id='unsave-listing' className='unsave' onClick={save}>
+                        <FontAwesomeIcon icon={faRectangleXmark} />
+                    </button>
                 </Tooltip>
-            </div> 
-            
+            </div>
+
             <a href={link}>
-                <img src={picture} alt="listing"></img>
+                <img src={picture} alt="listing" />
                 <h4>{car}</h4>
-                <p>TRANSMISSION: {trans}</p>
+                <p>TRANSMISSION: {transmission}</p>
                 <p>MILEAGE: {mileage}</p>
                 <p>PRICE: {price}</p>
                 <CountdownTimer
@@ -215,12 +220,14 @@ const Listing = (props) => {
                 />
                 <p className='location'>LOCATION: {location}</p>
                 <div className='listedon'>
-                    <h4><span>Listed On: </span><span className='listingsite'>{site}</span></h4>
+                    <h4>
+                        <span>Listed On: </span>
+                        <span className='listingsite'>{site}</span>
+                    </h4>
                 </div>
             </a>
         </div>
-    )
-
+    );
 };
 
 export default Listing;
