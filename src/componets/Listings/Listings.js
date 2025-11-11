@@ -90,14 +90,14 @@ const Listings = () => {
 
     // Checks to see if user has already saved listings
     if (loggedInCookie) {
-        // Get postNum from DB and sends param to listing.jsx that says already saved or not
+        // User is logged in; compute already-saved flags by matching on link
         isLoggedIn = true;
 
-        // Grabs all postNum values and puts them into Sets
-        const savedSet = new Set(savedListing.map(saved => saved.postNum));
+        // Build a set of saved listing links for quick lookup
+        const savedLinkSet = new Set(savedListing.map(saved => saved.link));
 
-        // Create an array indicating if each listing is already saved or not
-        jsonArray = listings.map(listing => savedSet.has(listing.postNum));
+        // Mark listings as saved if their link exists in the saved set
+        jsonArray = listings.map(listing => savedLinkSet.has(listing.link));
     }
 
     return (
@@ -115,17 +115,17 @@ const Listings = () => {
                         const alreadySaved = jsonArray[index];
                         return (
                             <Listing
-                                key={listing.postNum}
+                                key={listing.listingId || listing.link || index}
                                 site={listing.site}
                                 link={listing.link}
                                 car={listing.car}
                                 price={listing.price}
                                 picture={listing.picture}
-                                timeleft={listing.timeLeft}
+                                timeleft={listing.timeLeftText || listing.timeLeft || listing.expiresAt}
                                 mileage={listing.mileage}
                                 location={listing.location}
                                 trans={listing.trans}
-                                postNum={listing.postNum}
+                                postNum={listing.postNum || listing.listingId || index}
                                 isAlreadySaved={alreadySaved}
                                 loggedInCookie={isLoggedIn}
                             />

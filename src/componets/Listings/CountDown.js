@@ -53,10 +53,18 @@ const CountdownTimer = (props) => {
 
     // If 'justdays' prop is true, display only the remaining days
     if (props.justdays === true) {
+        // Prefer the day count from the original text (e.g., "2 days left")
+        // to match the source site exactly; fallback to computed value.
+        const raw = String(props.timeleft || '').toLowerCase();
+        const match = raw.match(/(\d+)\s*day/);
+        const fromText = match ? parseInt(match[1], 10) : NaN;
+        const daysValue = Number.isFinite(fromText) && fromText > 0
+            ? fromText
+            : parseInt(remainingTime.days, 10);
         return (
             <div className="countdown-timer">
                 <span> Ends In: </span>
-                <span>{remainingTime.days}</span>
+                <span>{daysValue}</span>
                 <span> days</span>
             </div>
         );

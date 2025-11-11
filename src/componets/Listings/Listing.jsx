@@ -26,6 +26,7 @@ const Listing = (props) => {
     var colonsInString = (timeStr.match(/:/g) || []).length;
     // Detect ISO date-like strings (e.g., 2025-01-31T12:34:56.000Z)
     var isISODate = /^\d{4}-\d{2}-\d{2}/.test(timeStr);
+
     // converts what ever the current time format is to milliseconds    
     if (startOfTime) {
         const daysleft = timeStr

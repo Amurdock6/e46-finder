@@ -60,13 +60,12 @@ function getRemainingHours(nowDayjs, timestampDayjs) {
     return padWithZeros(hours, 2);
 }
 
-// Helper function to calculate remaining days
+// Helper function to calculate remaining days (rounded up like BaT)
 function getRemainingDays(nowDayjs, timestampDayjs) {
-    // Calculate total remaining days
-    const days = timestampDayjs.diff(nowDayjs, 'days');
-    // Convert the number of days to a string
+    // Calculate remaining milliseconds and round up to the next whole day.
+    const ms = timestampDayjs.diff(nowDayjs, 'millisecond');
+    const days = ms <= 0 ? 0 : Math.ceil(ms / 86400000);
     return days.toString();
-    
 }
 
 // Function to pad numbers with leading zeros to reach a minimum length
