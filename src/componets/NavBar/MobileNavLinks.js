@@ -4,14 +4,17 @@
  * - Uses the `LoggedIn` cookie to pick the appropriate link set.
  * - Includes a full-screen dark background layer under the links.
  */
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 // import {  googleLogout } from '@react-oauth/google';
 import './NavLinks.css'
 
 const MobileNavLinks = (props) => {
     let navigate = useNavigate();
+    const { pathname } = useLocation();
+    const isHome = pathname === '/';
+    const isAbout = pathname === '/about';
+    const isAccount = pathname === '/account';
 
     function getCookie(name) {
         var dc = document.cookie;
@@ -52,7 +55,7 @@ const MobileNavLinks = (props) => {
     var loggedInCookie = getCookie("LoggedIn");
 
     if (loggedInCookie == null) {
-        if (window.location.href === 'http://localhost:3000/about') {
+        if (isAbout) {
             return (
 
                 <>
@@ -70,7 +73,7 @@ const MobileNavLinks = (props) => {
 
             )
         }
-        if (window.location.href === 'http://localhost:3000/') {
+        if (isHome) {
             return (
 
                 <>
@@ -109,7 +112,7 @@ const MobileNavLinks = (props) => {
         )
     }
     else if (loggedInCookie) {
-        if (window.location.href === 'http://localhost:3000/account') {
+        if (isAccount) {
             return (
                 <>
                     <Link to='/about'>
@@ -132,7 +135,7 @@ const MobileNavLinks = (props) => {
 
             )
         }
-        if (window.location.href === 'http://localhost:3000/about') {
+        if (isAbout) {
             return (
 
                 <>
@@ -149,7 +152,7 @@ const MobileNavLinks = (props) => {
 
             )
         }
-        if (window.location.href === 'http://localhost:3000/') {
+        if (isHome) {
             return (
 
                 <>

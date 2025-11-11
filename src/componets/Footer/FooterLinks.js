@@ -1,7 +1,9 @@
 import Logo from '../../logos-icons/e46-logo.jpg'
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 function FooterLinks() {
+    const { pathname } = useLocation();
+    const isAccount = pathname === '/account';
 
     // Checks for Logged-In Cookie
     function getCookie(name) {
@@ -49,7 +51,7 @@ function FooterLinks() {
             </>
         )
     } else if (loggedInCookie) {
-        if (window.location.href === 'http://localhost:3000/account') {
+        if (isAccount) {
             return (
                 <>
                     <div className='footer-left'>

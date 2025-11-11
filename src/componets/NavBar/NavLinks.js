@@ -1,11 +1,15 @@
 import Logo from '../../logos-icons/e46-logo.jpg'
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 // import { googleLogout } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 const NavLinks = () => {
     let navigate = useNavigate();
+    const { pathname } = useLocation();
+    const isHome = pathname === '/';
+    const isAbout = pathname === '/about';
+    const isAccount = pathname === '/account';
 
     // Checks for Logged-In Cookie
     function getCookie(name) {
@@ -49,7 +53,7 @@ const NavLinks = () => {
     var loggedInCookie = getCookie("LoggedIn");
 
     if (loggedInCookie == null) {
-        if (window.location.href === 'http://localhost:3000/') {
+        if (isHome) {
             return (
                 <>
                     <div id="left-nav">
@@ -75,7 +79,7 @@ const NavLinks = () => {
                 </>
             )
         }
-        if (window.location.href === 'http://localhost:3000/account') {
+        if (isAccount) {
             return (
                 <>
                     <div id="left-nav">
@@ -106,7 +110,7 @@ const NavLinks = () => {
             )
         }
 
-        if (window.location.href === 'http://localhost:3000/about') {
+        if (isAbout) {
             return (
                 <>
                     <div id="left-nav">
@@ -163,7 +167,7 @@ const NavLinks = () => {
         )
     }
     else if (loggedInCookie) {
-        if (window.location.href === 'http://localhost:3000/') {
+        if (isHome) {
             return (
                 <>
                     <div id="left-nav">
@@ -187,7 +191,7 @@ const NavLinks = () => {
             )
         }
 
-        if (window.location.href === 'http://localhost:3000/account') {
+        if (isAccount) {
             return (
                 <>
                     <div id="left-nav">
@@ -216,7 +220,7 @@ const NavLinks = () => {
             )
         }
 
-        if (window.location.href === 'http://localhost:3000/about') {
+        if (isAbout) {
             return (
                 <>
                     <div id="left-nav">
