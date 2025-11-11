@@ -25,9 +25,9 @@ const CountdownTimer = (props) => {
     }, [props.countdownTimestampMs]); // Dependency array includes the countdown timestamp
 
     // Function to update the remaining time state
-    function updateRemainingTime(timestampMs) {
+    function updateRemainingTime(countdown) {
         // Calculate the new remaining time and update the state
-        setRemainingTime(getRemainingTimeUntilMsTimestamp(timestampMs));
+        setRemainingTime(getRemainingTimeUntilMsTimestamp(countdown));
     }
 
     // Conditional rendering based on the props passed to the component
@@ -45,45 +45,71 @@ const CountdownTimer = (props) => {
     if (props.justoneday === true) {
         return (
             <div className="countdown-timer">
-                <span>Expired</span>
+                <span> Ends In: </span>
+                <span>{props.timeleft}</span>
             </div>
         );
     }
 
-    // If the original scraped time text indicates a day-based format
-    // and our computed days value is less than 1 (due to time passing),
-    // then force the display to "1 day".
-    if (
-        props.timeLeftText &&
-        props.timeLeftText.toLowerCase().includes('day') &&
-        parseInt(remainingTime.days, 10) < 1
-      ) {
-        return (
-          <div className="countdown-timer">
-            <span> Ends In: </span>
-            <span>1 day</span>
-          </div>
-        );
-      }
-
-    // Show HH:MM:SS if less than one day remains
-    if (parseInt(remainingTime.days, 10) < 1) {
+    // If 'justdays' prop is true, display only the remaining days
+    if (props.justdays === true) {
         return (
             <div className="countdown-timer">
                 <span> Ends In: </span>
-                <span className="two-numbers">
-                    {`${remainingTime.hours}:${remainingTime.minutes}:${remainingTime.seconds}`}
-                </span>
+                <span>{remainingTime.days}</span>
+                <span> days</span>
             </div>
         );
     }
 
-    // Otherwise, display whole days left (truncate decimals)
+    // If 'justdays' prop is false, display hours, minutes, and seconds
+    if (props.justdays === false) {
+        return (
+            <div className="countdown-timer">
+                <span> Ends In: </span>
+                <span className="two-numbers">{remainingTime.hours}</span>
+                <span>:</span>
+                <span className="two-numbers">{remainingTime.minutes}</span>
+                <span>:</span>
+                <span className="two-numbers">{remainingTime.seconds}</span>
+            </div>
+        );
+    }
+
+    // If 'savedlisting' prop is true, display different messages based on the remaining days
+    if (props.savedlisting === true) {
+        if (remainingTime.days > 1) {
+            // If more than one day remains, display the number of days left
+            return (
+                <div className="countdown-timer">
+                    <span> Ends In: </span>
+                    <span>{remainingTime.days}</span>
+                    <span> days</span>
+                </div>
+            );
+        } else if (remainingTime.days === 1) {
+            // If exactly one day remains, display the 'timeleft' prop
+            return (
+                <div className="countdown-timer">
+                    <span> Ends In: </span>
+                    <span>{props.timeleft}</span>
+                </div>
+            );
+        } else {
+            // If no days remain, prompt the user to check the listing site
+            return (
+                <div className="countdown-timer">
+                    <span> Time Left: </span>
+                    <span>Check Listing Site For Details</span>
+                </div>
+            );
+        }
+    }
+
+    // Default return if none of the conditions above are met
     return (
         <div className="countdown-timer">
-            <span> Ends In: </span>
-            <span>{parseInt(remainingTime.days, 10)}</span>
-            <span> day{parseInt(remainingTime.days, 10) !== 1 ? "s" : ""}</span>
+            error
         </div>
     );
 };
