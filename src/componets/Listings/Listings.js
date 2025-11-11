@@ -1,3 +1,10 @@
+/**
+ * Listings grid
+ * - Fetches scraped listings from the backend (`/scrape`) and caches them in localStorage to soften reloads.
+ * - Fetches saved listings for the logged-in user to mark already-saved items.
+ * - Chooses a stable React key and passes the correct `timeleft` shape to child Listing:
+ *   - Prefer `timeLeftText` (e.g., "3 days" or "hh:mm:ss") then fallback to ISO `expiresAt`.
+ */
 import axios from 'axios';
 import Listing from './Listing';
 import '../../css/Listing.css';

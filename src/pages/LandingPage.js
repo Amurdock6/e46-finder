@@ -1,3 +1,8 @@
+/**
+ * Landing page
+ * - Renders the top hero + Listings grid.
+ * - Shows a bouncing chevron to hint at scrolling; hidden on mobile and after ~40% scroll.
+ */
 import NavBar from '../componets/NavBar/NavBar.js'
 import Footer from '../componets/Footer/Footer'
 import Slide1 from '../pictures/slide-1.webp'

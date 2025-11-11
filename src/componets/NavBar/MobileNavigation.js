@@ -1,3 +1,7 @@
+/**
+ * MobileNavigation
+ * - Hamburger menu for small screens. Locks page scroll while open to keep the menu focused.
+ */
 import MobileNavLinks from './MobileNavLinks.js'
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
 import classes from './NavBar.module.css'

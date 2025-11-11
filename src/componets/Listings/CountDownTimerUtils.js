@@ -1,3 +1,8 @@
+/**
+ * Countdown math helpers using dayjs
+ * - Returns zeroed values if timestamp is in the past.
+ * - Days are rounded up to mirror marketplace labeling when used in days mode.
+ */
 import dayjs from 'dayjs';
 
 // Function to calculate the remaining time until a given timestamp (in milliseconds)

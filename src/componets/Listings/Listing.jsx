@@ -1,3 +1,11 @@
+/**
+ * Listing card
+ * Props come from either `/scrape` results (listings page) or `/accountpagesavedlistings` (account page).
+ * Time handling:
+ *  - When the source shows "N days", we render days mode.
+ *  - When it switches to hh:mm:ss, render sub-day timer. If the listing is saved, notify the backend
+ *    via `/savelisting/update` to persist a precise absolute expiration for TTL.
+ */
 import CountdownTimer from './CountDown';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark, faRectangleXmark } from '@fortawesome/free-solid-svg-icons';

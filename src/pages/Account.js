@@ -1,3 +1,9 @@
+/**
+ * Account page
+ * - Fetches the username and the user's saved listings.
+ * - Renders saved listings with Listing component; save button hidden and unsave shown.
+ * - Saved `timeleft` is an absolute Date from the backend; Listing handles countdown display.
+ */
 import axios from "axios"
 import NavBar from "../componets/NavBar/NavBar"
 import Footer from '../componets/Footer/Footer'

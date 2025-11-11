@@ -1,3 +1,9 @@
+/**
+ * MobileNavLinks
+ * - Renders a simplified nav stack for mobile screens.
+ * - Uses the `LoggedIn` cookie to pick the appropriate link set.
+ * - Includes a full-screen dark background layer under the links.
+ */
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';

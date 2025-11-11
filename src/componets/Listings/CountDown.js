@@ -1,3 +1,11 @@
+/**
+ * CountdownTimer
+ * - Drives the visual countdown from a future timestamp (ms).
+ * - Modes:
+ *   - justdays: shows only days (prefers source text when available for parity with listing site).
+ *   - justoneday: shows a static label provided by parent when exactly one day remains.
+ *   - default (sub-day): shows hh:mm:ss.
+ */
 import { useState, useEffect } from 'react';
 import { getRemainingTimeUntilMsTimestamp } from './CountDownTimerUtils';
 
