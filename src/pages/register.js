@@ -33,15 +33,17 @@ const Register = () => {
     // Sends Registration form data to API
     const register = async () => {
         try {
-            await axios.post(`${process.env.REACT_APP_BACKEND_URL}/register`, {
-                email: emailReg,
-                username: usernameReg,
-                password: passwordReg,
-                confpassword: confirmationPasswordReg,
-                keepmeloggedin: keepMeLoggedIn
-
-                // Sets httpOnly cookie with jwt from backend
-            }).then(async () => {
+            await axios.post(
+                `${process.env.REACT_APP_BACKEND_URL}/register`,
+                {
+                    email: emailReg,
+                    username: usernameReg,
+                    password: passwordReg,
+                    confpassword: confirmationPasswordReg,
+                    keepmeloggedin: keepMeLoggedIn
+                },
+                { withCredentials: true }
+            ).then(async () => {
                 return await axios.get(`${process.env.REACT_APP_BACKEND_URL}`, { withCredentials: true }).then((res) => {
                 }).then(() => {
                     navigate('/account');

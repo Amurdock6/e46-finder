@@ -21,12 +21,15 @@ const Login = () => {
 
     const login = async () => {
         try {
-            await axios.post(`${process.env.REACT_APP_BACKEND_URL}/login`, {
-                withCredentials: true,
-                email: email,
-                password: password,
-                keepmeloggedin: keepMeLoggedIn,
-            }).then(async () => {
+            await axios.post(
+                `${process.env.REACT_APP_BACKEND_URL}/login`,
+                {
+                    email: email,
+                    password: password,
+                    keepmeloggedin: keepMeLoggedIn,
+                },
+                { withCredentials: true }
+            ).then(async () => {
                 return await axios.get(`${process.env.REACT_APP_BACKEND_URL}`, { withCredentials: true }).then((res) => {
 
                 }).then(() => {
