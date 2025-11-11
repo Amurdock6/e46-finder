@@ -34,16 +34,12 @@ const Listing = (props) => {
         timetill = daysleft + 86400000;
         days = true;
     } else if (isISODate) {
-        // Use absolute expiry. Match list-page days semantics by adding one-day buffer for days view.
+        // For absolute expiry timestamps (saved listings), do not add an extra day.
+        // This prevents +1 day display on Account page.
         const expiryMs = Date.parse(timeStr);
         const diff = isNaN(expiryMs) ? 0 : Math.max(0, expiryMs - Date.now());
-        if (diff >= 86400000) {
-            timetill = diff + 86400000; // align with "days" rounding seen on listings page
-            days = true;
-        } else {
-            timetill = diff;
-            days = false;
-        }
+        timetill = diff;
+        days = diff >= 86400000;
         dayone = false;
     } else if (oneday === true) { 
         dayone = true
