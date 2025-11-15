@@ -8,7 +8,7 @@
 import axios from 'axios';
 import Listing from './Listing';
 import '../../css/Listing.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const Listings = () => {
     // State for storing car listings; initially fetched from local storage if available
@@ -23,6 +23,8 @@ const Listings = () => {
     const [loading, setLoading] = useState(listings.length === 0);
     // State to track whether data has already been fetched to avoid redundant requests
     const [hasFetched, setHasFetched] = useState(false);
+    // Timer ref used to poll while backend warms up (202/empty array)
+    const pollTimeoutRef = useRef(null);
 
     // useEffect for fetching listings data from the backend
     useEffect(() => {
@@ -35,17 +37,41 @@ const Listings = () => {
 
                 // Fetch the listings from the backend
                 const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/scrape`, { withCredentials: true });
-                setListings(response.data);
+                const data = response.data || [];
+                const warming = (response.status === 202) || (Array.isArray(data) && data.length === 0);
 
-                // Save the fetched listings to local storage
-                localStorage.setItem('listings', JSON.stringify(response.data));
+                // If backend is warming (empty array/202), keep spinner and poll again soon.
+                if (warming) {
+                    // Do NOT overwrite existing cache with empty results
+                    // Keep loading if we have nothing to display yet
+                    if (listings.length === 0) {
+                        setLoading(true);
+                    }
+                    // Schedule a retry poll
+                    if (pollTimeoutRef.current) clearTimeout(pollTimeoutRef.current);
+                    pollTimeoutRef.current = setTimeout(grabListings, 5000);
+                    return;
+                }
+
+                // We have real data: update state and cache, stop loading
+                if (Array.isArray(data) && data.length > 0) {
+                    setListings(data);
+                    localStorage.setItem('listings', JSON.stringify(data));
+                }
 
                 // Mark that data has been fetched and set loading to false
                 setHasFetched(true);
                 setLoading(false);
             } catch (err) {
                 console.error('Error fetching listings:', err);
-                setLoading(false); // Ensure loading state is set to false even if there is an error
+                // If we have nothing to show, keep spinner and retry; else stop loading
+                if (listings.length === 0) {
+                    setLoading(true);
+                    if (pollTimeoutRef.current) clearTimeout(pollTimeoutRef.current);
+                    pollTimeoutRef.current = setTimeout(grabListings, 7000);
+                } else {
+                    setLoading(false);
+                }
             }
         };
 
@@ -53,6 +79,13 @@ const Listings = () => {
         if (!hasFetched) {
             grabListings();
         }
+        // Cleanup any scheduled polls on unmount or deps change
+        return () => {
+            if (pollTimeoutRef.current) {
+                clearTimeout(pollTimeoutRef.current);
+                pollTimeoutRef.current = null;
+            }
+        };
     }, [listings.length, hasFetched]); // Dependencies to ensure effect runs only when needed
 
     // Function to grab saved listings from the backend
