@@ -131,7 +131,7 @@ const Listings = () => {
                                 timeleft={listing.timeLeftText || listing.timeLeft || listing.expiresAt}
                                 mileage={listing.mileage}
                                 location={listing.location}
-                                trans={listing.trans}
+                                trans={listing.trans || listing.transmission}
                                 postNum={listing.postNum || listing.listingId || index}
                                 isAlreadySaved={alreadySaved}
                                 loggedInCookie={isLoggedIn}
