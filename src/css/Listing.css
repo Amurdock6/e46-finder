@@ -11,6 +11,71 @@
     padding-bottom: 6vh;
 }
 
+/* Subtle, responsive last-updated status under the header */
+.listings-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.75rem;
+    margin: -2vh auto 3vh auto;
+    width: fit-content;
+    border-radius: 999px;
+    background: rgba(0,0,0,0.04);
+    color: #444;
+    font-size: 0.95rem;
+    line-height: 1.2;
+}
+
+.status-icon {
+    display: inline-block;
+    font-size: 0.95rem;
+    opacity: 0.85;
+}
+
+.status-text {
+    white-space: nowrap;
+}
+
+.status-hint {
+    margin-left: 0.5rem;
+    color: #666;
+    font-size: 0.85rem;
+}
+
+/* Inline badge while a manual refresh is in progress */
+.refreshing-pill {
+    margin-left: 0.35rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+    background: rgba(66,144,245,0.12);
+    color: #1f6ed4;
+    font-size: 0.85rem;
+}
+
+/* Refresh button next to status */
+.status-refresh { display: none; }
+
+@keyframes spin-rot {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@media (max-width: 600px) {
+    .listings-status {
+        font-size: 0.9rem;
+        padding: 0.35rem 0.65rem;
+    }
+    .status-text {
+        white-space: normal;
+        text-align: center;
+    }
+    .status-refresh { display: none; }
+}
+
+/* Subtle top progress bar over the grid while refreshing */
+.listings-wrapper.is-refreshing::before { display: none; }
+
 .listings-wrapper {
     text-align: left;
     padding: 0 5vw;

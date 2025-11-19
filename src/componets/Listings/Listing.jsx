@@ -12,13 +12,21 @@ import { faBookmark, faRectangleXmark } from '@fortawesome/free-solid-svg-icons'
 import Tooltip from '@mui/material/Tooltip';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useCallback, useRef } from 'react';
+import { useEffect, useCallback, useRef, useMemo } from 'react';
 
 const Listing = (props) => {
     var { link, car, price, picture, timeleft, site, mileage, location, trans, postNum, isAlreadySaved, loggedInCookie } = props;
 
-    // Normalize time value to a string to avoid calling string methods on undefined/null
-    var timeStr = typeof timeleft === 'string' ? timeleft : '';
+    // Normalize time value to a robust string; strip common suffixes like "left"
+    const rawTime = timeleft;
+    let timeStr = typeof rawTime === 'string' ? rawTime : (rawTime ? String(rawTime) : '');
+    timeStr = timeStr.trim();
+    let norm = timeStr.toLowerCase().trim();
+    if (norm.endsWith('left')) {
+        // Remove trailing "left" while keeping the core time content
+        timeStr = timeStr.slice(0, timeStr.toLowerCase().lastIndexOf('left')).trim();
+        norm = timeStr.toLowerCase();
+    }
 
     // Fallback flag for when we cannot parse time
     var setnotime = false;
@@ -29,18 +37,18 @@ const Listing = (props) => {
     let dayone = false;
 
     // Safely derive format checks from the normalized string
-    var startOfTime = timeStr.endsWith('days')
-    var oneday = timeStr.endsWith('day')
-    var colonsInString = (timeStr.match(/:/g) || []).length;
+    const colonsInString = (timeStr.match(/:/g) || []).length;
+    const dayMatch = norm.match(/(\d+)\s*day/);
+    const oneday = !!dayMatch && (parseInt(dayMatch[1], 10) === 1);
     // Detect ISO date-like strings (e.g., 2025-01-31T12:34:56.000Z)
-    var isISODate = /^\d{4}-\d{2}-\d{2}/.test(timeStr);
+    const isISODate = /^\d{4}-\d{2}-\d{2}T/.test(timeStr) || /^\d{4}-\d{2}-\d{2}/.test(timeStr);
 
-    // converts what ever the current time format is to milliseconds    
-    if (startOfTime) {
-        const daysleft = timeStr
-        .split(' ')[0] * 86400000;
-        timetill = daysleft + 86400000;
+    // converts what ever the current time format is to milliseconds
+    if (dayMatch) {
+        const d = parseInt(dayMatch[1], 10) || 0;
+        timetill = d * 86400000;
         days = true;
+        dayone = d === 1;
     } else if (isISODate) {
         // For absolute expiry timestamps (saved listings), do not add an extra day.
         // This prevents +1 day display on Account page.
@@ -49,33 +57,21 @@ const Listing = (props) => {
         timetill = diff;
         days = diff >= 86400000;
         dayone = false;
-    } else if (oneday === true) { 
-        dayone = true
-        timetill = 86400000;
-    }
-    else if (colonsInString === 2) {
-        const secondesLeft = timeStr
-            .split(':')[2] * 1000;
-
-        const minutesLeft = timeStr
-            .split(':')[1] * 60000;
-
-        const hoursLeft = timeStr
-            .split(':')[0] * 3600000;
-
-        timetill = hoursLeft + minutesLeft + secondesLeft
-        days = false
-        dayone = false
+    } else if (colonsInString === 2) {
+        const parts = timeStr.split(':');
+        const h = parseInt(parts[0], 10) || 0;
+        const m = parseInt(parts[1], 10) || 0;
+        const s = parseInt(parts[2], 10) || 0;
+        timetill = h * 3600000 + m * 60000 + s * 1000;
+        days = false;
+        dayone = false;
     } else if (colonsInString === 1) {
-         let secondesLeft = timeStr
-            .split(':')[1] * 1000;
-
-         let minutesLeft = timeStr
-            .split(':')[0] * 60000;
-
-        timetill = minutesLeft + secondesLeft
-        days = false
-        dayone = false
+        const parts = timeStr.split(':');
+        const m = parseInt(parts[0], 10) || 0;
+        const s = parseInt(parts[1], 10) || 0;
+        timetill = m * 60000 + s * 1000;
+        days = false;
+        dayone = false;
     } else {
         // Unrecognized or missing time format; show fallback message
         setnotime = true;
@@ -87,7 +83,15 @@ const Listing = (props) => {
 
     // Guard against NaN to avoid propagating invalid timestamps
     const parsedTill = Number.isFinite(timetill) ? timetill : parseInt(String(timetill));
-    const time = isNaN(parsedTill) ? Date.now() : Date.now() + parsedTill
+    // Compute a stable absolute target timestamp (do not drift on re-render)
+    const time = useMemo(() => {
+        if (isISODate) {
+            const expiryMs = Date.parse(timeStr);
+            return isNaN(expiryMs) ? Date.now() : expiryMs;
+        }
+        return isNaN(parsedTill) ? Date.now() : (Date.now() + parsedTill);
+        // Recompute only when the source text changes (e.g., days → hh:mm:ss)
+    }, [timeStr, isISODate, parsedTill]);
     const justdays = days
     const justoneday = dayone
     const savedlisting = (isAlreadySaved === true) || isISODate;

@@ -94,7 +94,21 @@ const Listings = () => {
         };
     }, [hasFetched, grabListings]);
 
-    // Manual refresh removed; no rate limiting state
+    // Manual refresh button state/handler
+    const [refreshing, setRefreshing] = useState(false);
+    const onRefresh = useCallback(async () => {
+        try {
+            setRefreshing(true);
+            if (pollTimeoutRef.current) {
+                clearTimeout(pollTimeoutRef.current);
+                pollTimeoutRef.current = null;
+            }
+            await grabListings();
+        } finally {
+            // brief visual feedback
+            setTimeout(() => setRefreshing(false), 700);
+        }
+    }, [grabListings]);
 
     // Recompute last-scraped when listings change (covers cache-load path)
     useEffect(() => {
@@ -127,14 +141,6 @@ const Listings = () => {
         const days = Math.floor(hrs / 24);
         return `${days} day${days === 1 ? '' : 's'} ago`;
     }, [lastScrapedAt, nowTick]);
-
-    // Legacy refresh UI stubs removed; keep safe no-ops for JSX still present
-    const refreshing = false;
-    const onRefresh = () => {};
-    const rateLimitedInfo = null;
-    const formatMs = () => '';
-
-    // No refresh cooldown UI
 
     // Function to grab saved listings from the backend
     const grabSavedListings = async () => {
@@ -200,14 +206,10 @@ const Listings = () => {
                         className={`status-refresh ${refreshing ? 'spin' : ''}`}
                         onClick={onRefresh}
                         aria-label='Refresh listings'
-                        disabled={refreshing || (rateLimitedInfo && rateLimitedInfo.limited)}
-                        title={(rateLimitedInfo && rateLimitedInfo.limited) ? `Try again in ${formatMs(rateLimitedInfo.remainingMs)}, requset limit hit` : 'Refresh listings'}
+                        title='Refresh listings'
                     >
                         ↻
                     </button>
-                    {(rateLimitedInfo && rateLimitedInfo.limited) && (
-                        <span className='status-hint'>Try again in {formatMs(rateLimitedInfo.remainingMs)}, requset limit hit</span>
-                    )}
                 </div>
             )}
             <div className='listings-wrapper'>
