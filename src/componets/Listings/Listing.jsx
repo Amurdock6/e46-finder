@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useCallback, useRef, useMemo } from 'react';
 
 const Listing = (props) => {
-    var { link, car, price, picture, timeleft, site, mileage, location, trans, postNum, isAlreadySaved, loggedInCookie, description, listedBy, images } = props;
+    var { link, car, price, picture, timeleft, site, mileage, location, trans, postNum, isAlreadySaved, loggedInCookie, description, listedBy, images, hideSaveToggle } = props;
 
     // Normalize time value to a robust string; strip common suffixes like "left"
     const rawTime = timeleft;
@@ -203,14 +203,16 @@ const Listing = (props) => {
     
     return (
         <div className='listing-contanier'>
-            <div id={`listing${postNum}`}>
-                <Tooltip title="Click here to save this listing for later!" arrow>
-                    <button id='save-listing' className='save' onClick={save}><FontAwesomeIcon icon={faBookmark} /></button>
-                </Tooltip>
-                <Tooltip title="Click to unsave this listing." arrow>
-                    <button id="unsave-listing" className='unsave' onClick={save}><FontAwesomeIcon icon={faRectangleXmark} /></button>
-                </Tooltip>
-            </div> 
+            {!hideSaveToggle && (
+                <div id={`listing${postNum}`}>
+                    <Tooltip title="Click here to save this listing for later!" arrow>
+                        <button id='save-listing' className='save' onClick={save}><FontAwesomeIcon icon={faBookmark} /></button>
+                    </Tooltip>
+                    <Tooltip title="Click to unsave this listing." arrow>
+                        <button id="unsave-listing" className='unsave' onClick={save}><FontAwesomeIcon icon={faRectangleXmark} /></button>
+                    </Tooltip>
+                </div>
+            )}
             
             <a href={displayLink}>
                 <img src={primaryImage} alt="listing"></img>

@@ -12,13 +12,14 @@ import '../css/Account.css'
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSquareXmark } from '@fortawesome/free-solid-svg-icons';
+import { faSquareXmark, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 
 function Account() {
 
     const navigate = useNavigate();
     const [username, setUsername] = useState();
     const [listings, setListings] = useState();
+    const [userListings, setUserListings] = useState([]);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -50,6 +51,18 @@ function Account() {
     useEffect(() => {
         grabListings();
     }, []); // will only run once when the component mounts
+
+    useEffect(() => {
+        const grabUserListings = async () => {
+            try {
+                const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/userlistings`, { withCredentials: true });
+                setUserListings(response.data || []);
+            } catch (err) {
+                console.error('Error fetching user listings:', err);
+            }
+        };
+        grabUserListings();
+    }, []);
     
     useEffect(() => {
         var els = document.getElementsByClassName("save");
@@ -66,13 +79,22 @@ function Account() {
         });
     });
 
-    if (!listings || listings.length === 0) {
+    const hasSaved = listings && listings.length > 0;
+    const hasOwn = userListings && userListings.length > 0;
+
+    if (!hasSaved && !hasOwn) {
         return (
             <>
                 <NavBar />
                 <div className="page-wrapper">
 
                     <h1 id="userHello">Hello {username}!</h1>
+
+                    <div className="account-actions">
+                        <button className="primary-btn" onClick={() => navigate('/create-listing')}>
+                            Create a Listing
+                        </button>
+                    </div>
 
                     <h2 id="saved-listings-header">Your saved Listings:</h2>
                     
@@ -99,6 +121,41 @@ function Account() {
                         Create a Listing
                     </button>
                 </div>
+
+                {hasOwn && (
+                    <>
+                        <h2 id="saved-listings-header">Your listings:</h2>
+                        <div className='listings-wrapper'>
+                            {userListings.map((listing, idx) => (
+                                <div className="user-listing-card" key={listing.listingId || listing.link || idx}>
+                                    <Listing
+                                        site={listing.site || 'e46finder.com'}
+                                        link={listing.link}
+                                        car={listing.car || listing.title}
+                                        price={listing.price}
+                                        picture={listing.picture || (Array.isArray(listing.images) ? listing.images[0] : '')}
+                                        images={listing.images}
+                                        description={listing.description}
+                                        timeleft={listing.timeLeftText || listing.timeLeft || listing.expiresAt}
+                                        mileage={listing.mileage}
+                                        location={listing.location}
+                                        trans={listing.transmission || listing.trans}
+                                        postNum={listing.postNum || listing.listingId || idx}
+                                        listedBy={listing.listedBy || username}
+                                        hideSaveToggle={true}
+                                        loggedInCookie={true}
+                                    />
+                                    <button
+                                        className="secondary-btn"
+                                        onClick={() => navigate(`/edit-listing/${listing.listingId || listing.postNum || idx}`)}
+                                    >
+                                        <FontAwesomeIcon icon={faPenToSquare} /> Edit Listing
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
+                    </>
+                )}
 
                 <h2 id="saved-listings-header">Your saved Listings:</h2>
 

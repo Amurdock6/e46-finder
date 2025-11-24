@@ -53,3 +53,25 @@ svg.svg-inline--fa.fa-square-xmark {
     font-size: 100px;
     text-align: center;
 }
+
+.user-listing-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2vh;
+}
+
+.secondary-btn {
+    margin-top: 8px;
+    border: 1px solid #cfd7e3;
+    background: #f7f9fc;
+    color: #1f1f1f;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease, border 0.2s ease;
+}
+
+.secondary-btn:hover {
+    background: #eef3fb;
+}

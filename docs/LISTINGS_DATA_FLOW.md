@@ -124,8 +124,9 @@ User-Created Listings
 - Display flow (frontend):
   - `Listings.js` merges data from `GET /scrape` with data from `GET /userlistings` and caches user-created listings in `localStorage['userListings']`.
   - Cards render with `Listed On: e46finder.com` and `Listed by {listedBy}` when provided.
-  - Fields expected from `GET /userlistings`: `listingId` (stable), `link` (permalink used for key/save identity), `site: 'e46finder.com'`, `listedBy` (username), `car` or `title`, `description`, `picture` (first image) and optional `images`, `transmission`, `location`, `timeLeftText` (e.g., "7 days") and/or absolute `expiresAt`.
+  - Fields expected from `GET /userlistings`: `listingId` (stable), `link` (permalink used for key/save identity), `site: 'e46finder.com'`, `listedBy` (username), `car` or `title`, `description`, `picture` (first image) and optional `images`, `transmission`, `location`, `price`, `mileage`, `timeLeftText` (e.g., "7 days") and/or absolute `expiresAt`.
 - Backend contract asks:
-  - Implement `POST /userlistings` (auth via `AccessToken` cookie) to create a row with TTL based on `durationDays` (`expiresAt = now + durationDays*24h`; no +1 day padding).
+  - Implement `POST /userlistings` (auth via `AccessToken` cookie) to create a row with TTL based on `durationDays` (`expiresAt = now + durationDays*24h`; no +1 day padding). Body should also include `price` and `mileage`.
   - Implement `GET /userlistings` to return only non-expired listings with the fields above; TTL or query filter should exclude expired rows.
+  - Implement `PUT /userlistings/:id` to edit a user’s own listing (auth via `AccessToken`). Accept the same fields as create (`title, description, transmission, location, durationDays, images, price, mileage`) and update `expiresAt` if duration changes.
   - Set `link` to a stable permalink (e.g., `https://e46finder.com/listings/{listingId}`) so Save/Unsave uniqueness remains consistent.

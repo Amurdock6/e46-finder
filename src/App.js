@@ -14,6 +14,7 @@ import Confirmation from './pages/confirmation'
 import Deleted from './pages/Deleted'
 import AccountDeleted from './pages/accountdeleted'
 import CreateListing from './pages/CreateListing'
+import EditListing from './pages/EditListing'
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
           <Route element={<ProtectedRoutes />} >
             <Route exact path="/account" element={<Account />} />
             <Route exact path="/create-listing" element={<CreateListing />} />
+            <Route exact path="/edit-listing/:listingId" element={<EditListing />} />
           </Route>
           <Route path="/Logout" element={<Logout />} />
           <Route path="/deleted" element={<Deleted />} />

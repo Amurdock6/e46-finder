@@ -17,6 +17,8 @@ const CreateListing = () => {
     const navigate = useNavigate();
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
+    const [price, setPrice] = useState('');
+    const [mileage, setMileage] = useState('');
     const [transmission, setTransmission] = useState('manual');
     const [location, setLocation] = useState('');
     const [durationDays, setDurationDays] = useState(7);
@@ -61,6 +63,14 @@ const CreateListing = () => {
             setError('Listing duration must be at least 1 day.');
             return;
         }
+        if (!price.trim()) {
+            setError('Please add a price (e.g., $18,500).');
+            return;
+        }
+        if (!mileage.trim()) {
+            setError('Please add mileage.');
+            return;
+        }
         if (cleanImages.length === 0) {
             setError('Add at least one image URL (max 5).');
             return;
@@ -77,6 +87,8 @@ const CreateListing = () => {
                 description: description.trim(),
                 transmission,
                 location: location.trim(),
+                price: price.trim(),
+                mileage: mileage.trim(),
                 durationDays: Number(durationDays),
                 images: cleanImages,
             };
@@ -87,6 +99,8 @@ const CreateListing = () => {
             setDescription('');
             setTransmission('manual');
             setLocation('');
+            setPrice('');
+            setMileage('');
             setDurationDays(7);
             setImages(['']);
             // Give the user a short moment to read success, then send them back to account
@@ -153,6 +167,29 @@ const CreateListing = () => {
                                     value={location}
                                     onChange={(e) => setLocation(e.target.value)}
                                     placeholder="City, State or Country"
+                                    required
+                                />
+                            </label>
+                        </div>
+
+                        <div className="field two-col">
+                            <label>
+                                <span>Price*</span>
+                                <input
+                                    type="text"
+                                    value={price}
+                                    onChange={(e) => setPrice(e.target.value)}
+                                    placeholder="$18,500"
+                                    required
+                                />
+                            </label>
+                            <label>
+                                <span>Mileage*</span>
+                                <input
+                                    type="text"
+                                    value={mileage}
+                                    onChange={(e) => setMileage(e.target.value)}
+                                    placeholder="123,456 miles"
                                     required
                                 />
                             </label>
