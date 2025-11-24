@@ -8,6 +8,28 @@
     padding-top: 4vh;
 }
 
+.account-actions {
+    display: flex;
+    justify-content: center;
+    padding: 1.5vh 0 0 0;
+}
+
+.account-actions .primary-btn {
+    background: #4290F5;
+    color: #fff;
+    border: 1px solid #307ada;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.account-actions .primary-btn:hover {
+    background: #2f72cf;
+    box-shadow: 0 10px 25px rgba(66, 144, 245, 0.25);
+}
+
 #saved-listings-header {
     text-align: center;
     padding-top: 8vh;

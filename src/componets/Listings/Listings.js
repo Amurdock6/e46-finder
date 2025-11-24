@@ -17,10 +17,16 @@ const Listings = () => {
         return storedListings ? JSON.parse(storedListings) : [];
     });
 
+    // State for storing user-created listings
+    let [userListings, setUserListings] = useState(() => {
+        const stored = localStorage.getItem('userListings');
+        return stored ? JSON.parse(stored) : [];
+    });
+
     // State for storing saved listings
     let [savedListing, setSavedListings] = useState([]);
     // State to manage the loading spinner; initially true if no cached listings
-    const [loading, setLoading] = useState(listings.length === 0);
+    const [loading, setLoading] = useState(listings.length === 0 && userListings.length === 0);
     // State to track whether data has already been fetched to avoid redundant requests
     const [hasFetched, setHasFetched] = useState(false);
     // Timer ref used to poll while backend warms up (202/empty array)
@@ -40,7 +46,7 @@ const Listings = () => {
     // Shared fetcher for listings (used by effect and Refresh button)
     const grabListings = useCallback(async () => {
         try {
-            if (listings.length === 0) {
+            if (listings.length === 0 && userListings.length === 0) {
                 setLoading(true);
             }
             const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/scrape`, { withCredentials: true });
@@ -48,7 +54,7 @@ const Listings = () => {
             const warming = (response.status === 202) || (Array.isArray(data) && data.length === 0);
 
             if (warming) {
-                if (listings.length === 0) {
+                if (listings.length === 0 && userListings.length === 0) {
                     setLoading(true);
                 }
                 if (pollTimeoutRef.current) clearTimeout(pollTimeoutRef.current);
@@ -71,7 +77,7 @@ const Listings = () => {
             setLoading(false);
         } catch (err) {
             console.error('Error fetching listings:', err);
-            if (listings.length === 0) {
+            if (listings.length === 0 && userListings.length === 0) {
                 setLoading(true);
                 if (pollTimeoutRef.current) clearTimeout(pollTimeoutRef.current);
                 pollTimeoutRef.current = setTimeout(grabListings, 7000);
@@ -79,7 +85,7 @@ const Listings = () => {
                 setLoading(false);
             }
         }
-    }, [listings.length]);
+    }, [listings.length, userListings.length]);
 
     // useEffect for fetching listings data from the backend
     useEffect(() => {
@@ -93,6 +99,26 @@ const Listings = () => {
             }
         };
     }, [hasFetched, grabListings]);
+
+    const grabUserListings = useCallback(async () => {
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/userlistings`, { withCredentials: true });
+            const data = response.data || [];
+            if (Array.isArray(data)) {
+                setUserListings(data);
+                localStorage.setItem('userListings', JSON.stringify(data));
+                if (data.length > 0) {
+                    setLoading(false);
+                }
+            }
+        } catch (err) {
+            console.error('Error fetching user listings:', err);
+        }
+    }, []);
+
+    useEffect(() => {
+        grabUserListings();
+    }, [grabUserListings]);
 
     // Manual refresh removed; no rate limiting state
 
@@ -127,6 +153,14 @@ const Listings = () => {
         const days = Math.floor(hrs / 24);
         return `${days} day${days === 1 ? '' : 's'} ago`;
     }, [lastScrapedAt, nowTick]);
+
+    const displayListings = useMemo(() => {
+        return [...userListings, ...listings];
+    }, [userListings, listings]);
+
+    const savedLinkSet = useMemo(() => {
+        return new Set(savedListing.map(saved => saved.link));
+    }, [savedListing]);
 
     // Legacy refresh UI stubs removed; keep safe no-ops for JSX still present
     const refreshing = false;
@@ -172,21 +206,7 @@ const Listings = () => {
 
     // Logic that looks for the LoggedIn cookie based off of the result of the function getCookie(name)
     const loggedInCookie = getCookie("LoggedIn");
-
-    let jsonArray = [];
-    let isLoggedIn = false;
-
-    // Checks to see if user has already saved listings
-    if (loggedInCookie) {
-        // User is logged in; compute already-saved flags by matching on link
-        isLoggedIn = true;
-
-        // Build a set of saved listing links for quick lookup
-        const savedLinkSet = new Set(savedListing.map(saved => saved.link));
-
-        // Mark listings as saved if their link exists in the saved set
-        jsonArray = listings.map(listing => savedLinkSet.has(listing.link));
-    }
+    const isLoggedIn = !!loggedInCookie;
 
     return (
         <>
@@ -212,27 +232,30 @@ const Listings = () => {
             )}
             <div className='listings-wrapper'>
                 {/* Show loading spinner only if we don't have cached listings and are fetching */}
-                {loading && listings.length === 0 ? (
+                {loading && displayListings.length === 0 ? (
                     <div id="loader-wrapper">
                         <span className="loader"></span>
                         <span id="loading-text">Loading Listings This Could Take a Minute...</span>
                     </div>
                 ) : (
-                    listings.map((listing, index) => {
-                        const alreadySaved = jsonArray[index];
+                    displayListings.map((listing, index) => {
+                        const alreadySaved = isLoggedIn && savedLinkSet.has(listing.link);
                         return (
                             <Listing
                                 key={listing.listingId || listing.link || index}
-                                site={listing.site}
-                                link={listing.link}
-                                car={listing.car}
-                                price={listing.price}
-                                picture={listing.picture}
+                                site={listing.site || 'e46finder.com'}
+                                link={listing.link || '#'}
+                                car={listing.car || listing.title}
+                                price={listing.price || 'N/A'}
+                                picture={listing.picture || (Array.isArray(listing.images) ? listing.images[0] : '')}
+                                images={listing.images}
+                                description={listing.description}
                                 timeleft={listing.timeLeftText || listing.timeLeft || listing.expiresAt}
-                                mileage={listing.mileage}
-                                location={listing.location}
-                                trans={listing.trans || listing.transmission}
+                                mileage={listing.mileage || 'N/A'}
+                                location={listing.location || 'N/A'}
+                                trans={listing.trans || listing.transmission || 'N/A'}
                                 postNum={listing.postNum || listing.listingId || index}
+                                listedBy={listing.listedBy || listing.username}
                                 isAlreadySaved={alreadySaved}
                                 loggedInCookie={isLoggedIn}
                             />

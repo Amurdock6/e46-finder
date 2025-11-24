@@ -224,6 +224,13 @@
     padding-bottom: 2vh;
 }
 
+.listing-description {
+    padding: 0 1vw 1vh 1vw;
+    color: #2f2f2f;
+    font-size: 0.95em;
+    line-height: 1.35;
+}
+
 .listedon {
     padding: 0;
     margin: 0;
@@ -236,6 +243,12 @@
 
 .listingsite {
     color: #4290F5;
+}
+
+.listedby {
+    margin: 2px 0 0 0;
+    color: #4A4A4A;
+    font-size: 0.95em;
 }
 
 @media (max-width: 2240px) {

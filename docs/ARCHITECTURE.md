@@ -79,6 +79,15 @@ Local Development
 - The backend repo is separate; ensure it runs before testing features that call the API.
 
 Troubleshooting Tips
-- If listings don’t render or display the fallback timer message, confirm `/scrape` returns `timeLeftText` or `expiresAt` and clear `localStorage['listings']`.
-- If saved listings on the Account page show +1 day, ensure the ISO expiry branch in `Listing.jsx` doesn’t add a day and backend expiration padding matches the rules above.
+- If listings don't render or display the fallback timer message, confirm `/scrape` returns `timeLeftText` or `expiresAt` and clear `localStorage['listings']`.
+- If saved listings on the Account page show +1 day, ensure the ISO expiry branch in `Listing.jsx` doesn't add a day and backend expiration padding matches the rules above.
+
+User-Created Listings
+- Frontend routes:
+  - Protected form at `pages/CreateListing.js` mounted at `/create-listing`; linked from the Account page. Requires login and collects title, description, transmission (manual/automatic), location, duration (days), and 1-5 image URLs.
+  - The Listings page merges scraped listings with user-created listings returned by the backend and labels them as `Listed On: e46finder.com` and `Listed by {username}`.
+- Expected backend endpoints (auth via `AccessToken` cookie):
+  - `POST /userlistings` to create a listing. Body: `{ title, description, transmission, location, durationDays, images: string[1..5] }`. Response should include a stable `listingId`, `link` (permalink for the card anchor), `listedBy` (username), `site: 'e46finder.com'`, `picture` (first image), optional `images`, and absolute `expiresAt` plus an optional `timeLeftText` label (e.g., `"7 days"`).
+  - `GET /userlistings` to return active user-created listings with the same shape (`listingId, link, site, listedBy, car/title, description, transmission, location, picture/images, timeLeftText, expiresAt`). These are merged client-side with `/scrape` results and cached in `localStorage['userListings']`.
+  - Expiration: set `expiresAt` from the submitted duration and TTL-prune expired docs server-side so they drop out of `/userlistings`.
 

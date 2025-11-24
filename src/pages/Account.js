@@ -10,11 +10,13 @@ import Footer from '../componets/Footer/Footer'
 import Listing from '../componets/Listings/Listing'
 import '../css/Account.css'
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquareXmark } from '@fortawesome/free-solid-svg-icons';
 
 function Account() {
 
+    const navigate = useNavigate();
     const [username, setUsername] = useState();
     const [listings, setListings] = useState();
     const [loading, setLoading] = useState(false);
@@ -91,6 +93,12 @@ function Account() {
                 <NavBar />
 
                 <h1 id="userHello">Hello {username}!</h1>
+
+                <div className="account-actions">
+                    <button className="primary-btn" onClick={() => navigate('/create-listing')}>
+                        Create a Listing
+                    </button>
+                </div>
 
                 <h2 id="saved-listings-header">Your saved Listings:</h2>
 

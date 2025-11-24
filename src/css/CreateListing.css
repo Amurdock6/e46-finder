@@ -1,0 +1,225 @@
+.create-listing-page {
+    min-height: 100vh;
+    padding: 6vh 6vw 8vh 6vw;
+    background: linear-gradient(135deg, #f4f7fb 0%, #eef2f7 50%, #f9fbff 100%);
+}
+
+.create-card {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #fff;
+    border: 1px solid #e2e7ee;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+    border-radius: 18px;
+    padding: 32px;
+}
+
+.create-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 20px;
+}
+
+.create-head h1 {
+    margin: 4px 0;
+    font-size: 2.1em;
+}
+
+.eyebrow {
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 0.75em;
+    color: #556;
+    margin: 0;
+}
+
+.subhead {
+    color: #444;
+    margin: 6px 0 0 0;
+}
+
+.create-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.field span {
+    font-weight: 600;
+    color: #222;
+}
+
+.field input,
+.field textarea,
+.field select {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid #cfd7e3;
+    padding: 12px 14px;
+    font-size: 1em;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+    background: #fdfefe;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus {
+    outline: none;
+    border-color: #4290f5;
+    box-shadow: 0 0 0 3px rgba(66, 144, 245, 0.12);
+}
+
+.field textarea {
+    resize: vertical;
+}
+
+.field.two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.hint {
+    color: #6a7280;
+    font-size: 0.9em;
+    margin-top: -2px;
+}
+
+.images-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.images-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.image-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.image-row input {
+    flex: 1;
+}
+
+.remove-btn {
+    border: 1px solid #e23c3c;
+    background: #fff5f5;
+    color: #c02b2b;
+    border-radius: 8px;
+    padding: 10px 12px;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, border 0.2s ease;
+}
+
+.remove-btn:hover {
+    background: #ffe1e1;
+}
+
+.actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.primary-btn {
+    background: #4290f5;
+    color: #fff;
+    border: 1px solid #307ada;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-size: 1em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.1s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.primary-btn:hover {
+    background: #2f72cf;
+    box-shadow: 0 10px 25px rgba(66, 144, 245, 0.25);
+}
+
+.primary-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.ghost-btn {
+    background: transparent;
+    color: #1f1f1f;
+    border: 1px solid #cfd7e3;
+    padding: 10px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: border 0.2s ease, background 0.2s ease;
+}
+
+.ghost-btn:hover {
+    background: #f4f7fb;
+}
+
+.form-status {
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.form-status.error {
+    background: #fff5f5;
+    color: #aa1f1f;
+    border: 1px solid #f4c7c7;
+}
+
+.form-status.success {
+    background: #f2fbf4;
+    color: #1f7a3d;
+    border: 1px solid #b9e3c5;
+}
+
+@media (max-width: 880px) {
+    .create-card {
+        padding: 24px;
+    }
+    .create-head {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .field.two-col {
+        grid-template-columns: 1fr;
+    }
+    .create-listing-page {
+        padding: 5vh 4vw;
+    }
+}
+
+@media (max-width: 540px) {
+    .image-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .primary-btn,
+    .ghost-btn {
+        width: 100%;
+        text-align: center;
+    }
+}

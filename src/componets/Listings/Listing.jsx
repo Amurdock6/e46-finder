@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useCallback, useRef, useMemo } from 'react';
 
 const Listing = (props) => {
-    var { link, car, price, picture, timeleft, site, mileage, location, trans, postNum, isAlreadySaved, loggedInCookie } = props;
+    var { link, car, price, picture, timeleft, site, mileage, location, trans, postNum, isAlreadySaved, loggedInCookie, description, listedBy, images } = props;
 
     // Normalize time value to a robust string; strip common suffixes like "left"
     const rawTime = timeleft;
@@ -95,7 +95,11 @@ const Listing = (props) => {
     const justdays = days
     const justoneday = dayone
     const savedlisting = (isAlreadySaved === true) || isISODate;
-
+    const displayLink = link || '#';
+    const displaySite = site || 'e46finder.com';
+    const primaryImage = picture || (Array.isArray(images) ? images[0] : '');
+    const descriptionText = (description || '').trim();
+    const listedByText = listedBy || '';
 
     let navigate = useNavigate(); 
 
@@ -208,12 +212,17 @@ const Listing = (props) => {
                 </Tooltip>
             </div> 
             
-            <a href={link}>
-                <img src={picture} alt="listing"></img>
+            <a href={displayLink}>
+                <img src={primaryImage} alt="listing"></img>
                 <h4>{car}</h4>
                 <p>TRANSMISSION: {trans}</p>
                 <p>MILEAGE: {mileage}</p>
                 <p>PRICE: {price}</p>
+                {descriptionText && (
+                    <p className='listing-description' title={descriptionText}>
+                        {descriptionText.length > 140 ? `${descriptionText.slice(0, 140)}...` : descriptionText}
+                    </p>
+                )}
                 <CountdownTimer
                     countdownTimestampMs={time}
                     justdays={justdays}
@@ -224,7 +233,10 @@ const Listing = (props) => {
                 />
                 <p className='location'>LOCATION: {location}</p>
                 <div className='listedon'>
-                    <h4><span>Listed On: </span><span className='listingsite'>{site}</span></h4>
+                    <h4><span>Listed On: </span><span className='listingsite'>{displaySite}</span></h4>
+                    {listedByText && (
+                        <p className='listedby'>Listed by {listedByText}</p>
+                    )}
                 </div>
             </a>
         </div>
