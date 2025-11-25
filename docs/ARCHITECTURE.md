@@ -91,4 +91,6 @@ User-Created Listings
   - `GET /userlistings` to return active user-created listings with the same shape (`listingId, link, site, listedBy, car/title, description, transmission, location, price, mileage, picture/images, timeLeftText, expiresAt`). These are merged client-side with `/scrape` results and cached in `localStorage['userListings']`.
   - Expiration: set `expiresAt` from the submitted duration and TTL-prune expired docs server-side so they drop out of `/userlistings`.
   - `PUT /userlistings/:id` to let owners edit their listings. Accept the same fields as create and adjust `expiresAt` if duration changes.
+  - `DELETE /userlistings/:id` to let owners delete their listings (auth via `AccessToken`).
 
+- Public detail page at `/user-listing/:listingId` (`pages/UserListingDetail.js`) shows full photos and details for a user-created listing.

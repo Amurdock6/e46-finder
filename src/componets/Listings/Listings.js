@@ -256,6 +256,7 @@ const Listings = () => {
                                 trans={listing.trans || listing.transmission || 'N/A'}
                                 postNum={listing.postNum || listing.listingId || index}
                                 listedBy={listing.listedBy || listing.username}
+                                listingId={listing.listingId}
                                 isAlreadySaved={alreadySaved}
                                 loggedInCookie={isLoggedIn}
                             />

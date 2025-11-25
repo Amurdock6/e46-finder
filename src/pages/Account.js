@@ -21,6 +21,8 @@ function Account() {
     const [listings, setListings] = useState();
     const [userListings, setUserListings] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [deletingId, setDeletingId] = useState('');
+    const [confirmId, setConfirmId] = useState('');
 
     useEffect(() => {
       const fetchUsername = async () => {
@@ -126,33 +128,47 @@ function Account() {
                     <>
                         <h2 id="saved-listings-header">Your listings:</h2>
                         <div className='listings-wrapper'>
-                            {userListings.map((listing, idx) => (
-                                <div className="user-listing-card" key={listing.listingId || listing.link || idx}>
-                                    <Listing
-                                        site={listing.site || 'e46finder.com'}
-                                        link={listing.link}
-                                        car={listing.car || listing.title}
-                                        price={listing.price}
-                                        picture={listing.picture || (Array.isArray(listing.images) ? listing.images[0] : '')}
-                                        images={listing.images}
-                                        description={listing.description}
-                                        timeleft={listing.timeLeftText || listing.timeLeft || listing.expiresAt}
-                                        mileage={listing.mileage}
-                                        location={listing.location}
-                                        trans={listing.transmission || listing.trans}
-                                        postNum={listing.postNum || listing.listingId || idx}
-                                        listedBy={listing.listedBy || username}
-                                        hideSaveToggle={true}
-                                        loggedInCookie={true}
-                                    />
-                                    <button
-                                        className="secondary-btn"
-                                        onClick={() => navigate(`/edit-listing/${listing.listingId || listing.postNum || idx}`)}
-                                    >
-                                        <FontAwesomeIcon icon={faPenToSquare} /> Edit Listing
-                                    </button>
-                                </div>
-                            ))}
+                            {userListings.map((listing, idx) => {
+                                const id = listing.listingId || listing.postNum || idx;
+                                const isDeleting = deletingId === id;
+                                return (
+                                    <div className="user-listing-card" key={listing.listingId || listing.link || idx}>
+                                        <Listing
+                                            site={listing.site || 'e46finder.com'}
+                                            link={listing.link}
+                                            car={listing.car || listing.title}
+                                            price={listing.price}
+                                            picture={listing.picture || (Array.isArray(listing.images) ? listing.images[0] : '')}
+                                            images={listing.images}
+                                            description={listing.description}
+                                            timeleft={listing.timeLeftText || listing.timeLeft || listing.expiresAt}
+                                            mileage={listing.mileage}
+                                            location={listing.location}
+                                            trans={listing.transmission || listing.trans}
+                                            postNum={listing.postNum || listing.listingId || idx}
+                                            listedBy={listing.listedBy || username}
+                                            listingId={listing.listingId}
+                                            hideSaveToggle={true}
+                                            loggedInCookie={true}
+                                        />
+                                        <div className="user-listing-actions">
+                                            <button
+                                                className="secondary-btn"
+                                                onClick={() => navigate(`/edit-listing/${id}`)}
+                                            >
+                                                <FontAwesomeIcon icon={faPenToSquare} /> Edit
+                                            </button>
+                                            <button
+                                                className="danger-btn"
+                                                disabled={isDeleting}
+                                                onClick={() => setConfirmId(id)}
+                                            >
+                                                {isDeleting ? 'Deleting...' : 'Delete'}
+                                            </button>
+                                        </div>
+                                    </div>
+                                );
+                            })}
                         </div>
                     </>
                 )}
@@ -185,6 +201,43 @@ function Account() {
 
 
                 <Footer />
+
+                {confirmId && (
+                    <div className="modal-backdrop">
+                        <div className="modal-card">
+                            <h3>Delete listing?</h3>
+                            <p>This will permanently remove the listing.</p>
+                            <div className="modal-actions">
+                                <button
+                                    className="ghost-btn"
+                                    onClick={() => setConfirmId('')}
+                                    disabled={!!deletingId}
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    className="danger-btn"
+                                    disabled={!!deletingId}
+                                    onClick={async () => {
+                                        if (!confirmId) return;
+                                        setDeletingId(confirmId);
+                                        try {
+                                            await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/userlistings/${confirmId}`, { withCredentials: true });
+                                            setUserListings(prev => prev.filter(l => (l.listingId || l.postNum || '') !== confirmId));
+                                        } catch (err) {
+                                            console.error('Delete listing failed:', err);
+                                        } finally {
+                                            setDeletingId('');
+                                            setConfirmId('');
+                                        }
+                                    }}
+                                >
+                                    {deletingId === confirmId ? 'Deleting...' : 'Delete'}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
 
         )

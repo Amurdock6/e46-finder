@@ -129,4 +129,6 @@ User-Created Listings
   - Implement `POST /userlistings` (auth via `AccessToken` cookie) to create a row with TTL based on `durationDays` (`expiresAt = now + durationDays*24h`; no +1 day padding). Body should also include `price` and `mileage`.
   - Implement `GET /userlistings` to return only non-expired listings with the fields above; TTL or query filter should exclude expired rows.
   - Implement `PUT /userlistings/:id` to edit a user’s own listing (auth via `AccessToken`). Accept the same fields as create (`title, description, transmission, location, durationDays, images, price, mileage`) and update `expiresAt` if duration changes.
+  - Implement `DELETE /userlistings/:id` to delete a user’s own listing (auth via `AccessToken`). UI sends this from the Account “Your listings” section.
   - Set `link` to a stable permalink (e.g., `https://e46finder.com/listings/{listingId}`) so Save/Unsave uniqueness remains consistent.
+- Detail view: `/user-listing/:listingId` fetches a single user-created listing (prefers `GET /userlistings/:id`, falls back to `GET /userlistings`) and renders full gallery/details.

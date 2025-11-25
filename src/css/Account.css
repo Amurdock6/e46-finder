@@ -21,6 +21,7 @@
     padding: 10px 16px;
     border-radius: 10px;
     font-weight: 700;
+    max-width: 45vw;
     cursor: pointer;
     transition: background 0.2s ease, box-shadow 0.2s ease;
 }
@@ -58,7 +59,24 @@ svg.svg-inline--fa.fa-square-xmark {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 2vh;
+    margin: 0 2vw 10vh 2vw;
+    width: auto;
+}
+
+.user-listing-card .listing-contanier {
+    height: auto;
+    min-height: 0;
+}
+
+.user-listing-card .listing-contanier img {
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+}
+
+.user-listing-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
 }
 
 .secondary-btn {
@@ -74,4 +92,53 @@ svg.svg-inline--fa.fa-square-xmark {
 
 .secondary-btn:hover {
     background: #eef3fb;
+}
+
+.danger-btn {
+    border: 1px solid #d84d4d;
+    background: #fff5f5;
+    color: #b52828;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease, border 0.2s ease;
+}
+
+.danger-btn:hover {
+    background: #ffe5e5;
+}
+
+.danger-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 1rem;
+}
+
+.modal-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    max-width: 360px;
+    width: 100%;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 16px;
 }

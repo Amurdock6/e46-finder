@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useCallback, useRef, useMemo } from 'react';
 
 const Listing = (props) => {
-    var { link, car, price, picture, timeleft, site, mileage, location, trans, postNum, isAlreadySaved, loggedInCookie, description, listedBy, images, hideSaveToggle } = props;
+    var { link, car, price, picture, timeleft, site, mileage, location, trans, postNum, isAlreadySaved, loggedInCookie, description, listedBy, images, hideSaveToggle, listingId } = props;
 
     // Normalize time value to a robust string; strip common suffixes like "left"
     const rawTime = timeleft;
@@ -95,7 +95,11 @@ const Listing = (props) => {
     const justdays = days
     const justoneday = dayone
     const savedlisting = (isAlreadySaved === true) || isISODate;
-    const displayLink = link || '#';
+    const isUserListing = (site || '').toLowerCase().includes('e46finder') || !!listedBy;
+    const internalId = listingId || postNum || '';
+    const displayLink = isUserListing
+        ? (internalId ? `/user-listing/${internalId}` : '/user-listing')
+        : (link || '#');
     const displaySite = site || 'e46finder.com';
     const primaryImage = picture || (Array.isArray(images) ? images[0] : '');
     const descriptionText = (description || '').trim();
