@@ -37,22 +37,32 @@ const CreateListing = () => {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
 
+    const formatNumberWithGrouping = (raw, fractionDigits = 2) => {
+        const trimmed = (raw || '').trim();
+        if (!trimmed) return '';
+        const numeric = parseFloat(trimmed.replace(/[^0-9.+-]/g, ''));
+        if (Number.isNaN(numeric)) return trimmed;
+        return numeric.toLocaleString('en-US', {
+            minimumFractionDigits: fractionDigits,
+            maximumFractionDigits: fractionDigits,
+        });
+    };
+
     const formatPriceWithCurrency = (rawPrice, curr) => {
         const symbol = CURRENCY_SYMBOLS[curr] || '';
-        const trimmedPrice = rawPrice.trim();
-        const stripped = trimmedPrice.replace(/^[^0-9\-+]+/, '');
-        const base = stripped || trimmedPrice;
+        const base = formatNumberWithGrouping(rawPrice, 2);
         if (!symbol) return base;
-        if (base.startsWith(symbol)) return base;
-        return `${symbol}${base}`;
+        const normalized = base.startsWith(symbol) ? base.slice(symbol.length).trim() : base;
+        return normalized ? `${symbol}${normalized}` : '';
     };
 
     const formatMileageWithUnit = (rawMileage, unit) => {
         const trimmed = rawMileage.trim();
         if (!trimmed) return trimmed;
         const cleaned = trimmed.replace(/\s*(mi|miles|km|kilometers?)$/i, '').trim();
+        const formatted = formatNumberWithGrouping(cleaned, 0);
         const suffix = unit === 'km' ? ' km' : ' mi';
-        return `${cleaned}${suffix}`;
+        return `${formatted}${suffix}`;
     };
 
     const addImageField = () => {
@@ -212,6 +222,7 @@ const CreateListing = () => {
                                     value={price}
                                     onChange={(e) => setPrice(e.target.value)}
                                     placeholder={`${CURRENCY_SYMBOLS[currency] || ''}18,500`}
+                                    onBlur={() => setPrice(formatPriceWithCurrency(price, currency))}
                                     required
                                 />
                             </label>
@@ -231,11 +242,12 @@ const CreateListing = () => {
                                 <div className="input-with-unit">
                                     <input
                                         type="text"
-                                        value={mileage}
-                                        onChange={(e) => setMileage(e.target.value)}
-                                        placeholder="123,456"
-                                        required
-                                    />
+                                    value={mileage}
+                                    onChange={(e) => setMileage(e.target.value)}
+                                    placeholder="123,456"
+                                    onBlur={() => setMileage(formatNumberWithGrouping(mileage, 0))}
+                                    required
+                                />
                                     <select value={mileageUnit} onChange={(e) => setMileageUnit(e.target.value)}>
                                         <option value="mi">Miles</option>
                                         <option value="km">Kilometers</option>

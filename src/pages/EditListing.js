@@ -41,6 +41,17 @@ const EditListing = () => {
 
     const cleanListingId = useMemo(() => listingId || '', [listingId]);
 
+    const formatNumberWithGrouping = (raw, fractionDigits = 2) => {
+        const trimmed = (raw || '').trim();
+        if (!trimmed) return '';
+        const numeric = parseFloat(trimmed.replace(/[^0-9.+-]/g, ''));
+        if (Number.isNaN(numeric)) return trimmed;
+        return numeric.toLocaleString('en-US', {
+            minimumFractionDigits: fractionDigits,
+            maximumFractionDigits: fractionDigits,
+        });
+    };
+
     const detectCurrencyFromPrice = (rawPrice) => {
         const value = (rawPrice || '').trim();
         const entries = Object.entries(CURRENCY_SYMBOLS);
@@ -54,12 +65,10 @@ const EditListing = () => {
 
     const formatPriceWithCurrency = (rawPrice, curr) => {
         const symbol = CURRENCY_SYMBOLS[curr] || '';
-        const trimmedPrice = rawPrice.trim();
-        const stripped = trimmedPrice.replace(/^[^0-9\-+]+/, '');
-        const base = stripped || trimmedPrice;
+        const base = formatNumberWithGrouping(rawPrice, 2);
         if (!symbol) return base;
-        if (base.startsWith(symbol)) return base;
-        return `${symbol}${base}`;
+        const normalized = base.startsWith(symbol) ? base.slice(symbol.length).trim() : base;
+        return normalized ? `${symbol}${normalized}` : '';
     };
 
     const detectMileageUnit = (rawMileage) => {
@@ -76,8 +85,9 @@ const EditListing = () => {
         const trimmed = rawMileage.trim();
         if (!trimmed) return trimmed;
         const cleaned = trimmed.replace(/\s*(mi|miles|km|kilometers?)$/i, '').trim();
+        const formatted = formatNumberWithGrouping(cleaned, 0);
         const suffix = unit === 'km' ? ' km' : ' mi';
-        return `${cleaned}${suffix}`;
+        return `${formatted}${suffix}`;
     };
 
     useEffect(() => {
@@ -107,10 +117,10 @@ const EditListing = () => {
                 setImages(Array.isArray(data.images) && data.images.length ? data.images.slice(0, MAX_IMAGES) : [data.picture || '']);
                 const { currency: detectedCurrency, cleanPrice } = detectCurrencyFromPrice(data.price);
                 setCurrency(detectedCurrency);
-                setPrice(cleanPrice || '');
+                setPrice(formatNumberWithGrouping(cleanPrice || '', 2));
                 const { unit, cleanMileage } = detectMileageUnit(data.mileage);
                 setMileageUnit(unit);
-                setMileage(cleanMileage || '');
+                setMileage(formatNumberWithGrouping(cleanMileage || '', 0));
                 setLoading(false);
             } catch (err) {
                 setError('Could not load listing for editing.');
@@ -243,13 +253,14 @@ const EditListing = () => {
                                 <label>
                                     <span>Price*</span>
                                     <input
-                                        type="text"
-                                        value={price}
-                                        onChange={(e) => setPrice(e.target.value)}
-                                        placeholder={`${CURRENCY_SYMBOLS[currency] || ''}18,500`}
-                                        required
-                                    />
-                                </label>
+                                    type="text"
+                                    value={price}
+                                    onChange={(e) => setPrice(e.target.value)}
+                                    placeholder={`${CURRENCY_SYMBOLS[currency] || ''}18,500`}
+                                    onBlur={() => setPrice(formatPriceWithCurrency(price, currency))}
+                                    required
+                                />
+                            </label>
                                 <label>
                                     <span>Currency*</span>
                                     <select value={currency} onChange={(e) => setCurrency(e.target.value)}>
@@ -265,12 +276,13 @@ const EditListing = () => {
                                     <span>Mileage*</span>
                                     <div className="input-with-unit">
                                         <input
-                                            type="text"
-                                            value={mileage}
-                                            onChange={(e) => setMileage(e.target.value)}
-                                            placeholder="123,456"
-                                            required
-                                        />
+                                        type="text"
+                                        value={mileage}
+                                        onChange={(e) => setMileage(e.target.value)}
+                                        placeholder="123,456"
+                                        onBlur={() => setMileage(formatNumberWithGrouping(mileage, 0))}
+                                        required
+                                    />
                                         <select value={mileageUnit} onChange={(e) => setMileageUnit(e.target.value)}>
                                             <option value="mi">Miles</option>
                                             <option value="km">Kilometers</option>
