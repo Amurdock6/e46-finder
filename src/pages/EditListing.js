@@ -11,6 +11,14 @@ import Footer from '../componets/Footer/Footer';
 import '../css/CreateListing.css';
 
 const MAX_IMAGES = 5;
+const CURRENCY_SYMBOLS = {
+    USD: '$',
+    EUR: '€',
+    GBP: '£',
+    JPY: '¥',
+    CAD: 'C$',
+    AUD: 'A$',
+};
 
 const EditListing = () => {
     const { listingId } = useParams();
@@ -24,12 +32,53 @@ const EditListing = () => {
     const [durationDays, setDurationDays] = useState(7);
     const [images, setImages] = useState(['']);
     const [price, setPrice] = useState('');
+    const [currency, setCurrency] = useState('USD');
     const [mileage, setMileage] = useState('');
+    const [mileageUnit, setMileageUnit] = useState('mi');
     const [submitting, setSubmitting] = useState(false);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
 
     const cleanListingId = useMemo(() => listingId || '', [listingId]);
+
+    const detectCurrencyFromPrice = (rawPrice) => {
+        const value = (rawPrice || '').trim();
+        const entries = Object.entries(CURRENCY_SYMBOLS);
+        for (const [code, symbol] of entries) {
+            if (value.startsWith(symbol)) {
+                return { currency: code, cleanPrice: value.slice(symbol.length).trim() };
+            }
+        }
+        return { currency: 'USD', cleanPrice: value };
+    };
+
+    const formatPriceWithCurrency = (rawPrice, curr) => {
+        const symbol = CURRENCY_SYMBOLS[curr] || '';
+        const trimmedPrice = rawPrice.trim();
+        const stripped = trimmedPrice.replace(/^[^0-9\-+]+/, '');
+        const base = stripped || trimmedPrice;
+        if (!symbol) return base;
+        if (base.startsWith(symbol)) return base;
+        return `${symbol}${base}`;
+    };
+
+    const detectMileageUnit = (rawMileage) => {
+        const value = (rawMileage || '').trim();
+        if (!value) return { unit: 'mi', cleanMileage: '' };
+        const kmMatch = /\bkm\b|kilometer/i.test(value);
+        const miMatch = /\bmi\b|mile/i.test(value);
+        const unit = kmMatch ? 'km' : (miMatch ? 'mi' : 'mi');
+        const cleanMileage = value.replace(/\s*(mi|miles|km|kilometers?)$/i, '').trim();
+        return { unit, cleanMileage };
+    };
+
+    const formatMileageWithUnit = (rawMileage, unit) => {
+        const trimmed = rawMileage.trim();
+        if (!trimmed) return trimmed;
+        const cleaned = trimmed.replace(/\s*(mi|miles|km|kilometers?)$/i, '').trim();
+        const suffix = unit === 'km' ? ' km' : ' mi';
+        return `${cleaned}${suffix}`;
+    };
 
     useEffect(() => {
         const fetchListing = async () => {
@@ -56,8 +105,12 @@ const EditListing = () => {
                 setLocation(data.location || '');
                 setDurationDays(data.durationDays || 7);
                 setImages(Array.isArray(data.images) && data.images.length ? data.images.slice(0, MAX_IMAGES) : [data.picture || '']);
-                setPrice(data.price || '');
-                setMileage(data.mileage || '');
+                const { currency: detectedCurrency, cleanPrice } = detectCurrencyFromPrice(data.price);
+                setCurrency(detectedCurrency);
+                setPrice(cleanPrice || '');
+                const { unit, cleanMileage } = detectMileageUnit(data.mileage);
+                setMileageUnit(unit);
+                setMileage(cleanMileage || '');
                 setLoading(false);
             } catch (err) {
                 setError('Could not load listing for editing.');
@@ -98,6 +151,8 @@ const EditListing = () => {
 
         setSubmitting(true);
         try {
+            const formattedPrice = formatPriceWithCurrency(price, currency);
+            const formattedMileage = formatMileageWithUnit(mileage, mileageUnit);
             const payload = {
                 title: title.trim(),
                 description: description.trim(),
@@ -105,8 +160,8 @@ const EditListing = () => {
                 location: location.trim(),
                 durationDays: Number(durationDays),
                 images: cleanImages,
-                price: price.trim(),
-                mileage: mileage.trim(),
+                price: formattedPrice,
+                mileage: formattedMileage,
             };
             await axios.put(`${process.env.REACT_APP_BACKEND_URL}/userlistings/${cleanListingId}`, payload, { withCredentials: true });
             setSuccess('Listing updated!');
@@ -180,30 +235,47 @@ const EditListing = () => {
                                         onChange={(e) => setLocation(e.target.value)}
                                         placeholder="City, State or Country"
                                         required
-                                    />
-                                </label>
-                            </div>
+                                />
+                            </label>
+                        </div>
 
-                            <div className="field two-col">
+                            <div className="field price-row">
                                 <label>
                                     <span>Price*</span>
                                     <input
                                         type="text"
                                         value={price}
                                         onChange={(e) => setPrice(e.target.value)}
-                                        placeholder="$18,500"
+                                        placeholder={`${CURRENCY_SYMBOLS[currency] || ''}18,500`}
                                         required
                                     />
                                 </label>
                                 <label>
+                                    <span>Currency*</span>
+                                    <select value={currency} onChange={(e) => setCurrency(e.target.value)}>
+                                        <option value="USD">USD ($)</option>
+                                        <option value="EUR">EUR (€)</option>
+                                        <option value="GBP">GBP (£)</option>
+                                        <option value="JPY">JPY (¥)</option>
+                                        <option value="CAD">CAD (C$)</option>
+                                        <option value="AUD">AUD (A$)</option>
+                                    </select>
+                                </label>
+                                <label>
                                     <span>Mileage*</span>
-                                    <input
-                                        type="text"
-                                        value={mileage}
-                                        onChange={(e) => setMileage(e.target.value)}
-                                        placeholder="123,456 miles"
-                                        required
-                                    />
+                                    <div className="input-with-unit">
+                                        <input
+                                            type="text"
+                                            value={mileage}
+                                            onChange={(e) => setMileage(e.target.value)}
+                                            placeholder="123,456"
+                                            required
+                                        />
+                                        <select value={mileageUnit} onChange={(e) => setMileageUnit(e.target.value)}>
+                                            <option value="mi">Miles</option>
+                                            <option value="km">Kilometers</option>
+                                        </select>
+                                    </div>
                                 </label>
                             </div>
 

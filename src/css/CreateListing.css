@@ -88,6 +88,23 @@
     gap: 16px;
 }
 
+.field.price-row {
+    display: grid;
+    grid-template-columns: 1.4fr 0.8fr 1fr;
+    gap: 16px;
+}
+
+.input-with-unit {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+    align-items: center;
+}
+
+.input-with-unit select {
+    min-width: 130px;
+}
+
 .hint {
     color: #6a7280;
     font-size: 0.9em;
@@ -202,6 +219,12 @@
         align-items: flex-start;
     }
     .field.two-col {
+        grid-template-columns: 1fr;
+    }
+    .field.price-row {
+        grid-template-columns: 1fr;
+    }
+    .input-with-unit {
         grid-template-columns: 1fr;
     }
     .create-listing-page {
