@@ -62,6 +62,21 @@ const UserListingDetail = () => {
         return arr;
     }, [listing]);
 
+    const currentIndex = images.findIndex(img => img === activeImg);
+    const safeIndex = currentIndex >= 0 ? currentIndex : 0;
+
+    const goPrev = () => {
+        if (images.length < 2) return;
+        const nextIdx = (safeIndex - 1 + images.length) % images.length;
+        setActiveImg(images[nextIdx]);
+    };
+
+    const goNext = () => {
+        if (images.length < 2) return;
+        const nextIdx = (safeIndex + 1) % images.length;
+        setActiveImg(images[nextIdx]);
+    };
+
     if (loading) {
         return (
             <>
@@ -103,6 +118,26 @@ const UserListingDetail = () => {
                 <div className="detail-gallery">
                     {activeImg && (
                         <div className="hero-img">
+                            {images.length > 1 && (
+                                <>
+                                    <button
+                                        className="hero-nav hero-nav--left"
+                                        onClick={goPrev}
+                                        aria-label="Previous image"
+                                        type="button"
+                                    >
+                                        <span>&lt;</span>
+                                    </button>
+                                    <button
+                                        className="hero-nav hero-nav--right"
+                                        onClick={goNext}
+                                        aria-label="Next image"
+                                        type="button"
+                                    >
+                                        <span>&gt;</span>
+                                    </button>
+                                </>
+                            )}
                             <img src={activeImg} alt="Listing" />
                         </div>
                     )}
