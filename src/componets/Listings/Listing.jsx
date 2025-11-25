@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useCallback, useRef, useMemo } from 'react';
 
 const Listing = (props) => {
-    var { link, car, price, picture, timeleft, site, mileage, location, trans, postNum, isAlreadySaved, loggedInCookie, description, listedBy, images, hideSaveToggle, listingId } = props;
+    var { link, car, price, picture, timeleft, site, mileage, location, trans, postNum, isAlreadySaved, loggedInCookie, description, listedBy, images, hideSaveToggle, listingId, actionButtons } = props;
 
     // Normalize time value to a robust string; strip common suffixes like "left"
     const rawTime = timeleft;
@@ -245,6 +245,11 @@ const Listing = (props) => {
                     )}
                 </div>
             </a>
+            {actionButtons && (
+                <div className='listing-action-row'>
+                    {actionButtons}
+                </div>
+            )}
         </div>
     )
 

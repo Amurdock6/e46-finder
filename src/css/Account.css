@@ -4,6 +4,10 @@
     overflow: hidden;
 }
 
+.account-page {
+    padding-bottom: 8vh;
+}
+
 #userHello {
     padding-top: 4vh;
 }
@@ -31,11 +35,20 @@
     box-shadow: 0 10px 25px rgba(66, 144, 245, 0.25);
 }
 
-#saved-listings-header {
+.account-section {
+    padding: 0 0 2vh;
+}
+
+#saved-listings-header,
+.account-section-title {
     text-align: center;
-    padding-top: 8vh;
-    padding-bottom: 2vh;
+    padding-top: 4vh;
+    padding-bottom: 3vh;
     font-size: 1.8em;
+}
+
+.listings-wrapper.account-grid {
+    padding-bottom: 6vh;
 }
 
 #center-div{
@@ -55,24 +68,6 @@ svg.svg-inline--fa.fa-square-xmark {
     text-align: center;
 }
 
-.user-listing-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0 2vw 10vh 2vw;
-    width: auto;
-}
-
-.user-listing-card .listing-contanier {
-    height: auto;
-    min-height: 0;
-}
-
-.user-listing-card .listing-contanier img {
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
-}
-
 .user-listing-actions {
     display: flex;
     gap: 8px;
@@ -88,6 +83,26 @@ svg.svg-inline--fa.fa-square-xmark {
     border-radius: 8px;
     cursor: pointer;
     transition: background 0.2s ease, border 0.2s ease;
+}
+
+.listing-action-row {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 12px 14px;
+    background: #f7f9fc;
+    border-top: 1px solid #e2e8f0;
+}
+
+.listing-action-row .user-listing-actions {
+    margin-top: 0;
+    width: 100%;
+}
+
+.listing-action-row .secondary-btn,
+.listing-action-row .danger-btn {
+    margin-top: 0;
+    width: 100%;
 }
 
 .secondary-btn:hover {
@@ -111,6 +126,19 @@ svg.svg-inline--fa.fa-square-xmark {
 .danger-btn:disabled {
     opacity: 0.7;
     cursor: not-allowed;
+}
+
+.saved-empty {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 32px 16px;
+    background: #f7f9fc;
+    border: 1px dashed #cfd7e3;
+    border-radius: 12px;
+    color: #4a4a4a;
 }
 
 .modal-backdrop {

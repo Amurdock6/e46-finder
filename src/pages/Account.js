@@ -81,8 +81,8 @@ function Account() {
         });
     });
 
-    const hasSaved = listings && listings.length > 0;
-    const hasOwn = userListings && userListings.length > 0;
+    const hasSaved = Array.isArray(listings) && listings.length > 0;
+    const hasOwn = Array.isArray(userListings) && userListings.length > 0;
 
     if (!hasSaved && !hasOwn) {
         return (
@@ -99,12 +99,11 @@ function Account() {
                     </div>
 
                     <h2 id="saved-listings-header">Your saved Listings:</h2>
-                    
+                        
                     <div id="center-div">
                         <FontAwesomeIcon icon={faSquareXmark} />
                         <p id="nosaved-listings">You Have No Saved Listings</p>
                     </div>
-
                 </div>
                 <Footer />
             </>
@@ -113,27 +112,28 @@ function Account() {
         )
     } else {
         return (
-            <div>
+            <>
                 <NavBar />
 
-                <h1 id="userHello">Hello {username}!</h1>
+                <div className="account-page">
+                    <h1 id="userHello">Hello {username}!</h1>
 
-                <div className="account-actions">
-                    <button className="primary-btn" onClick={() => navigate('/create-listing')}>
-                        Create a Listing
-                    </button>
-                </div>
+                    <div className="account-actions">
+                        <button className="primary-btn" onClick={() => navigate('/create-listing')}>
+                            Create a Listing
+                        </button>
+                    </div>
 
-                {hasOwn && (
-                    <>
-                        <h2 id="saved-listings-header">Your listings:</h2>
-                        <div className='listings-wrapper'>
-                            {userListings.map((listing, idx) => {
-                                const id = listing.listingId || listing.postNum || idx;
-                                const isDeleting = deletingId === id;
-                                return (
-                                    <div className="user-listing-card" key={listing.listingId || listing.link || idx}>
+                    {hasOwn && (
+                        <section className="account-section">
+                            <h2 className="account-section-title">Your listings:</h2>
+                            <div className='listings-wrapper account-grid'>
+                                {userListings.map((listing, idx) => {
+                                    const id = listing.listingId || listing.postNum || idx;
+                                    const isDeleting = deletingId === id;
+                                    return (
                                         <Listing
+                                            key={listing.listingId || listing.link || idx}
                                             site={listing.site || 'e46finder.com'}
                                             link={listing.link}
                                             car={listing.car || listing.title}
@@ -150,55 +150,67 @@ function Account() {
                                             listingId={listing.listingId}
                                             hideSaveToggle={true}
                                             loggedInCookie={true}
+                                            actionButtons={
+                                                <div className="user-listing-actions">
+                                                    <button
+                                                        className="secondary-btn"
+                                                        onClick={() => navigate(`/edit-listing/${id}`)}
+                                                    >
+                                                        <FontAwesomeIcon icon={faPenToSquare} /> Edit
+                                                    </button>
+                                                    <button
+                                                        className="danger-btn"
+                                                        disabled={isDeleting}
+                                                        onClick={() => setConfirmId(id)}
+                                                    >
+                                                        {isDeleting ? 'Deleting...' : 'Delete'}
+                                                    </button>
+                                                </div>
+                                            }
                                         />
-                                        <div className="user-listing-actions">
-                                            <button
-                                                className="secondary-btn"
-                                                onClick={() => navigate(`/edit-listing/${id}`)}
-                                            >
-                                                <FontAwesomeIcon icon={faPenToSquare} /> Edit
-                                            </button>
-                                            <button
-                                                className="danger-btn"
-                                                disabled={isDeleting}
-                                                onClick={() => setConfirmId(id)}
-                                            >
-                                                {isDeleting ? 'Deleting...' : 'Delete'}
-                                            </button>
-                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </section>
+                    )}
+
+                    <section className="account-section">
+                        <h2 className="account-section-title" id="saved-listings-header">Your saved Listings:</h2>
+
+                        <div className='listings-wrapper account-grid'>
+                            {loading ? (
+                                hasSaved ? (
+                                    listings.map((listing, idx) =>
+                                        <Listing
+                                            key={listing.listingId || listing.postNum || listing.link || idx}
+                                            site={listing.site}
+                                            link={listing.link}
+                                            car={listing.car}
+                                            price={listing.price}
+                                            picture={listing.picture}
+                                            timeleft={listing.timeleft || listing.timeLeft || listing.expiresAt}
+                                            mileage={listing.mileage}
+                                            location={listing.location}
+                                            trans={listing.transmission || listing.trans}
+                                            postNum={listing.postNum || listing.listingId || idx}
+                                            loggedInCookie={true}
+                                        />
+                                    )
+                                ) : (
+                                    <div className="saved-empty">
+                                        <FontAwesomeIcon icon={faSquareXmark} />
+                                        <p id="nosaved-listings">You Have No Saved Listings</p>
                                     </div>
-                                );
-                            })}
+                                )
+                            ) :
+                                <div id="loader-wrapper">
+                                    <span className="loader"></span>
+                                    <span>Loading Your Saved Listings</span>
+                                </div>
+                            }
                         </div>
-                    </>
-                )}
-
-                <h2 id="saved-listings-header">Your saved Listings:</h2>
-
-                <div className='listings-wrapper'>
-                    {loading ? (listings.map((listing) =>
-                        <Listing
-                            key={listing.postNum}
-                            site={listing.site}
-                            link={listing.link}
-                            car={listing.car}
-                            price={listing.price}
-                            picture={listing.picture}
-                            timeleft={listing.timeleft}
-                            mileage={listing.mileage}
-                            location={listing.location}
-                            trans={listing.transmission}
-                            postNum={listing.postNum}
-                            loggedInCookie={true}
-                        />
-                    )) :
-                        <div id="loader-wrapper">
-                            <span className="loader"></span>
-                            <span>Loading Your Saved Listings</span>
-                        </div>
-                    }
+                    </section>
                 </div>
-
 
                 <Footer />
 
@@ -238,7 +250,7 @@ function Account() {
                         </div>
                     </div>
                 )}
-            </div>
+            </>
 
         )
     }
