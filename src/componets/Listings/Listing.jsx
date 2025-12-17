@@ -17,7 +17,7 @@ import { useEffect, useCallback, useRef, useMemo } from 'react';
 const Listing = (props) => {
     var { link, car, price, picture, timeleft, site, mileage, location, trans, postNum, isAlreadySaved, loggedInCookie, description, listedBy, images, hideSaveToggle, listingId, actionButtons } = props;
     const hasActions = !!actionButtons;
-    const containerClass = `listing-contanier${hasActions ? ' has-actions' : ''}`;
+    const containerClass = `listing-contanier account-style${hasActions ? ' has-actions' : ''}`;
 
     // Normalize time value to a robust string; strip common suffixes like "left"
     const rawTime = timeleft;
@@ -249,16 +249,13 @@ const Listing = (props) => {
                     setnotime={setnotime}
                 />
                 <p className='location'>LOCATION: {location}</p>
-                {!hasActions && listedOnSection}
             </a>
             {hasActions && (
-                <>
-                    <div className='listing-action-row'>
-                        {actionButtons}
-                    </div>
-                    {listedOnSection}
-                </>
+                <div className='listing-action-row'>
+                    {actionButtons}
+                </div>
             )}
+            {listedOnSection}
         </div>
     )
 

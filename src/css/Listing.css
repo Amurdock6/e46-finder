@@ -380,20 +380,23 @@
     }
 }
 
-/* Account cards with actions: keep footer stacked and visible */
-.listing-contanier.has-actions {
+/* Account-style cards: keep footer stacked and visible */
+.listing-contanier.has-actions,
+.listing-contanier.account-style {
     display: flex;
     flex-direction: column;
     height: auto;
 }
 
-.listing-contanier.has-actions .listing-card-link {
+.listing-contanier.has-actions .listing-card-link,
+.listing-contanier.account-style .listing-card-link {
     display: flex;
     flex-direction: column;
     flex: 1 1 auto;
 }
 
-.listing-contanier.has-actions .listing-action-row {
+.listing-contanier.has-actions .listing-action-row,
+.listing-contanier.account-style .listing-action-row {
     width: 100%;
     padding: 12px 12px 14px;
     background: #f7f9fc;
@@ -401,7 +404,8 @@
     margin-top: 0;
 }
 
-.listing-contanier.has-actions .listedon {
+.listing-contanier.has-actions .listedon,
+.listing-contanier.account-style .listedon {
     position: relative;
     bottom: auto;
     width: 100%;
