@@ -124,6 +124,38 @@
     gap: 10px;
 }
 
+.upload-row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.file-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.file-pill {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 10px;
+    background: #f4f7fb;
+    border: 1px solid #d9e1ec;
+    border-radius: 999px;
+    font-size: 0.95em;
+}
+
+.file-pill button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 1.1em;
+    line-height: 1;
+    color: #6a7280;
+}
+
 .image-row {
     display: flex;
     gap: 8px;
@@ -190,6 +222,11 @@
 
 .ghost-btn:hover {
     background: #f4f7fb;
+}
+
+.blank {
+    width: 110px;
+    padding: 10px 14px;
 }
 
 .form-status {

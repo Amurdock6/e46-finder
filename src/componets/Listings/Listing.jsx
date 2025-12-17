@@ -16,6 +16,8 @@ import { useEffect, useCallback, useRef, useMemo } from 'react';
 
 const Listing = (props) => {
     var { link, car, price, picture, timeleft, site, mileage, location, trans, postNum, isAlreadySaved, loggedInCookie, description, listedBy, images, hideSaveToggle, listingId, actionButtons } = props;
+    const hasActions = !!actionButtons;
+    const containerClass = `listing-contanier${hasActions ? ' has-actions' : ''}`;
 
     // Normalize time value to a robust string; strip common suffixes like "left"
     const rawTime = timeleft;
@@ -104,6 +106,15 @@ const Listing = (props) => {
     const primaryImage = picture || (Array.isArray(images) ? images[0] : '');
     const descriptionText = (description || '').trim();
     const listedByText = listedBy || '';
+
+    const listedOnSection = (
+        <div className='listedon'>
+            <h4><span>Listed On: </span><span className='listingsite'>{displaySite}</span></h4>
+            {listedByText && (
+                <p className='listedby'>Listed by {listedByText}</p>
+            )}
+        </div>
+    );
 
     let navigate = useNavigate(); 
 
@@ -206,7 +217,7 @@ const Listing = (props) => {
     }, [loggedInCookie, isAlreadySaved, timeStr, link, postNum]);
     
     return (
-        <div className='listing-contanier'>
+        <div className={containerClass}>
             {!hideSaveToggle && (
                 <div id={`listing${postNum}`}>
                     <Tooltip title="Click here to save this listing for later!" arrow>
@@ -218,7 +229,7 @@ const Listing = (props) => {
                 </div>
             )}
             
-            <a href={displayLink}>
+            <a href={displayLink} className='listing-card-link'>
                 <img src={primaryImage} alt="listing"></img>
                 <h4>{car}</h4>
                 <p>TRANSMISSION: {trans}</p>
@@ -238,17 +249,15 @@ const Listing = (props) => {
                     setnotime={setnotime}
                 />
                 <p className='location'>LOCATION: {location}</p>
-                <div className='listedon'>
-                    <h4><span>Listed On: </span><span className='listingsite'>{displaySite}</span></h4>
-                    {listedByText && (
-                        <p className='listedby'>Listed by {listedByText}</p>
-                    )}
-                </div>
+                {!hasActions && listedOnSection}
             </a>
-            {actionButtons && (
-                <div className='listing-action-row'>
-                    {actionButtons}
-                </div>
+            {hasActions && (
+                <>
+                    <div className='listing-action-row'>
+                        {actionButtons}
+                    </div>
+                    {listedOnSection}
+                </>
             )}
         </div>
     )

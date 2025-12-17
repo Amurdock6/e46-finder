@@ -1,7 +1,7 @@
 /**
  * CreateListing page
  * - Protected route where logged-in users can submit a new listing.
- * - Collects 1-5 image URLs, title, description, transmission, location, and duration (days).
+ * - Collects 1-5 images (URLs and/or local uploads), title, description, transmission, location, and duration (days).
  * - Posts to the backend create-listing endpoint; shows inline validation and success/error states.
  */
 import { useState } from 'react';
@@ -32,10 +32,14 @@ const CreateListing = () => {
     const [transmission, setTransmission] = useState('manual');
     const [location, setLocation] = useState('');
     const [durationDays, setDurationDays] = useState(7);
-    const [images, setImages] = useState(['']);
+    const [imageUrls, setImageUrls] = useState(['']);
+    const [uploadFiles, setUploadFiles] = useState([]);
     const [submitting, setSubmitting] = useState(false);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const usedImages = imageUrls.filter(Boolean).length + uploadFiles.length;
+    const hasUploads = uploadFiles.length > 0;
+    const remainingSlots = Math.max(0, MAX_IMAGES - usedImages);
 
     const formatNumberWithGrouping = (raw, fractionDigits = 2) => {
         const trimmed = (raw || '').trim();
@@ -66,17 +70,34 @@ const CreateListing = () => {
     };
 
     const addImageField = () => {
-        if (images.length >= MAX_IMAGES) return;
-        setImages(prev => [...prev, '']);
+        const used = imageUrls.filter(Boolean).length + uploadFiles.length;
+        if (imageUrls.length >= MAX_IMAGES || used >= MAX_IMAGES) return;
+        setImageUrls(prev => [...prev, '']);
     };
 
     const updateImage = (index, value) => {
-        setImages(prev => prev.map((img, i) => (i === index ? value : img)));
+        setImageUrls(prev => prev.map((img, i) => (i === index ? value : img)));
     };
 
     const removeImage = (index) => {
-        if (images.length === 1) return; // must keep at least one field visible
-        setImages(prev => prev.filter((_, i) => i !== index));
+        if (imageUrls.length === 1) return; // must keep at least one field visible
+        setImageUrls(prev => prev.filter((_, i) => i !== index));
+    };
+
+    const handleFileSelect = (e) => {
+        const files = Array.from(e.target.files || []);
+        if (!files.length) return;
+        const slotsLeft = MAX_IMAGES - imageUrls.filter(Boolean).length - uploadFiles.length;
+        const nextFiles = files.slice(0, Math.max(0, slotsLeft));
+        if (nextFiles.length) {
+            setUploadFiles(prev => [...prev, ...nextFiles]);
+        }
+        // Clear input to allow re-upload of the same file name if removed
+        e.target.value = '';
+    };
+
+    const removeFile = (index) => {
+        setUploadFiles(prev => prev.filter((_, i) => i !== index));
     };
 
     const onSubmit = async (e) => {
@@ -84,7 +105,8 @@ const CreateListing = () => {
         setError('');
         setSuccess('');
 
-        const cleanImages = images.map(img => img.trim()).filter(Boolean);
+        const cleanImageUrls = imageUrls.map(img => img.trim()).filter(Boolean);
+        const totalImages = cleanImageUrls.length + uploadFiles.length;
         if (!title.trim()) {
             setError('Please enter a listing title.');
             return;
@@ -109,11 +131,11 @@ const CreateListing = () => {
             setError('Please add mileage.');
             return;
         }
-        if (cleanImages.length === 0) {
-            setError('Add at least one image URL (max 5).');
+        if (totalImages === 0) {
+            setError('Add at least one image (upload or URL, max 5).');
             return;
         }
-        if (cleanImages.length > MAX_IMAGES) {
+        if (totalImages > MAX_IMAGES) {
             setError('You can only add up to 5 images.');
             return;
         }
@@ -122,7 +144,7 @@ const CreateListing = () => {
         try {
             const formattedPrice = formatPriceWithCurrency(price, currency);
             const formattedMileage = formatMileageWithUnit(mileage, mileageUnit);
-            const payload = {
+            const baseFields = {
                 title: title.trim(),
                 description: description.trim(),
                 transmission,
@@ -130,9 +152,23 @@ const CreateListing = () => {
                 price: formattedPrice,
                 mileage: formattedMileage,
                 durationDays: Number(durationDays),
-                images: cleanImages,
             };
-            await axios.post(`${process.env.REACT_APP_BACKEND_URL}/userlistings`, payload, { withCredentials: true });
+
+            if (uploadFiles.length > 0) {
+                const formData = new FormData();
+                Object.entries(baseFields).forEach(([key, val]) => formData.append(key, val));
+                cleanImageUrls.forEach((url) => formData.append('imageUrls', url));
+                uploadFiles.forEach((file) => formData.append('images', file));
+
+                await axios.post(`${process.env.REACT_APP_BACKEND_URL}/userlistings`, formData, {
+                    withCredentials: true,
+                    headers: { 'Content-Type': 'multipart/form-data' },
+                });
+            } else {
+                const payload = { ...baseFields, images: cleanImageUrls };
+                await axios.post(`${process.env.REACT_APP_BACKEND_URL}/userlistings`, payload, { withCredentials: true });
+            }
+
             setSuccess('Listing created! It will now appear on the Listings page.');
             // Clear form
             setTitle('');
@@ -144,7 +180,8 @@ const CreateListing = () => {
             setMileage('');
             setMileageUnit('mi');
             setDurationDays(7);
-            setImages(['']);
+            setImageUrls(['']);
+            setUploadFiles([]);
             // Give the user a short moment to read success, then send them back to account
             setTimeout(() => navigate('/account'), 800);
         } catch (err) {
@@ -164,6 +201,9 @@ const CreateListing = () => {
             <div className="create-listing-page">
                 <div className="create-card">
                     <div className="create-head">
+                        <div className="blank">
+                            <span></span>
+                        </div>
                         <div>
                             <p className="eyebrow">List your E46</p>
                             <h1>Create a Listing</h1>
@@ -270,27 +310,49 @@ const CreateListing = () => {
 
                         <div className="field">
                             <div className="images-head">
-                                <span>Images (1-5 URLs)*</span>
+                                <span>Images (1-5 total)*</span>
                                 <button
                                     type="button"
                                     onClick={addImageField}
-                                    disabled={images.length >= MAX_IMAGES}
+                                    disabled={usedImages >= MAX_IMAGES}
                                     className="ghost-btn"
                                 >
-                                    Add image
+                                    Add URL
                                 </button>
                             </div>
+                            <div className="upload-row">
+                                <div>
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        multiple
+                                        onChange={handleFileSelect}
+                                        disabled={usedImages >= MAX_IMAGES}
+                                    />
+                                    <small className="hint">Upload directly from your device (we accept up to {MAX_IMAGES} images total, {remainingSlots} slots left).</small>
+                                </div>
+                                {uploadFiles.length > 0 && (
+                                    <div className="file-list">
+                                        {uploadFiles.map((file, idx) => (
+                                            <div className="file-pill" key={`${file.name}-${idx}`}>
+                                                <span>{file.name}</span>
+                                                <button type="button" onClick={() => removeFile(idx)} aria-label={`Remove ${file.name}`}>×</button>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
                             <div className="images-list">
-                                {images.map((img, idx) => (
+                                {imageUrls.map((img, idx) => (
                                     <div className="image-row" key={`image-${idx}`}>
                                         <input
                                             type="url"
                                             placeholder="https://example.com/my-e46.jpg"
                                             value={img}
                                             onChange={(e) => updateImage(idx, e.target.value)}
-                                            required={idx === 0}
+                                            required={!hasUploads && idx === 0}
                                         />
-                                        {images.length > 1 && (
+                                        {imageUrls.length > 1 && (
                                             <button
                                                 type="button"
                                                 className="remove-btn"

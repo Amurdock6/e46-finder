@@ -210,6 +210,12 @@
     text-decoration: none;
 }
 
+.listing-card-link {
+    display: block;
+    height: 100%;
+    text-decoration: none;
+}
+
 .listing-contanier img {
     width: 100%;
     height: auto;
@@ -372,6 +378,37 @@
     .listing-contanier {
         height: 65vh;
     }
+}
+
+/* Account cards with actions: keep footer stacked and visible */
+.listing-contanier.has-actions {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+}
+
+.listing-contanier.has-actions .listing-card-link {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+}
+
+.listing-contanier.has-actions .listing-action-row {
+    width: 100%;
+    padding: 12px 12px 14px;
+    background: #f7f9fc;
+    border-top: 1px solid #e2e8f0;
+    margin-top: 0;
+}
+
+.listing-contanier.has-actions .listedon {
+    position: relative;
+    bottom: auto;
+    width: 100%;
+    margin-top: 0;
+    padding: 12px 10px 14px;
+    background: #f7f9fc;
+    border-top: 1px solid #e2e7ee;
 }
 
 
