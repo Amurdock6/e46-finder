@@ -251,6 +251,7 @@ const Listings = () => {
                                 images={listing.images}
                                 description={listing.description}
                                 timeleft={listing.timeLeftText || listing.timeLeft || listing.expiresAt}
+                                expiresAt={listing.expiresAt}
                                 mileage={listing.mileage || 'N/A'}
                                 location={listing.location || 'N/A'}
                                 trans={listing.trans || listing.transmission || 'N/A'}

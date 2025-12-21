@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useCallback, useRef, useMemo } from 'react';
 
 const Listing = (props) => {
-    var { link, car, price, picture, timeleft, site, mileage, location, trans, postNum, isAlreadySaved, loggedInCookie, description, listedBy, images, hideSaveToggle, listingId, actionButtons } = props;
+    var { link, car, price, picture, timeleft, expiresAt, site, mileage, location, trans, postNum, isAlreadySaved, loggedInCookie, description, listedBy, images, hideSaveToggle, listingId, actionButtons } = props;
     const hasActions = !!actionButtons;
     const containerClass = `listing-contanier account-style${hasActions ? ' has-actions' : ''}`;
 
@@ -44,6 +44,18 @@ const Listing = (props) => {
     const oneday = !!dayMatch && (parseInt(dayMatch[1], 10) === 1);
     // Detect ISO date-like strings (e.g., 2025-01-31T12:34:56.000Z)
     const isISODate = /^\d{4}-\d{2}-\d{2}T/.test(timeStr) || /^\d{4}-\d{2}-\d{2}/.test(timeStr);
+    const parseExpiryMs = (value) => {
+        if (!value) return NaN;
+        if (value instanceof Date) return value.getTime();
+        if (typeof value === 'number') return value;
+        const parsed = Date.parse(value);
+        return Number.isFinite(parsed) ? parsed : NaN;
+    };
+    // Prefer absolute expiry when available so hh:mm:ss stays accurate after reloads.
+    const expiryMsFromProp = parseExpiryMs(expiresAt);
+    const expiryMsFromText = isISODate ? parseExpiryMs(timeStr) : NaN;
+    const expiryMs = Number.isFinite(expiryMsFromProp) ? expiryMsFromProp : expiryMsFromText;
+    const hasExpiryMs = Number.isFinite(expiryMs);
 
     // converts what ever the current time format is to milliseconds
     if (dayMatch) {
@@ -51,11 +63,10 @@ const Listing = (props) => {
         timetill = d * 86400000;
         days = true;
         dayone = d === 1;
-    } else if (isISODate) {
+    } else if (hasExpiryMs) {
         // For absolute expiry timestamps (saved listings), do not add an extra day.
         // This prevents +1 day display on Account page.
-        const expiryMs = Date.parse(timeStr);
-        const diff = isNaN(expiryMs) ? 0 : Math.max(0, expiryMs - Date.now());
+        const diff = Math.max(0, expiryMs - Date.now());
         timetill = diff;
         days = diff >= 86400000;
         dayone = false;
@@ -87,13 +98,12 @@ const Listing = (props) => {
     const parsedTill = Number.isFinite(timetill) ? timetill : parseInt(String(timetill));
     // Compute a stable absolute target timestamp (do not drift on re-render)
     const time = useMemo(() => {
-        if (isISODate) {
-            const expiryMs = Date.parse(timeStr);
-            return isNaN(expiryMs) ? Date.now() : expiryMs;
+        if (hasExpiryMs) {
+            return expiryMs;
         }
         return isNaN(parsedTill) ? Date.now() : (Date.now() + parsedTill);
         // Recompute only when the source text changes (e.g., days → hh:mm:ss)
-    }, [timeStr, isISODate, parsedTill]);
+    }, [hasExpiryMs, expiryMs, parsedTill]);
     const justdays = days
     const justoneday = dayone
     const savedlisting = (isAlreadySaved === true) || isISODate;

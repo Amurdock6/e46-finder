@@ -14,11 +14,11 @@ Key Frontend Components
   - Fetches scraped listings from `GET /scrape` and caches in `localStorage`.
   - Fetches saved listings from `GET /accountpagesavedlistings` to mark already‑saved items in the grid.
   - Passes a stable key to Listing: `listingId || link || index`.
-  - Passes `timeleft` preferring `timeLeftText` (e.g., "2 days" or "hh:mm:ss"), falling back to `expiresAt` for ISO timestamps.
+  - Passes `timeleft` preferring `timeLeftText` (e.g., "2 days" or "hh:mm:ss"), falling back to `expiresAt` for ISO timestamps, and passes `expiresAt` for a stable countdown anchor.
 
 - componets/Listings/Listing.jsx
   - Renders a single listing card.
-  - Derives a countdown target in ms from either textual time (days/hh:mm:ss) or an ISO expiry.
+  - Derives a countdown target in ms from either textual time (days/hh:mm:ss) or an ISO expiry, preferring `expiresAt` when present so hh:mm:ss stays accurate after reloads.
   - When a listing is already saved and the text switches to hh:mm:ss, it sends `POST /savelisting/update` so the backend records a precise absolute expiration.
   - Save/Unsave toggles via `POST /savelisting` and hides/shows the appropriate icon.
 
@@ -64,6 +64,7 @@ Time and Countdown Behavior
 - Frontend logic:
   - Uses `timeLeftText` to display days verbatim when available.
   - Uses a computed countdown for hh:mm:ss and ISO expirations.
+  - Uses `expiresAt` when available as the countdown anchor so timers keep elapsing across reloads.
 - Backend logic (recommended):
   - For textual days N≥2: store `expiresAt = now + (N+1) days` so TTL never undercounts relative to a "2 days" label.
   - For "1 day": store `now + 1 day`.

@@ -142,6 +142,7 @@ function Account() {
                                             images={listing.images}
                                             description={listing.description}
                                             timeleft={listing.timeLeftText || listing.timeLeft || listing.expiresAt}
+                                            expiresAt={listing.expiresAt}
                                             mileage={listing.mileage}
                                             location={listing.location}
                                             trans={listing.transmission || listing.trans}
@@ -189,6 +190,7 @@ function Account() {
                                             price={listing.price}
                                             picture={listing.picture}
                                             timeleft={listing.timeleft || listing.timeLeft || listing.expiresAt}
+                                            expiresAt={listing.expiresAt}
                                             mileage={listing.mileage}
                                             location={listing.location}
                                             trans={listing.transmission || listing.trans}

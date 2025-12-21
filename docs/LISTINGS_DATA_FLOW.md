@@ -64,7 +64,7 @@ Frontend Population and Caching (src/componets/Listings/*.js)
   - On real data, updates state and overwrites `localStorage['listings']` with the fresh array.
   - Computes an `alreadySaved` boolean array by comparing listing `link` with the set from `GET /accountpagesavedlistings`.
   - Renders `Listing` with a stable `key` of `listingId || link || index`.
-  - Passes time to child as `timeleft={timeLeftText || timeLeft || expiresAt}`.
+  - Passes time label to child as `timeleft={timeLeftText || timeLeft || expiresAt}` and also passes `expiresAt` for a stable countdown anchor.
 
 - Listing card (`Listing.jsx`):
   - Derives a countdown target (ms) from:
@@ -72,6 +72,7 @@ Frontend Population and Caching (src/componets/Listings/*.js)
     - ISO date string (from saved listings) → compute `expiry - now` without adding an extra day.
     - `hh:mm:ss` or `mm:ss` → sub‑day timer.
     - Unrecognized/missing → shows a fallback message.
+  - If `expiresAt` is present, uses it as the absolute countdown target so `hh:mm:ss` continues to elapse across reloads.
   - Save/Unsave:
     - Click calls `POST /savelisting` (with credentials). Response `{ action: 'saved'|'removed' }` toggles the icons.
   - When `alreadySaved` and time string contains a colon, it calls `POST /savelisting/update` once to persist a precise expiry.
