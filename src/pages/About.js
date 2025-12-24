@@ -23,7 +23,7 @@ function About() {
 
             <p>
               E46 finder uses a web scraper coded in Node.js to scrape various popular car listing sites to find E46 listings and put that listing information onto the E46 website so users can easily find
-              what they are looking for all on one site. E46 Finder was mainly programed using the MERN tech stack and is deployed acrossed AWS, Heroku, Netlify, and MongoDB.
+              what they are looking for all on one site. E46 Finder was programed using the MERN tech stack and is deployed acrossed Google Cloud Services, and Google Cloud Jobs, Netlify, and MongoDB.
             </p>
           </article>
       </div>
