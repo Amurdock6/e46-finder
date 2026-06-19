@@ -2,22 +2,21 @@
   "name": "e46-finder",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=20.19.0"
+  },
   "dependencies": {
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
-    "@fortawesome/fontawesome-svg-core": "^6.1.1",
-    "@fortawesome/free-solid-svg-icons": "^6.1.1",
-    "@fortawesome/react-fontawesome": "^0.2.2",
+    "@fortawesome/fontawesome-svg-core": "^7.2.0",
+    "@fortawesome/free-solid-svg-icons": "^7.2.0",
+    "@fortawesome/react-fontawesome": "^3.3.1",
     "@mui/material": "^5.16.7",
     "@mui/styled-engine": "^5.8.0",
     "@react-oauth/google": "^0.12.1",
-    "@testing-library/jest-dom": "^5.16.1",
-    "@testing-library/react": "^16.0.1",
-    "@testing-library/user-event": "^13.5.0",
     "axios": "^1.13.2",
     "cors": "^2.8.5",
     "dayjs": "^1.11.2",
-    "eslint-plugin-react-hooks": "^4.5.0",
     "gapi-script": "^1.2.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -25,21 +24,17 @@
     "react-icons": "^4.3.1",
     "react-router": "^6.2.1",
     "react-router-dom": "^6.2.1",
-    "react-scripts": "^5.0.1",
     "validator": "^13.7.0",
     "web-vitals": "^2.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "vite",
+    "build": "vite build",
+    "test": "vitest --run",
+    "preview": "vite preview"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+  "overrides": {
+    "esbuild": "^0.28.1"
   },
   "browserslist": {
     "production": [
@@ -54,8 +49,16 @@
     ]
   },
   "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
     "@types/styled-components": "^5.1.25",
-    "@types/validator": "^13.7.2"
+    "@types/validator": "^13.7.2",
+    "@vitejs/plugin-react": "^5.2.0",
+    "esbuild": "^0.28.1",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "jsdom": "^29.1.1",
+    "vite": "^7.3.5",
+    "vitest": "^3.2.6"
   }
 }

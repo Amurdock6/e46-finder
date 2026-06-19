@@ -1,13 +1,13 @@
 E46 Finder — Frontend
 
 Overview
-- React SPA (Create React App). See docs/ARCHITECTURE.md for a deeper dive.
+- React SPA (Vite). See docs/ARCHITECTURE.md for a deeper dive.
 - Backend API is separate (Node/Express + MongoDB). Original backend repo: https://github.com/Amurdock6/E46_BackEnd
 
 Quick Start
-- Requirements: Node 18+ recommended
+- Requirements: Node 20.19+ recommended
 - Env: create `.env` in project root with:
-  - `REACT_APP_BACKEND_URL=http://localhost:5000` (or your deployed API)
+  - `REACT_APP_BACKEND_URL=http://localhost:5000` (or `VITE_BACKEND_URL=http://localhost:5000`)
 - Install and run:
   - `npm install`
   - `npm start`
@@ -28,6 +28,7 @@ Where To Look
 
 Deploy
 - This app is deployable to Netlify or any static host.
+- Production builds are written to `dist/`.
 - Ensure CORS and cookie settings in the backend allow your domain and HTTPS.
 
 Troubleshooting

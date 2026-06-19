@@ -14,6 +14,8 @@ import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquareXmark, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 
+const asArray = (value) => Array.isArray(value) ? value : [];
+
 function Account() {
 
     const navigate = useNavigate();
@@ -41,6 +43,7 @@ function Account() {
 
         try {
             var grabListingsData = await (await axios.get(`${process.env.REACT_APP_BACKEND_URL}/accountpagesavedlistings`, { withCredentials: true })).data
+            grabListingsData = asArray(grabListingsData);
             setListings(grabListingsData)
             setLoading(true);
             
@@ -58,7 +61,7 @@ function Account() {
         const grabUserListings = async () => {
             try {
                 const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/userlistings`, { withCredentials: true });
-                setUserListings(response.data || []);
+                setUserListings(asArray(response.data));
             } catch (err) {
                 console.error('Error fetching user listings:', err);
             }

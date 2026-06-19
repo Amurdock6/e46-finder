@@ -1,7 +1,7 @@
 E46 Finder — Architecture Overview
 
 Overview
-- Frontend: React SPA (Create React App) hosted on Netlify. Communicates with a separate Node/Express backend via `REACT_APP_BACKEND_URL`.
+- Frontend: React SPA (Vite) hosted on Netlify. Communicates with a separate Node/Express backend via `REACT_APP_BACKEND_URL` or `VITE_BACKEND_URL`.
 - Backend: Node/Express + MongoDB (Mongoose). Provides authentication, scraping endpoint, and saved‑listings storage with TTL expiration.
 - Data Flow: The Listings page fetches scraped listings from `/scrape`, shows days until last 24h, then shows hh:mm:ss. Saved listings are retrieved from `/accountpagesavedlistings`.
 
@@ -75,7 +75,7 @@ Auth and Cookies
 - Frontend checks `LoggedIn` to show account actions and saved markers.
 
 Local Development
-- Set `REACT_APP_BACKEND_URL` in `.env` to point to your API.
+- Set `REACT_APP_BACKEND_URL` or `VITE_BACKEND_URL` in `.env` to point to your API.
 - Run `npm start` to boot the frontend.
 - The backend repo is separate; ensure it runs before testing features that call the API.
 

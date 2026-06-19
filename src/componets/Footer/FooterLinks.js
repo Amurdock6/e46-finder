@@ -61,7 +61,7 @@ function FooterLinks() {
                     </div>
 
                     <div className='footer-center'>
-                        <h5>&copy; Copyright 2025 Alexander Murdock</h5>
+                        <h5>&copy; Copyright 2026 Alexander Murdock</h5>
                     </div>
 
                     <div className='footer-right'>

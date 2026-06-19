@@ -10,18 +10,23 @@ import Listing from './Listing';
 import '../../css/Listing.css';
 import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 
+const asArray = (value) => Array.isArray(value) ? value : [];
+
+const readCachedArray = (key) => {
+    try {
+        return asArray(JSON.parse(localStorage.getItem(key) || '[]'));
+    } catch (err) {
+        console.warn(`Ignoring invalid ${key} cache`, err);
+        return [];
+    }
+};
+
 const Listings = () => {
     // State for storing car listings; initially fetched from local storage if available
-    let [listings, setListings] = useState(() => {
-        const storedListings = localStorage.getItem('listings');
-        return storedListings ? JSON.parse(storedListings) : [];
-    });
+    let [listings, setListings] = useState(() => readCachedArray('listings'));
 
     // State for storing user-created listings
-    let [userListings, setUserListings] = useState(() => {
-        const stored = localStorage.getItem('userListings');
-        return stored ? JSON.parse(stored) : [];
-    });
+    let [userListings, setUserListings] = useState(() => readCachedArray('userListings'));
 
     // State for storing saved listings
     let [savedListing, setSavedListings] = useState([]);
@@ -50,7 +55,7 @@ const Listings = () => {
                 setLoading(true);
             }
             const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/scrape`, { withCredentials: true });
-            const data = response.data || [];
+            const data = asArray(response.data);
             const warming = (response.status === 202) || (Array.isArray(data) && data.length === 0);
 
             if (warming) {
@@ -103,13 +108,11 @@ const Listings = () => {
     const grabUserListings = useCallback(async () => {
         try {
             const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/userlistings`, { withCredentials: true });
-            const data = response.data || [];
-            if (Array.isArray(data)) {
-                setUserListings(data);
-                localStorage.setItem('userListings', JSON.stringify(data));
-                if (data.length > 0) {
-                    setLoading(false);
-                }
+            const data = asArray(response.data);
+            setUserListings(data);
+            localStorage.setItem('userListings', JSON.stringify(data));
+            if (data.length > 0) {
+                setLoading(false);
             }
         } catch (err) {
             console.error('Error fetching user listings:', err);
@@ -175,7 +178,7 @@ const Listings = () => {
         try {
             // Fetch the saved listings for the logged-in user
             const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/accountpagesavedlistings`, { withCredentials: true });
-            setSavedListings(response.data);
+            setSavedListings(asArray(response.data));
         } catch (err) {
             console.error('Error fetching saved listings:', err);
         }

@@ -10,7 +10,7 @@ Quick Links
 - Listings data flow: docs/LISTINGS_DATA_FLOW.md
 
 Repo Layout (frontend SPA)
-- `src/` — React app (Create React App). Note: folder name `componets` is intentional; do not rename without a coordinated refactor.
+- `src/` — React app (Vite). Note: folder name `componets` is intentional; do not rename without a coordinated refactor.
 - `public/` — Static assets.
 - `docs/` — Project documentation.
 - Backend runs as a separate service; this repo only references it via `REACT_APP_BACKEND_URL`.
@@ -41,7 +41,7 @@ Caching and Warming Behavior
 - On `GET /scrape` returning `202 []` (warming), keep existing cache and poll; do not overwrite cache with empty results.
 
 Environment and Secrets
-- Frontend expects `REACT_APP_BACKEND_URL` in `.env`.
+- Frontend expects `REACT_APP_BACKEND_URL` or `VITE_BACKEND_URL` in `.env`.
 - Never store JWTs in `localStorage`. UI reads a non-HTTPOnly `LoggedIn` cookie for display state only.
 
 Performance and UX
