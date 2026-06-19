@@ -1,3 +1,11 @@
+/**
+ * CountdownTimer
+ * - Drives the visual countdown from a future timestamp (ms).
+ * - Modes:
+ *   - justdays: shows only days (prefers source text when available for parity with listing site).
+ *   - justoneday: shows a static label provided by parent when exactly one day remains.
+ *   - default (sub-day): shows hh:mm:ss.
+ */
 import { useState, useEffect } from 'react';
 import { getRemainingTimeUntilMsTimestamp } from './CountDownTimerUtils';
 
@@ -31,6 +39,15 @@ const CountdownTimer = (props) => {
     }
 
     // Conditional rendering based on the props passed to the component
+    // If time can't be parsed or is missing, show a helpful fallback
+    if (props.setnotime) {
+        return (
+            <div className="countdown-timer">
+                <span> Time Left: </span>
+                <span>Check Listing Site For Details</span>
+            </div>
+        );
+    }
 
     // If 'justoneday' prop is true, display a specific message
     if (props.justoneday === true) {
@@ -44,10 +61,18 @@ const CountdownTimer = (props) => {
 
     // If 'justdays' prop is true, display only the remaining days
     if (props.justdays === true) {
+        // Prefer the day count from the original text (e.g., "2 days left")
+        // to match the source site exactly; fallback to computed value.
+        const raw = String(props.timeleft || '').toLowerCase();
+        const match = raw.match(/(\d+)\s*day/);
+        const fromText = match ? parseInt(match[1], 10) : NaN;
+        const daysValue = Number.isFinite(fromText) && fromText > 0
+            ? fromText
+            : parseInt(remainingTime.days, 10);
         return (
             <div className="countdown-timer">
                 <span> Ends In: </span>
-                <span>{remainingTime.days}</span>
+                <span>{daysValue}</span>
                 <span> days</span>
             </div>
         );

@@ -1,3 +1,8 @@
+/**
+ * Countdown math helpers using dayjs
+ * - Returns zeroed values if timestamp is in the past.
+ * - Days are rounded up to mirror marketplace labeling when used in days mode.
+ */
 import dayjs from 'dayjs';
 
 // Function to calculate the remaining time until a given timestamp (in milliseconds)
@@ -60,13 +65,12 @@ function getRemainingHours(nowDayjs, timestampDayjs) {
     return padWithZeros(hours, 2);
 }
 
-// Helper function to calculate remaining days
+// Helper function to calculate remaining days (rounded up like BaT)
 function getRemainingDays(nowDayjs, timestampDayjs) {
-    // Calculate total remaining days
-    const days = timestampDayjs.diff(nowDayjs, 'days');
-    // Convert the number of days to a string
+    // Calculate remaining milliseconds and round up to the next whole day.
+    const ms = timestampDayjs.diff(nowDayjs, 'millisecond');
+    const days = ms <= 0 ? 0 : Math.ceil(ms / 86400000);
     return days.toString();
-    
 }
 
 // Function to pad numbers with leading zeros to reach a minimum length

@@ -1,11 +1,20 @@
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+/**
+ * MobileNavLinks
+ * - Renders a simplified nav stack for mobile screens.
+ * - Uses the `LoggedIn` cookie to pick the appropriate link set.
+ * - Includes a full-screen dark background layer under the links.
+ */
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 // import {  googleLogout } from '@react-oauth/google';
 import './NavLinks.css'
 
 const MobileNavLinks = (props) => {
     let navigate = useNavigate();
+    const { pathname } = useLocation();
+    const isHome = pathname === '/';
+    const isAbout = pathname === '/about';
+    const isAccount = pathname === '/account';
 
     function getCookie(name) {
         var dc = document.cookie;
@@ -46,7 +55,7 @@ const MobileNavLinks = (props) => {
     var loggedInCookie = getCookie("LoggedIn");
 
     if (loggedInCookie == null) {
-        if (window.location.href === 'https://www.e46finder.com/about') {
+        if (isAbout) {
             return (
 
                 <>
@@ -64,7 +73,7 @@ const MobileNavLinks = (props) => {
 
             )
         }
-        if (window.location.href === 'https://www.e46finder.com/') {
+        if (isHome) {
             return (
 
                 <>
@@ -103,36 +112,30 @@ const MobileNavLinks = (props) => {
         )
     }
     else if (loggedInCookie) {
-        if (window.location.href === 'https://www.e46finder.com/account') {
+        if (isAccount) {
             return (
                 <>
                     <Link to='/about'>
                         <h3>About</h3>
                     </Link>
 
+                    <Link to='/deleted'>
+                        <h3>Delete Account</h3>
+                    </Link>
+
                     <Link to='/'>
                         <h3>Listings</h3>
                     </Link>
 
-                    <h3>
-                        <button onClick={deleteAccount} id="delete"><p>Delete Account</p></button>
-                    </h3>
-
 
                     <button onClick={handleLogout} id="logout"><p>Log Out</p></button>
-                    <googleLogout
-                        render={renderProps => (
-                            <button id="logout" onClick={renderProps.onClick} disabled={renderProps.disabled}>Log Out</button>
-                        )}
-                        buttonText={"Logout"}
-                    /> 
                     <div className="menu-background"></div>
 
                 </>
 
             )
         }
-        if (window.location.href === 'https://www.e46finder.com/about') {
+        if (isAbout) {
             return (
 
                 <>
@@ -144,18 +147,12 @@ const MobileNavLinks = (props) => {
                     </Link>
 
                     <button onClick={handleLogout} id="logout"><p>Log Out</p></button>
-                    <googleLogout
-                        render={renderProps => (
-                            <button id="logout" onClick={renderProps.onClick} disabled={renderProps.disabled}>Log Out</button>
-                        )}
-                        buttonText={"Logout"}
-                    /> 
                     <div className="menu-background"></div>
                 </>
 
             )
         }
-        if (window.location.href === 'https://www.e46finder.com/') {
+        if (isHome) {
             return (
 
                 <>
@@ -167,12 +164,6 @@ const MobileNavLinks = (props) => {
                     </Link>
 
                     <button onClick={handleLogout} id="logout"><p>Log Out</p></button>
-                    <googleLogout
-                        render={renderProps => (
-                            <button id="logout" onClick={renderProps.onClick} disabled={renderProps.disabled}>Log Out</button>
-                        )}
-                        buttonText={"Logout"}
-                    />
                     <div className="menu-background"></div>
                 </>
 
@@ -188,12 +179,6 @@ const MobileNavLinks = (props) => {
                 </Link>
 
                 <button onClick={handleLogout} id="logout"><p>Log Out</p></button>
-                <googleLogout
-                        render={renderProps => (
-                            <button id="logout" onClick={renderProps.onClick} disabled={renderProps.disabled}>Log Out</button>
-                        )}
-                        buttonText={"Logout"}
-                    /> 
                 <div className="menu-background"></div>
 
             </>

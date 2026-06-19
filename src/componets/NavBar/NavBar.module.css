@@ -27,6 +27,7 @@ h3 {
     .NavBar .MobileNav {
         display: flex;
         align-items: center;
+        position: relative;
         height: 15vh;
     }
 
@@ -48,7 +49,7 @@ h3 {
         display: flex;
         flex-direction: column;
         position: relative;
-        top: 7vh;
+        top: 18vh;
         font-size: 2.3em;
         padding-bottom: 26px;
         align-items: center;

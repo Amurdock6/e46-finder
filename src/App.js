@@ -13,6 +13,9 @@ import ProtectedRoutes from './componets/ProtectedRoutes'
 import Confirmation from './pages/confirmation'
 import Deleted from './pages/Deleted'
 import AccountDeleted from './pages/accountdeleted'
+import CreateListing from './pages/CreateListing'
+import EditListing from './pages/EditListing'
+import UserListingDetail from './pages/UserListingDetail'
 
 function App() {
 
@@ -25,7 +28,10 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route element={<ProtectedRoutes />} >
             <Route exact path="/account" element={<Account />} />
+            <Route exact path="/create-listing" element={<CreateListing />} />
+            <Route exact path="/edit-listing/:listingId" element={<EditListing />} />
           </Route>
+          <Route exact path="/user-listing/:listingId" element={<UserListingDetail />} />
           <Route path="/Logout" element={<Logout />} />
           <Route path="/deleted" element={<Deleted />} />
           <Route path="/accountdeleted" element={<AccountDeleted />} />

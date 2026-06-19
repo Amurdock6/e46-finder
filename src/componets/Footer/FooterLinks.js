@@ -1,7 +1,9 @@
 import Logo from '../../logos-icons/e46-logo.jpg'
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 function FooterLinks() {
+    const { pathname } = useLocation();
+    const isAccount = pathname === '/account';
 
     // Checks for Logged-In Cookie
     function getCookie(name) {
@@ -35,7 +37,7 @@ function FooterLinks() {
                 </div>
 
                 <div className='footer-center'>
-                    <h5>&copy; Copyright 2024 Alexander Murdock</h5>
+                    <h5>&copy; Copyright 2025 Alexander Murdock</h5>
                 </div>
 
                 <div className='footer-right'>
@@ -49,7 +51,7 @@ function FooterLinks() {
             </>
         )
     } else if (loggedInCookie) {
-        if (window.location.href === 'https://www.e46finder.com/account') {
+        if (isAccount) {
             return (
                 <>
                     <div className='footer-left'>
@@ -59,7 +61,7 @@ function FooterLinks() {
                     </div>
 
                     <div className='footer-center'>
-                        <h5>&copy; Copyright 2024 Alexander Murdock</h5>
+                        <h5>&copy; Copyright 2025 Alexander Murdock</h5>
                     </div>
 
                     <div className='footer-right'>
@@ -83,7 +85,7 @@ function FooterLinks() {
                     </div>
 
                     <div className='footer-center'>
-                        <h5>&copy; Copyright 2024 Alexander Murdock</h5>
+                        <h5>&copy; Copyright 2025 Alexander Murdock</h5>
                     </div>
 
                     <div className='footer-right'>

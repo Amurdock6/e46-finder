@@ -4,15 +4,51 @@
     overflow: hidden;
 }
 
+.account-page {
+    padding-bottom: 8vh;
+}
+
 #userHello {
     padding-top: 4vh;
 }
 
-#saved-listings-header {
+.account-actions {
+    display: flex;
+    justify-content: center;
+    padding: 1.5vh 0 0 0;
+}
+
+.account-actions .primary-btn {
+    background: #4290F5;
+    color: #fff;
+    border: 1px solid #307ada;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-weight: 700;
+    max-width: 45vw;
+    cursor: pointer;
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.account-actions .primary-btn:hover {
+    background: #2f72cf;
+    box-shadow: 0 10px 25px rgba(66, 144, 245, 0.25);
+}
+
+.account-section {
+    padding: 0 0 2vh;
+}
+
+#saved-listings-header,
+.account-section-title {
     text-align: center;
-    padding-top: 8vh;
-    padding-bottom: 2vh;
+    padding-top: 4vh;
+    padding-bottom: 3vh;
     font-size: 1.8em;
+}
+
+.listings-wrapper.account-grid {
+    padding-bottom: 6vh;
 }
 
 #center-div{
@@ -30,4 +66,107 @@
 svg.svg-inline--fa.fa-square-xmark {
     font-size: 100px;
     text-align: center;
+}
+
+.user-listing-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.secondary-btn {
+    margin-top: 8px;
+    border: 1px solid #cfd7e3;
+    background: #f7f9fc;
+    color: #1f1f1f;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease, border 0.2s ease;
+}
+
+.listing-action-row {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 12px 14px;
+    background: #f7f9fc;
+    border-top: 1px solid #e2e8f0;
+}
+
+.listing-action-row .user-listing-actions {
+    margin-top: 0;
+    width: 100%;
+}
+
+.listing-action-row .secondary-btn,
+.listing-action-row .danger-btn {
+    margin-top: 0;
+    width: 100%;
+}
+
+.secondary-btn:hover {
+    background: #eef3fb;
+}
+
+.danger-btn {
+    border: 1px solid #d84d4d;
+    background: #fff5f5;
+    color: #b52828;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease, border 0.2s ease;
+}
+
+.danger-btn:hover {
+    background: #ffe5e5;
+}
+
+.danger-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.saved-empty {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 32px 16px;
+    background: #f7f9fc;
+    border: 1px dashed #cfd7e3;
+    border-radius: 12px;
+    color: #4a4a4a;
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 1rem;
+}
+
+.modal-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    max-width: 360px;
+    width: 100%;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 16px;
 }
