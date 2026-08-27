@@ -8,6 +8,7 @@ Quick Start
 - Requirements: Node 20.19+ recommended
 - Env: create `.env` in project root with:
   - `REACT_APP_BACKEND_URL=http://localhost:5000` (or `VITE_BACKEND_URL=http://localhost:5000`)
+  - `REACT_APP_GOOGLE_CLIENT_ID=...apps.googleusercontent.com` (or `VITE_GOOGLE_CLIENT_ID`) to enable Sign in with Google
 - Install and run:
   - `npm install`
   - `npm start`
@@ -30,6 +31,7 @@ Deploy
 - This app is deployable to Netlify or any static host.
 - Production builds are written to `dist/`.
 - Ensure CORS and cookie settings in the backend allow your domain and HTTPS.
+- Configure the same Web application client ID in the frontend and backend, and add each frontend origin to the client's Authorized JavaScript origins in Google Cloud.
 
 Troubleshooting
 - Listings not updating: clear `localStorage['listings']`, ensure backend `/scrape` is reachable.

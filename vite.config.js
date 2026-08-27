@@ -4,6 +4,7 @@ import react from '@vitejs/plugin-react';
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   const backendUrl = env.REACT_APP_BACKEND_URL || env.VITE_BACKEND_URL || (mode === 'development' ? 'http://localhost:5000' : '');
+  const googleClientId = env.REACT_APP_GOOGLE_CLIENT_ID || env.VITE_GOOGLE_CLIENT_ID || '';
 
   return {
     plugins: [
@@ -13,6 +14,7 @@ export default defineConfig(({ mode }) => {
     ],
     define: {
       'process.env.REACT_APP_BACKEND_URL': JSON.stringify(backendUrl),
+      'process.env.REACT_APP_GOOGLE_CLIENT_ID': JSON.stringify(googleClientId),
     },
     esbuild: {
       loader: 'jsx',

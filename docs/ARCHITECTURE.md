@@ -73,6 +73,7 @@ Time and Countdown Behavior
 Auth and Cookies
 - `AccessToken` (httpOnly) and `LoggedIn` (UI state) cookies are set by the backend.
 - Frontend checks `LoggedIn` to show account actions and saved markers.
+- Login and registration pages offer Google Identity Services when `REACT_APP_GOOGLE_CLIENT_ID` or `VITE_GOOGLE_CLIENT_ID` is configured. The frontend sends the returned ID token to `POST /googlelogin` with credentials; the backend verifies it and establishes the same cookie session used by email/password login.
 
 Local Development
 - Set `REACT_APP_BACKEND_URL` or `VITE_BACKEND_URL` in `.env` to point to your API.

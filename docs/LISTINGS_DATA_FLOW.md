@@ -101,6 +101,7 @@ Environment and Config
 - `SCRAPE_ENRICH_LIMIT`: number of detail pages to enrich per scrape (default 5).
 - `SCRAPE_TIMEOUT_MS`: watchdog to abort long scrapes (default ~25000 ms).
 - `NODE_ENV`: affects backend cookie options; unrelated to scrape logic itself.
+- `REACT_APP_GOOGLE_CLIENT_ID` or `VITE_GOOGLE_CLIENT_ID`: enables the Google Identity Services button. `POST /googlelogin` receives the Google ID token and establishes the normal cookie session after backend verification.
 
 Example Flows
 - Cold start:

@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import '../css/loginandregister.css'
 import '../css/register.css'
@@ -6,7 +6,7 @@ import sideIamge from '../pictures/register.webp';
 import { useState } from 'react'
 import axios from 'axios';
 import validator from 'validator';
-// import { GoogleLogin } from '@react-oauth/google';
+import GoogleSignIn from '../componets/GoogleSignIn';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleArrowRight, faLock, faEnvelope, faXmark, faCircleInfo, faCheck, faUser } from '@fortawesome/free-solid-svg-icons';
 import Tooltip from '@mui/material/Tooltip';
@@ -139,24 +139,6 @@ const Register = () => {
         }
     };
 
-    // // Google functions
-    // const onSuccess = (credentialResponse) => {
-    //     axios
-    //         .post(`${process.env.REACT_APP_BACKEND_URL}/googlelogin`, {
-    //             idToken: credentialResponse.credential,
-    //         })
-    //         .then(() => {
-    //             navigate('/account');
-    //         })
-    //         .catch((error) => {
-    //             console.error('Server Error:', error);
-    //         });
-    // };
-
-    // const onError = () => {
-    //     console.log('Login Failed');
-    // };
-
     // Remeber me check box logic
     const remeberMe = () => {
         setKeepMeLoggedIn(!keepMeLoggedIn);
@@ -183,13 +165,13 @@ const Register = () => {
                         Please fill out the required felids below to create your E46 Finder account!
                     </p>
 
-                    {/* <div id='google-login'> */}
-                        {/* <GoogleLogin onSuccess={onSuccess} onError={onError} /> */}
-                    {/* </div> */}
+                    <GoogleSignIn keepMeLoggedIn={keepMeLoggedIn} text="signup_with" />
 
-                    {/* <div className="line-wrapper"> */}
-                        {/* <hr className='or-line' /> <p>Or</p> <hr className='or-line' /> */}
-                    {/* </div> */}
+                    {process.env.REACT_APP_GOOGLE_CLIENT_ID && (
+                        <div className="line-wrapper">
+                            <hr className='or-line' /> <p>Or</p> <hr className='or-line' />
+                        </div>
+                    )}
 
                     <form>
                         <div id='email-wrapper'>

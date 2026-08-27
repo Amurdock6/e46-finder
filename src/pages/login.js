@@ -1,10 +1,10 @@
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import '../css/loginandregister.css'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import axios from 'axios'
 import validator from 'validator';
-// import { GoogleLogin } from '@react-oauth/google';
+import GoogleSignIn from '../componets/GoogleSignIn';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleArrowRight, faLock, faEnvelope, faXmark, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import Tooltip from '@mui/material/Tooltip';
@@ -76,25 +76,6 @@ const Login = () => {
         }
     };
 
-    // Used for google auth. Currently not useing it. 
-    // const onSuccess = (credentialResponse) => {
-    //     axios
-    //         .post(`${process.env.REACT_APP_BACKEND_URL}/googlelogin`, {
-    //             idToken: credentialResponse.credential,
-    //         })
-    //         .then(() => {
-    //             navigate('/account');
-    //         })
-    //         .catch((error) => {
-    //             console.error('Server Error:', error);
-    //         });
-    // };
-
-    // const onError = () => {
-    //     console.log('Login Failed');
-    // };
-
-
     // Remeber me check box logic
     const remeberMe = () => {
         setKeepMeLoggedIn(!keepMeLoggedIn);
@@ -121,13 +102,13 @@ const Login = () => {
                         Welcome back! Login to access your account!
                     </p>
 
-                    {/* <div id='google-login'> */}
-                        {/* <GoogleLogin onSuccess={onSuccess} onError={onError}/> */}
-                    {/* </div> */}
+                    <GoogleSignIn keepMeLoggedIn={keepMeLoggedIn} text="signin_with" />
 
-                    {/* <div className="line-wrapper"> */}
-                        {/* <hr className='or-line' /> <p>Or</p> <hr className='or-line' /> */}
-                    {/* </div> */}
+                    {process.env.REACT_APP_GOOGLE_CLIENT_ID && (
+                        <div className="line-wrapper">
+                            <hr className='or-line' /> <p>Or</p> <hr className='or-line' />
+                        </div>
+                    )}
 
                     <form>
                         <div id='email-wrapper'>
