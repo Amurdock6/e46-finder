@@ -30,7 +30,7 @@ const Deleted = () => {
 
 
     return (
-        <div className="logout-page-wrapper">
+        <div className="logout-page-wrapper delete-account-page">
 
             <NavBar />
 

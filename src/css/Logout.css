@@ -11,6 +11,23 @@
     border-radius: 5px;
 }
 
+.delete-account-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100dvh;
+}
+
+.delete-account-page .center-box {
+    flex-shrink: 0;
+}
+
+.delete-account-page .footer-wrapper {
+    position: static;
+    flex-shrink: 0;
+    margin-top: auto;
+}
+
 .center-box h1 {
     padding-bottom: 0;
     padding-bottom: 6vh;
