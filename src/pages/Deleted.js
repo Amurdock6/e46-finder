@@ -34,19 +34,18 @@ const Deleted = () => {
 
             <NavBar />
 
-            <br />
-            <br />
+            <main className="delete-account-content">
+                <div className="center-box">
+                    <h1>Are you sure you want to delete your account?</h1>
+                    <p>Click delete below to permanently delete your account.</p>
 
-            <div className="center-box">
-                <h1>Are you sure you want to delete your account?</h1>
-                <p>Click delete bellow to delete your account</p>
-
-                <div id="Back-button">
-                    <button type="button" onClick={back} className="submit-button"><FontAwesomeIcon icon={faCircleArrowLeft} id="arrow-icon" />Back to Account page</button>
-                    <p id="delete-or">or</p>
-                    <button type="button" id="delete-button" onClick={deleteAccount} className="submit-button"><FontAwesomeIcon icon={faRectangleXmark} id="arrow-icon" />Delete Account</button>
+                    <div className="delete-account-actions">
+                        <button type="button" onClick={back} className="submit-button"><FontAwesomeIcon icon={faCircleArrowLeft} id="arrow-icon" />Back to Account page</button>
+                        <p id="delete-or">or</p>
+                        <button type="button" id="delete-button" onClick={deleteAccount} className="submit-button"><FontAwesomeIcon icon={faRectangleXmark} id="arrow-icon" />Delete Account</button>
+                    </div>
                 </div>
-            </div>
+            </main>
 
             <Footer />
 

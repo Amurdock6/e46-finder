@@ -18,8 +18,54 @@
     min-height: 100dvh;
 }
 
+.delete-account-content {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: clamp(1.5rem, 5vh, 4rem) 1rem;
+}
+
 .delete-account-page .center-box {
     flex-shrink: 0;
+    width: min(100%, 40rem);
+    margin: 0;
+    padding: clamp(1.5rem, 4vw, 3rem);
+    border-radius: 8px;
+}
+
+.delete-account-page .center-box h1 {
+    padding: 0;
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    line-height: 1.2;
+}
+
+.delete-account-page .center-box > p {
+    padding: 0;
+    margin-top: 1rem;
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    line-height: 1.5;
+}
+
+.delete-account-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1.5rem;
+}
+
+.delete-account-page .submit-button,
+.delete-account-page #delete-button {
+    width: min(100%, 25rem);
+    padding: 0.85rem 1.25rem;
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    line-height: 1.25;
+}
+
+.delete-account-page #delete-or {
+    padding: 0.5rem 0;
+    font-size: 1rem;
 }
 
 .delete-account-page .footer-wrapper {
